@@ -1,0 +1,12 @@
+{
+  "name": "my-home-app",
+  "displayName": "my-home-app",
+  "expo": {
+    "name": "my-home-app",
+    "slug": "my-home-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
