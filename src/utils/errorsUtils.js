@@ -14,15 +14,24 @@ const mapper = {
     message: 'Usuário ou senha incorretos',
     code: 401,
   }),
+  50001: () => ({
+    title: 'Erro',
+    message: 'Ocorreu um erro interno daqueles que ninguém achou que poderia acontecer. Peça ajuda.',
+    code: 50001,
+  }),
 };
 
 const errorMapper = (errorFromServer) => {
   let selectedError = getDefaultError;
-
+  console.log('errorFromServer', errorFromServer);
   if (errorFromServer && errorFromServer.error_code) {
     selectedError = mapper[errorFromServer.error_code];
   } else if (errorFromServer && errorFromServer.status_code) {
     selectedError = mapper[errorFromServer.status_code];
+  }
+
+  if (!selectedError) {
+    selectedError = getDefaultError;
   }
 
   return selectedError(errorFromServer);

@@ -5,12 +5,13 @@ export const DEFAULT_ERROR_TYPE = 'default_error';
 
 const serverURI = 'http://192.168.0.25:5000/api/';
 
-export const getDefaultHeader = () => ({
-  Authorization: `JWT ${AsyncStorage.getItem('token')}`,
-});
-export const getDefaultAxiosConfig = () => ({
-  headers: getDefaultHeader(),
-});
+export const getDefaultHeader = async () => {
+  const token = await AsyncStorage.getItem('token');
+  return {
+    Authorization: `JWT ${token}`,
+  };
+};
+export const getDefaultAxiosConfig = async () => ({ headers: await getDefaultHeader() });
 
 export const dispatchHttpError = (dispatch, res) => {
   dispatch({
@@ -28,7 +29,7 @@ export const defaultSuccessCallback = (dispatch, res, type) => {
   });
 };
 
-export const defaultErrorCallback = (dispatch, res, type) => {
+export const defaultErrorCallback = (dispatch, res, type, ignoreDispatchError) => {
   dispatch({
     type,
     payload: {
@@ -37,13 +38,15 @@ export const defaultErrorCallback = (dispatch, res, type) => {
     },
   });
 
-  dispatchHttpError(dispatch, res.response);
+  if (!ignoreDispatchError) {
+    dispatchHttpError(dispatch, res.response);
+  }
 };
 
 export const post = async (endpoint, data, type, dispatch, config, onSucessBeforeDispatch) => {
   let processedConfig = config;
   if (config === undefined) {
-    processedConfig = getDefaultAxiosConfig();
+    processedConfig = await getDefaultAxiosConfig();
   }
 
   await axios.post(`${serverURI}${endpoint}`, data, processedConfig)
@@ -63,7 +66,7 @@ export const post = async (endpoint, data, type, dispatch, config, onSucessBefor
 export const put = async (endpoint, data, type, dispatch, config, onSucessBeforeDispatch) => {
   let processedConfig = config;
   if (config === undefined) {
-    processedConfig = getDefaultAxiosConfig();
+    processedConfig = await getDefaultAxiosConfig();
   }
 
   await axios.put(`${serverURI}${endpoint}`, data, processedConfig)
@@ -81,14 +84,14 @@ export const put = async (endpoint, data, type, dispatch, config, onSucessBefore
     );
 };
 
-export const get = async (endpoint, type, dispatch, config) => {
+export const get = async (endpoint, type, dispatch, ignoreDispatchError, config) => {
   let processedConfig = config;
   if (config === undefined) {
-    processedConfig = getDefaultAxiosConfig();
+    processedConfig = await getDefaultAxiosConfig();
   }
   await axios.get(`${serverURI}${endpoint}`, processedConfig).then((res) => {
     defaultSuccessCallback(dispatch, res, type);
   }, (error) => {
-    defaultErrorCallback(dispatch, error, type);
+    defaultErrorCallback(dispatch, error, type, ignoreDispatchError);
   });
 };

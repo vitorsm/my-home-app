@@ -28,6 +28,6 @@ export const createUser = (user) => async (dispatch) => {
   post('user/', user, CREATE_USER, dispatch);
 };
 
-export const fetchCurrentUserData = () => async (dispatch) => {
-  get('user', FETCH_ACCOUNT_DATA, dispatch);
+export const fetchCurrentUserData = (ignoreError) => async (dispatch) => {
+  get('user', FETCH_ACCOUNT_DATA, dispatch, ignoreError);
 };

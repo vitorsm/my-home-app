@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Container, TitleText, DescriptionText, LoadingContainer,
 } from './style';
 import CircularProgress from '../../../components/circular-progress';
+import * as userActions from '../../../redux/actions/userActions';
 
-const Splash = ({ navigation }) => {
+const Splash = ({ navigation, fetchCurrentUserData, currentUserData }) => {
   setTimeout(() => {
     navigation.reset({
       index: 0,
       routes: [{ name: 'Login' }],
     });
   }, 1000);
+
+  useEffect(() => {
+    fetchCurrentUserData(true);
+  }, []);
+
+  useEffect(() => {
+    if (currentUserData && !currentUserData.error && currentUserData.id) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    }
+  }, [currentUserData]);
 
   return (
     <Container>
@@ -32,6 +47,25 @@ Splash.propTypes = {
   navigation: PropTypes.shape({
     reset: PropTypes.func.isRequired,
   }).isRequired,
+  fetchCurrentUserData: PropTypes.func,
+  currentUserData: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    error: PropTypes.bool,
+  }),
 };
 
-export default Splash;
+Splash.defaultProps = {
+  fetchCurrentUserData: null,
+  currentUserData: null,
+};
+
+function mapStateToProps({ currentUserData }) {
+  return { currentUserData };
+}
+
+const mapDispatchToProps = {
+  fetchCurrentUserData: userActions.fetchCurrentUserData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Splash);
