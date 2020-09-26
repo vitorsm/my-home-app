@@ -5,8 +5,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Login from '../features/login';
 import Splash from '../features/splash';
 import CreateUserSreen from '../features/create-user';
-
-import MenuButton from './style';
+import ErrorDialog from '../features/error-dialog';
+import { MenuButton, Container } from './style';
 import { colors } from '../configs/colors';
 
 const Stack = createStackNavigator();
@@ -44,7 +44,7 @@ const getHeaderOptions = (hiddenMenu, title, showMenuButton) => {
 
   const options = {
     headerLeft: showMenuButton ? headerLeftMenu : undefined,
-    headerStyle: { backgroundColor: colors.primary },
+    headerStyle: { backgroundColor: colors.primary.main },
     headerTintColor: '#FFF',
     headerShown: !hiddenMenu,
     headerTitleStyle: {
@@ -67,12 +67,16 @@ const Navigator = () => {
   ));
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash">
-        <Stack.Screen options={{ headerShown: false }} name="Splash" component={Splash} />
-        {getScreensComponents()}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Container>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Splash">
+          <Stack.Screen options={{ headerShown: false }} name="Splash" component={Splash} />
+          {getScreensComponents()}
+        </Stack.Navigator>
+      </NavigationContainer>
+      <ErrorDialog />
+    </Container>
+
   );
 };
 

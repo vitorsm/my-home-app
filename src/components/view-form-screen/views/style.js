@@ -19,7 +19,7 @@ export const ViewItem = styled.View`
 
 export const FieldName = styled.Text`
     font-size: 15px;
-    color: ${colors.blackOpacity};
+    color: ${colors.text.main};
     padding: 20px;
 `;
 export const FieldValue = styled.Text`

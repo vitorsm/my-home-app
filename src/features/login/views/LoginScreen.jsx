@@ -11,7 +11,7 @@ const LoginScreen = ({ navigation }) => {
   const [passwordBorder, setPasswordBorder] = useState({ borderSize: null, borderColor: null });
 
   const selectedBorderSize = 2;
-  const selectedBorderColor = colors.primary;
+  const selectedBorderColor = colors.primary.main;
 
   const onFocus = (setValueFunc) => {
     setValueFunc({ borderSize: selectedBorderSize, borderColor: selectedBorderColor });

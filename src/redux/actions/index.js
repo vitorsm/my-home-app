@@ -11,7 +11,7 @@ export const getDefaultHeader = () => ({
 export const dispatchHttpError = (dispatch, res) => {
   dispatch({
     type: DEFAULT_ERROR_TYPE,
-    payload: res ? res.data : null,
+    payload: res ? res.data : { createdAt: new Date() },
     status: res ? res.status : null,
   });
 };
@@ -29,10 +29,8 @@ export const defaultErrorCallback = (dispatch, res, type) => {
     type,
     payload: {
       error: true,
-      errorStatus: res.response ? res.response.status : null,
+      errorStatus: res && res.response ? res.response.status : null,
     },
-    error: res.response.data ? res.response.data : null,
-    status: res.response ? res.response.status : null,
   });
 
   dispatchHttpError(dispatch, res.response);

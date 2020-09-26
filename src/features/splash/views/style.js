@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { colors } from '../../../configs/colors';
 
 export const Container = styled.View`
-    background-color: ${colors.primary};
+    background-color: ${colors.primary.main};
     flex: 1;
     justify-content: center;
     align-items: center;

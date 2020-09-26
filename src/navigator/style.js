@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
-const MenuButton = styled.TouchableOpacity`
-    padding: 20px;
+export const Container = styled.View`
+    flex: 1;
 `;
 
-export default MenuButton;
+export const MenuButton = styled.TouchableOpacity`
+    padding: 20px;
+`;

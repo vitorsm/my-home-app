@@ -22,7 +22,7 @@ PlainButton.propTypes = {
 };
 
 PlainButton.defaultProps = {
-  backgroundColor: colors.primary,
+  backgroundColor: colors.primary.main,
   textColor: 'white',
   fontSize: 20,
   onPress: null,

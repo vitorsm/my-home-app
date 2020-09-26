@@ -26,7 +26,7 @@ export const TextInput = styled.TextInput`
     font-size: 22px;
     padding: 5px;
     border-bottom-width: ${(props) => props.borderSize || 1}px;
-    border-bottom-color: ${(props) => props.borderColor || colors.blackOpacity};
+    border-bottom-color: ${(props) => props.borderColor || colors.text.main};
 `;
 
 export const TextAction = styled.Text`
