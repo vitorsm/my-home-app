@@ -10,7 +10,6 @@ import SideMenuScreen from '../features/side-menu';
 import ErrorDialog from '../features/error-dialog';
 import { MenuButton, Container } from './style';
 import { colors } from '../configs/colors';
-import SideMenuNavigator from './SideMenuNavigator';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +26,6 @@ export const screens = {
     component: HomeScreen,
     title: null,
     isFeatureMainScreen: true,
-    isInternal: true,
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
   },
   LOGIN: {
@@ -36,7 +34,6 @@ export const screens = {
     component: Login,
     title: 'Login',
     isFeatureMainScreen: true,
-    isInternal: false,
     cardStyleInterpolator: undefined,
   },
   CREATE_USER: {
@@ -45,7 +42,6 @@ export const screens = {
     component: CreateUserSreen,
     title: 'Criar conta',
     isFeatureMainScreen: false,
-    isInternal: false,
     cardStyleInterpolator: undefined,
   },
   SIDE_MENU: {
@@ -54,7 +50,6 @@ export const screens = {
     component: SideMenuScreen,
     title: 'Criar conta',
     isFeatureMainScreen: false,
-    isInternal: true,
     cardStyleInterpolator: InvertedHorizontal,
   },
 };
@@ -83,13 +78,7 @@ const getHeaderOptions = (navigation, menu) => {
 };
 
 const RootNavigator = () => {
-  const getHomeContextScreens = () => Object
-    .entries(screens)
-    .filter((nameAndScreen) => nameAndScreen[1].isInternal)
-    .map((nameAndScreen) => nameAndScreen[1]);
-
   const getScreensComponents = () => Object.entries(screens)
-    .filter((nameAndScreen) => !nameAndScreen[1].isInternal)
     .map(([name, screen]) => (
       <Stack.Screen
         key={name}
@@ -104,19 +93,6 @@ const RootNavigator = () => {
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Splash">
           <Stack.Screen options={{ headerShown: false }} name="Splash" component={Splash} />
-          <Stack.Screen
-            options={{ headerShown: false }}
-            name="Internal"
-          >
-            {() => (
-              <SideMenuNavigator
-                menus={screens}
-                getHeaderOptions={getHeaderOptions}
-                getHomeContextScreens={getHomeContextScreens}
-              />
-            )}
-
-          </Stack.Screen>
           {getScreensComponents()}
         </Stack.Navigator>
       </NavigationContainer>
