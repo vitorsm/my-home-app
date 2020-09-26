@@ -26,3 +26,8 @@ export const FieldValue = styled.Text`
     font-size: 20px;
     color: black
 `;
+
+export const LoadingContainer = styled.View`
+    width: 100%;
+    margin-top: 30px;
+`;

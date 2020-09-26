@@ -1,30 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, ViewItem, FieldName, FieldValue, Label,
+  Container, ViewItem, FieldName, FieldValue, Label, LoadingContainer,
 } from './style';
+import CircularProgress from '../../circular-progress';
 
-const ViewFormScreen = ({ data }) => {
+const ViewFormScreen = ({ data, isLoading }) => {
   const renderFields = () => data.map((field) => (
-    <ViewItem>
+    <ViewItem key={`view-item-view-form-screen-${field.fieldName}`}>
       <FieldName>{field.fieldName}</FieldName>
       <FieldValue>{field.fieldValue}</FieldValue>
     </ViewItem>
   ));
 
+  const renderLoading = () => {
+    if (!isLoading) {
+      return null;
+    }
+
+    return (
+      <LoadingContainer>
+        <CircularProgress />
+      </LoadingContainer>
+    );
+  };
   return (
     <Container>
       <Label>Confirme seus dados para finalizar o cadastro</Label>
       {renderFields()}
+      {renderLoading()}
     </Container>
   );
 };
 
 ViewFormScreen.propTypes = {
-  data: PropTypes.arrayOf({
+  data: PropTypes.arrayOf(PropTypes.shape({
     fieldName: PropTypes.string.isRequired,
     fieldValue: PropTypes.string,
-  }).isRequired,
+  })).isRequired,
+  isLoading: PropTypes.bool,
+};
+
+ViewFormScreen.defaultProps = {
+  isLoading: false,
 };
 
 export default ViewFormScreen;
