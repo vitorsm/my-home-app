@@ -22,7 +22,7 @@ const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
     if (authenticatedUser && !authenticatedUser.error) {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Home' }],
+        routes: [{ name: 'Internal' }],
       });
     }
   }, [authenticatedUser]);

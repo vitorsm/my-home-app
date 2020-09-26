@@ -7,3 +7,7 @@ export const Container = styled.View`
 export const MenuButton = styled.TouchableOpacity`
     padding: 20px;
 `;
+
+export const SideMenuNavigatorContainer = styled.View`
+    flex: 1
+`;
