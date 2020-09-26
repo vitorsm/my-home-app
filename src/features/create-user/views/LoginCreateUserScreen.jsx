@@ -12,13 +12,15 @@ const LoginCreateUserScreen = ({ route, navigation }) => {
     setNextButtonEnabled(!!value);
   };
 
+  const getFirstName = () => (user.name ? user.name.split(' ')[0] : null);
+
   const onPressOk = () => {
     navigation.navigate('PasswordCreateUser', { ...user });
   };
 
   return (
     <FormScreen
-      formItem={<TextFormItem label="Escolha um login" onChange={onLoginChange} />}
+      formItem={<TextFormItem label={`${getFirstName()}, escolha um login`} onChange={onLoginChange} />}
       onPressOk={onPressOk}
       okButtonDisabled={!nextButtonEnabled}
       textButton="Próximo"

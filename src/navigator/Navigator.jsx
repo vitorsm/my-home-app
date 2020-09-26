@@ -28,7 +28,7 @@ export const screens = {
   },
   CREATE_USER: {
     name: 'CreateUser',
-    hiddenMenu: false,
+    hiddenMenu: true,
     component: CreateUserSreen,
     title: 'Criar conta',
     isFeatureMainScreen: false,

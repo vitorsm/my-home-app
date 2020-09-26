@@ -13,25 +13,29 @@ const PasswordCreateUserScreen = ({ route, navigation }) => {
   };
 
   const onPressOk = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
+    navigation.navigate('ConfirmUserData', { ...user });
   };
 
   return (
     <FormScreen
-      formItem={<TextFormItem label="Insira uma senha" onChange={onPasswordChange} description="Escolha uma senha que contenha ao menos 5 caracteres" />}
+      formItem={(
+        <TextFormItem
+          label="Insira uma senha"
+          onChange={onPasswordChange}
+          description="Escolha uma senha que contenha ao menos 5 caracteres"
+          secureTextEntry
+        />
+      )}
       onPressOk={onPressOk}
       okButtonDisabled={!nextButtonEnabled}
-      textButton="Finalizar"
+      textButton="Próximo"
     />
   );
 };
 
 PasswordCreateUserScreen.propTypes = {
   navigation: PropTypes.shape({
-    reset: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
   }).isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({

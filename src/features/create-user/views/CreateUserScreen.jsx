@@ -1,15 +1,25 @@
 import React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets, CardStyleInterpolators } from '@react-navigation/stack';
 import NameCreateUserScreen from './NameCreateUserScreen';
 import LoginCreateUserScreen from './LoginCreateUserScreen';
 import PasswordCreateUserScreen from './PasswordCreateUserScreen';
+import ConfirmUserDataScreen from './ConfirmUserDataScreen';
 
 const Stack = createStackNavigator();
 const CreateUserScreen = () => (
-  <Stack.Navigator initialRouteName="NameCreateUser">
-    <Stack.Screen name="NameCreateUser" component={NameCreateUserScreen} />
-    <Stack.Screen name="LoginCreateUser" component={LoginCreateUserScreen} />
-    <Stack.Screen name="PasswordCreateUser" component={PasswordCreateUserScreen} />
+  <Stack.Navigator
+    initialRouteName="NameCreateUser"
+    screenOptions={
+    {
+      cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      ...TransitionPresets.SlideFromRightIOS,
+    }
+}
+  >
+    <Stack.Screen name="NameCreateUser" component={NameCreateUserScreen} options={{ title: '' }} />
+    <Stack.Screen name="LoginCreateUser" component={LoginCreateUserScreen} options={{ title: '' }} />
+    <Stack.Screen name="PasswordCreateUser" component={PasswordCreateUserScreen} options={{ title: '' }} />
+    <Stack.Screen name="ConfirmUserData" component={ConfirmUserDataScreen} options={{ title: '' }} />
   </Stack.Navigator>
 );
 

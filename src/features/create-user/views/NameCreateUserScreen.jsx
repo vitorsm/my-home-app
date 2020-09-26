@@ -2,18 +2,21 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TextFormItem from '../../../components/text-form-item';
 import FormScreen from '../../../components/form-screen';
+import * as stringUtils from '../../../utils/stringUtils';
 
 const NameCreateUserScreen = ({ navigation }) => {
-  const [userName, setUserName] = useState();
+  const [name, setName] = useState();
   const [nextButtonEnabled, setNextButtonEnabled] = useState(false);
 
   const onNameChange = (value) => {
-    setUserName(value);
-    setNextButtonEnabled(!!value);
+    const parsedName = stringUtils.convertNameStr(value);
+
+    setName(parsedName);
+    setNextButtonEnabled(!!parsedName);
   };
 
   const onPressOk = () => {
-    navigation.navigate('LoginCreateUser', { userName });
+    navigation.navigate('LoginCreateUser', { name });
   };
 
   return (
