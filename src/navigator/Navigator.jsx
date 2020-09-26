@@ -2,37 +2,55 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { string } from 'prop-types';
 import Login from '../features/login';
 import Splash from '../features/splash';
+import CreateUserSreen from '../features/create-user';
+
 import MenuButton from './style';
 import { colors } from '../configs/colors';
 
 const Stack = createStackNavigator();
 
-const screens = {
+export const screens = {
   HOME: {
     name: 'Home',
     hiddenMenu: false,
     component: Login,
+    title: null,
+    isFeatureMainScreen: true,
   },
   LOGIN: {
     name: 'Login',
     hiddenMenu: true,
     component: Login,
+    title: 'Login',
+    isFeatureMainScreen: true,
+  },
+  CREATE_USER: {
+    name: 'CreateUser',
+    hiddenMenu: false,
+    component: CreateUserSreen,
+    title: 'Criar conta',
+    isFeatureMainScreen: false,
   },
 };
 
-const getHeaderOptions = (hiddenMenu) => {
+const getHeaderOptions = (hiddenMenu, title, showMenuButton) => {
+  const headerLeftMenu = () => (
+    <MenuButton>
+      <Icon name="menu" color="#FFF" size={20} />
+    </MenuButton>
+  );
+
   const options = {
-    headerLeft: () => (
-      <MenuButton>
-        <Icon name="menu" color="#FFF" size={20} />
-      </MenuButton>
-    ),
+    headerLeft: showMenuButton ? headerLeftMenu : undefined,
     headerStyle: { backgroundColor: colors.primary },
     headerTintColor: '#FFF',
     headerShown: !hiddenMenu,
+    headerTitleStyle: {
+      fontWeight: '100',
+    },
+    title,
   };
 
   return options;
@@ -44,7 +62,7 @@ const Navigator = () => {
       key={name}
       name={screen.name}
       component={screen.component}
-      options={getHeaderOptions(screen.hiddenMenu)}
+      options={getHeaderOptions(screen.hiddenMenu, screen.title, screen.isFeatureMainScreen)}
     />
   ));
 

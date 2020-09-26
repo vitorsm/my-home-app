@@ -1,3 +1,3 @@
-import CreateUserSreen from './views/CreateUserScreen';
+import CreateUserScreen from './views/CreateUserScreen';
 
-export default CreateUserSreen;
+export default CreateUserScreen;

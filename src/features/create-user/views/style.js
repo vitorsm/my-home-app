@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 export const Container = styled.View`
+    flex: 1;
     width: 100%;
-    padding: 10px;
+    justify-content: space-between;
 `;
 
-export const DefaultTextInput = styled.TextInput`
+export const Form = styled.View`
     width: 100%;
-    border: 1px solid #ccc;
-    margin-left: 5px;
 `;
