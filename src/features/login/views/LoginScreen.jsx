@@ -1,24 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {
   Container, Form, FormItem, Label, TextInput, TextAction,
 } from './style';
 import PlainButton from '../../../components/plain-button';
 import { colors } from '../../../configs/colors';
+import * as userActions from '../../../redux/actions/userActions';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
+  const [login, setLogin] = useState(null);
+  const [password, setPassword] = useState(null);
+
   const [loginBorder, setLoginBorder] = useState({ borderSize: null, borderColor: null });
   const [passwordBorder, setPasswordBorder] = useState({ borderSize: null, borderColor: null });
 
   const selectedBorderSize = 2;
   const selectedBorderColor = colors.primary.main;
 
+  useEffect(() => {
+    if (authenticatedUser && !authenticatedUser.error) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Home' }],
+      });
+    }
+  }, [authenticatedUser]);
   const onFocus = (setValueFunc) => {
     setValueFunc({ borderSize: selectedBorderSize, borderColor: selectedBorderColor });
   };
 
   const onBlur = (setValueFunc) => {
     setTimeout(() => setValueFunc({ borderSize: null, borderColor: null }), 100);
+  };
+
+  const onLoginButtonPress = () => {
+    authenticateUser(login, password);
   };
 
   return (
@@ -31,6 +48,7 @@ const LoginScreen = ({ navigation }) => {
             borderColor={loginBorder.borderColor}
             onFocus={() => onFocus(setLoginBorder)}
             onBlur={() => onBlur(setLoginBorder)}
+            onChangeText={setLogin}
           />
         </FormItem>
         <FormItem>
@@ -41,6 +59,7 @@ const LoginScreen = ({ navigation }) => {
             borderColor={passwordBorder.borderColor}
             onFocus={() => onFocus(setPasswordBorder)}
             onBlur={() => onBlur(setPasswordBorder)}
+            onChangeText={setPassword}
           />
         </FormItem>
         <TextAction
@@ -49,7 +68,7 @@ const LoginScreen = ({ navigation }) => {
           Criar conta
         </TextAction>
       </Form>
-      <PlainButton>Entrar</PlainButton>
+      <PlainButton onPress={onLoginButtonPress}>Entrar</PlainButton>
     </Container>
   );
 };
@@ -57,7 +76,24 @@ const LoginScreen = ({ navigation }) => {
 LoginScreen.propTypes = {
   navigation: PropTypes.shape({
     navigate: PropTypes.func.isRequired,
+    reset: PropTypes.func.isRequired,
   }).isRequired,
+  authenticateUser: PropTypes.func.isRequired,
+  authenticatedUser: PropTypes.shape({
+    error: PropTypes.bool,
+  }),
 };
 
-export default LoginScreen;
+LoginScreen.defaultProps = {
+  authenticatedUser: null,
+};
+
+const mapDispatchToProps = {
+  authenticateUser: userActions.authenticate,
+};
+
+function mapStateToProps({ authenticatedUser }) {
+  return { authenticatedUser };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

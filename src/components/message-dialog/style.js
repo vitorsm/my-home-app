@@ -38,7 +38,8 @@ export const TitleContainer = styled.View`
 
 export const MessageTitle = styled.Text`
     font-weight: bold;
-    font-size: 20px;    
+    font-size: 20px;
+    text-align: center;
 `;
 
 export const TextContainer = styled.View`
@@ -50,6 +51,7 @@ export const TextContainer = styled.View`
 export const MessageText = styled.Text`
     width: 100%;
     font-size: 17px;
+    text-align: center;
 `;
 
 export const ImageContainer = styled.View`

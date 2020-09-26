@@ -1,11 +1,15 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 
 export const DEFAULT_ERROR_TYPE = 'default_error';
 
-export const serverURI = 'http://192.168.0.25:5000/api';
+const serverURI = 'http://192.168.0.25:5000/api/';
 
 export const getDefaultHeader = () => ({
   Authorization: `JWT ${AsyncStorage.getItem('token')}`,
+});
+export const getDefaultAxiosConfig = () => ({
+  headers: getDefaultHeader(),
 });
 
 export const dispatchHttpError = (dispatch, res) => {
@@ -34,4 +38,57 @@ export const defaultErrorCallback = (dispatch, res, type) => {
   });
 
   dispatchHttpError(dispatch, res.response);
+};
+
+export const post = async (endpoint, data, type, dispatch, config, onSucessBeforeDispatch) => {
+  let processedConfig = config;
+  if (config === undefined) {
+    processedConfig = getDefaultAxiosConfig();
+  }
+
+  await axios.post(`${serverURI}${endpoint}`, data, processedConfig)
+    .then(
+      (res) => {
+        if (onSucessBeforeDispatch) {
+          onSucessBeforeDispatch(res);
+        }
+        defaultSuccessCallback(dispatch, res, type);
+      },
+      (error) => {
+        defaultErrorCallback(dispatch, error, type);
+      },
+    );
+};
+
+export const put = async (endpoint, data, type, dispatch, config, onSucessBeforeDispatch) => {
+  let processedConfig = config;
+  if (config === undefined) {
+    processedConfig = getDefaultAxiosConfig();
+  }
+
+  await axios.put(`${serverURI}${endpoint}`, data, processedConfig)
+    .then(
+      (res) => {
+        if (onSucessBeforeDispatch) {
+          onSucessBeforeDispatch(res);
+        }
+
+        defaultSuccessCallback(dispatch, res, type);
+      },
+      (error) => {
+        defaultErrorCallback(dispatch, error, type);
+      },
+    );
+};
+
+export const get = async (endpoint, type, dispatch, config) => {
+  let processedConfig = config;
+  if (config === undefined) {
+    processedConfig = getDefaultAxiosConfig();
+  }
+  await axios.get(`${serverURI}${endpoint}`, processedConfig).then((res) => {
+    defaultSuccessCallback(dispatch, res, type);
+  }, (error) => {
+    defaultErrorCallback(dispatch, error, type);
+  });
 };

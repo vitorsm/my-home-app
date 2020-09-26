@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Login from '../features/login';
 import Splash from '../features/splash';
 import CreateUserSreen from '../features/create-user';
+import HomeScreen from '../features/home';
 import ErrorDialog from '../features/error-dialog';
 import { MenuButton, Container } from './style';
 import { colors } from '../configs/colors';
@@ -15,7 +16,7 @@ export const screens = {
   HOME: {
     name: 'Home',
     hiddenMenu: false,
-    component: Login,
+    component: HomeScreen,
     title: null,
     isFeatureMainScreen: true,
   },

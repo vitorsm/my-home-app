@@ -1,7 +1,6 @@
-import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
-  defaultSuccessCallback, defaultErrorCallback, getDefaultHeader, serverURI,
+  post, get,
 } from './index';
 
 export const AUTHENTICATION_CREDENTIALS = 'authentication_credentials';
@@ -14,17 +13,11 @@ export const authenticate = (login, password) => async (dispatch) => {
     password,
   };
 
-  await axios.post(`${serverURI}/auth/authenticate`, credentials)
-    .then(
-      (res) => {
-        AsyncStorage.setItem('token', res.data.token);
+  const onSucessBeforeDispatch = (res) => {
+    AsyncStorage.setItem('token', res.data.access_token);
+  };
 
-        defaultSuccessCallback(dispatch, res, AUTHENTICATION_CREDENTIALS);
-      },
-      (error) => {
-        defaultErrorCallback(dispatch, error, AUTHENTICATION_CREDENTIALS);
-      },
-    );
+  post('auth/authenticate', credentials, AUTHENTICATION_CREDENTIALS, dispatch, null, onSucessBeforeDispatch);
 };
 
 export const logout = () => {
@@ -32,19 +25,9 @@ export const logout = () => {
 };
 
 export const createUser = (user) => async (dispatch) => {
-  const url = `${serverURI}/user/`;
-
-  await axios.post(url, user, { headers: getDefaultHeader() }).then((res) => {
-    defaultSuccessCallback(dispatch, res, CREATE_USER);
-  }, (error) => {
-    defaultErrorCallback(dispatch, error, CREATE_USER);
-  });
+  post('user/', user, CREATE_USER, dispatch);
 };
 
 export const fetchCurrentUserData = () => async (dispatch) => {
-  await axios.get(`${serverURI}/user/`, { headers: getDefaultHeader() }).then((res) => {
-    defaultSuccessCallback(dispatch, res, FETCH_ACCOUNT_DATA);
-  }, (error) => {
-    defaultErrorCallback(dispatch, error, FETCH_ACCOUNT_DATA);
-  });
+  get('user', FETCH_ACCOUNT_DATA, dispatch);
 };
