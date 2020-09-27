@@ -5,7 +5,7 @@ import {
 } from './style';
 import CircularProgress from '../../circular-progress';
 
-const ViewFormScreen = ({ data, isLoading }) => {
+const ViewFormScreen = ({ data, isLoading, title }) => {
   const renderFields = () => data.map((field) => (
     <ViewItem key={`view-item-view-form-screen-${field.fieldName}`}>
       <FieldName>{field.fieldName}</FieldName>
@@ -26,7 +26,7 @@ const ViewFormScreen = ({ data, isLoading }) => {
   };
   return (
     <Container>
-      <Label>Confirme seus dados para finalizar o cadastro</Label>
+      <Label>{title}</Label>
       {renderFields()}
       {renderLoading()}
     </Container>
@@ -39,6 +39,7 @@ ViewFormScreen.propTypes = {
     fieldValue: PropTypes.string,
   })).isRequired,
   isLoading: PropTypes.bool,
+  title: PropTypes.string.isRequired,
 };
 
 ViewFormScreen.defaultProps = {

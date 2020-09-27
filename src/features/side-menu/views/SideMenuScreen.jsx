@@ -12,6 +12,7 @@ import {
 import { colors } from '../../../configs/colors';
 import RoundedButton from '../../../components/rounded-button';
 import MenuItems from './MenuItems';
+import strings from '../../../configs/strings';
 
 const SideMenuScreen = ({ navigation, logoutUser }) => {
   const [menuItems, setMenuItems] = useState();
@@ -90,7 +91,7 @@ const SideMenuScreen = ({ navigation, logoutUser }) => {
         {renderMenuItems()}
       </ContainerScroll>
 
-      <RoundedButton onPress={onLogoutButtonClick} style={{ margin: 20 }}>Sair</RoundedButton>
+      <RoundedButton onPress={onLogoutButtonClick} style={{ margin: 20 }}>{strings('logout')}</RoundedButton>
     </Container>
   );
 };

@@ -4,14 +4,15 @@ import { Container, FilterActionsContainer, ScrollContainer } from './style';
 
 import TextLink from '../../text-link';
 import RoundedButton from '../../rounded-button';
+import strings from '../../../configs/strings';
 
 const CRUDFilter = ({
   content, onFilterClick, onCancelClick, onResetClick,
 }) => {
   const renderActions = () => (
     <FilterActionsContainer>
-      <TextLink onPress={onCancelClick}>Cancelar</TextLink>
-      <RoundedButton onPress={onFilterClick}>Filtrar</RoundedButton>
+      <TextLink onPress={onCancelClick}>{strings('cancel')}</TextLink>
+      <RoundedButton onPress={onFilterClick}>{strings('filter')}</RoundedButton>
     </FilterActionsContainer>
   );
 
@@ -19,7 +20,7 @@ const CRUDFilter = ({
     <Container>
       <ScrollContainer>
         {content}
-        <TextLink onPress={onResetClick}>Limpar filtros</TextLink>
+        <TextLink onPress={onResetClick}>{strings('clearFilters')}</TextLink>
       </ScrollContainer>
       {renderActions()}
     </Container>

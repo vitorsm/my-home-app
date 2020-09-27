@@ -14,6 +14,8 @@ import LeftToRightCardStyleInterpolator from '../components/left-to-right-card-s
 import { MenuButton, Container } from './style';
 import getMenuBarConfig from '../configs/headerOptions';
 
+import strings from '../configs/strings';
+
 const Stack = createStackNavigator();
 
 export const screens = {
@@ -29,7 +31,7 @@ export const screens = {
     name: 'Login',
     hiddenMenu: true,
     component: Login,
-    title: 'Login',
+    title: strings('login'),
     isFeatureMainScreen: true,
     cardStyleInterpolator: undefined,
   },
@@ -37,7 +39,7 @@ export const screens = {
     name: 'CreateUser',
     hiddenMenu: true,
     component: CreateUserSreen,
-    title: 'Criar conta',
+    title: strings('createAccount'),
     isFeatureMainScreen: false,
     cardStyleInterpolator: undefined,
   },
@@ -45,7 +47,7 @@ export const screens = {
     name: 'SideMenu',
     hiddenMenu: true,
     component: SideMenuScreen,
-    title: 'Criar conta',
+    title: null,
     isFeatureMainScreen: false,
     cardStyleInterpolator: LeftToRightCardStyleInterpolator,
   },
@@ -53,7 +55,7 @@ export const screens = {
     name: 'Brand',
     hiddenMenu: false,
     component: BrandScreen,
-    title: 'Marcas',
+    title: strings('brands'),
     isFeatureMainScreen: true,
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     filterScreenName: 'BrandFilter',

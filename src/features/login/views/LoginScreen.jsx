@@ -8,6 +8,7 @@ import PlainButton from '../../../components/plain-button';
 import { colors } from '../../../configs/colors';
 import * as userActions from '../../../redux/actions/userActions';
 import TextLink from '../../../components/text-link';
+import strings from '../../../configs/strings';
 
 const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
   const [login, setLogin] = useState(null);
@@ -43,7 +44,7 @@ const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
     <Container>
       <Form>
         <FormItem>
-          <Label>Login</Label>
+          <Label>{strings('login')}</Label>
           <TextInput
             borderSize={loginBorder.borderSize}
             borderColor={loginBorder.borderColor}
@@ -53,7 +54,7 @@ const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
           />
         </FormItem>
         <FormItem>
-          <Label>Senha</Label>
+          <Label>{strings('password')}</Label>
           <TextInput
             secureTextEntry
             borderSize={passwordBorder.borderSize}
@@ -66,10 +67,10 @@ const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
         <TextLink
           onPress={() => navigation.navigate('CreateUser')}
         >
-          Criar conta
+          {strings('createAccount')}
         </TextLink>
       </Form>
-      <PlainButton onPress={onLoginButtonPress}>Entrar</PlainButton>
+      <PlainButton onPress={onLoginButtonPress}>{strings('enter')}</PlainButton>
     </Container>
   );
 };

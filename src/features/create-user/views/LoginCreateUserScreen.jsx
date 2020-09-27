@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TextFormItem from '../../../components/text-form-item';
 import FormScreen from '../../../components/form-screen';
+import strings from '../../../configs/strings';
 
 const LoginCreateUserScreen = ({ route, navigation }) => {
   const [user, setUser] = useState(route.params);
@@ -20,10 +21,10 @@ const LoginCreateUserScreen = ({ route, navigation }) => {
 
   return (
     <FormScreen
-      formItem={<TextFormItem label={`${getFirstName()}, escolha um login`} onChange={onLoginChange} />}
+      formItem={<TextFormItem label={`${getFirstName()}, ${strings('chooseALogin')}`} onChange={onLoginChange} />}
       onPressOk={onPressOk}
       okButtonDisabled={!nextButtonEnabled}
-      textButton="Próximo"
+      textButton={strings('next')}
     />
   );
 };

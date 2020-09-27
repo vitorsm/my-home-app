@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TextFormItem from '../../../components/text-form-item';
 import FormScreen from '../../../components/form-screen';
+import strings from '../../../configs/strings';
 
 const PasswordCreateUserScreen = ({ route, navigation }) => {
   const [user, setUser] = useState(route.params);
@@ -20,15 +21,15 @@ const PasswordCreateUserScreen = ({ route, navigation }) => {
     <FormScreen
       formItem={(
         <TextFormItem
-          label="Insira uma senha"
+          label={strings('enterAPassword')}
           onChange={onPasswordChange}
-          description="Escolha uma senha que contenha ao menos 5 caracteres"
+          description={strings('passwordChoiceRule')}
           secureTextEntry
         />
       )}
       onPressOk={onPressOk}
       okButtonDisabled={!nextButtonEnabled}
-      textButton="Próximo"
+      textButton={strings('next')}
     />
   );
 };

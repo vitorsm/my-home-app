@@ -23,7 +23,10 @@ const ErrorDialogScreen = ({ defaultError }) => {
   }
 
   return (
-    <MessageDialog messageData={messageData} elementIcon={<Icon name="error" size={80} color={colors.error.light} />} />
+    <MessageDialog
+      messageData={messageData}
+      elementIcon={<Icon name="error" size={80} color={colors.error.light} />}
+    />
   );
 };
 

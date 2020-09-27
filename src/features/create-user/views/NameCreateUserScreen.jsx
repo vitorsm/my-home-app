@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TextFormItem from '../../../components/text-form-item';
 import FormScreen from '../../../components/form-screen';
 import * as stringUtils from '../../../utils/stringUtils';
+import strings from '../../../configs/strings';
 
 const NameCreateUserScreen = ({ navigation }) => {
   const [name, setName] = useState();
@@ -21,10 +22,10 @@ const NameCreateUserScreen = ({ navigation }) => {
 
   return (
     <FormScreen
-      formItem={<TextFormItem label="Qual seu nome ?" onChange={onNameChange} />}
+      formItem={<TextFormItem label={strings('whatsYourName')} onChange={onNameChange} />}
       onPressOk={onPressOk}
       okButtonDisabled={!nextButtonEnabled}
-      textButton="Próximo"
+      textButton={strings('next')}
     />
   );
 };

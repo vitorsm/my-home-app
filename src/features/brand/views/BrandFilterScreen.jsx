@@ -1,11 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Keyboard } from 'react-native';
-import { Container, FilterFieldsContainer, FilterActionsContainer } from './style';
-import RoundedButton from '../../../components/rounded-button';
-import TextLink from '../../../components/text-link';
 import PlainTextFormItem from '../../../components/plain-text-form-item';
 import CRUDFilter from '../../../components/crud-filter';
+import strings from '../../../configs/strings';
 
 const BrandFilterScreen = ({ navigation }) => {
   const [brandName, setBrandName] = useState();
@@ -28,7 +25,7 @@ const BrandFilterScreen = ({ navigation }) => {
 
   const renderContent = () => (
     <>
-      <PlainTextFormItem labelText="Nome" onChangeText={onChangeBrandName} />
+      <PlainTextFormItem labelText={strings('name')} onChangeText={onChangeBrandName} />
     </>
   );
 

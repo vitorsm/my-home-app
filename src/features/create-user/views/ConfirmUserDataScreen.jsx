@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import ViewFormScreen from '../../../components/view-form-screen';
 import FormScreen from '../../../components/form-screen';
 import * as userActions from '../../../redux/actions/userActions';
+import strings from '../../../configs/strings';
 
 const ConfirmUserDataScreen = ({
   route, navigation, createUser, createdUser,
@@ -30,10 +31,10 @@ const ConfirmUserDataScreen = ({
   });
 
   const getFieldData = () => [{
-    fieldName: 'Login',
+    fieldName: strings('login'),
     fieldValue: route.params.login,
   }, {
-    fieldName: 'Nome',
+    fieldName: strings('name'),
     fieldValue: route.params.name,
   }];
 
@@ -43,9 +44,9 @@ const ConfirmUserDataScreen = ({
 
   return (
     <FormScreen
-      formItem={<ViewFormScreen data={getFieldData()} isLoading={loading} />}
+      formItem={<ViewFormScreen data={getFieldData()} isLoading={loading} title={strings('createAccountConfirmationMessage')} />}
       onPressOk={onPressOk}
-      textButton="Finalizar"
+      textButton={strings('finish')}
     />
   );
 };

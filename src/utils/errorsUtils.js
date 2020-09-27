@@ -1,22 +1,24 @@
+import strings from '../configs/strings';
+
 const getDefaultError = () => ({
-  title: 'Algo de errado não está certo',
-  message: 'Não conseguimos efetuar essa ação. Dá uma olhada se está com acesso a internet. Para esse recurso é necessário estar conectado a internet.',
+  title: strings('genericErrorTitle'),
+  message: strings('genericErrorMessage'),
 });
 
 const mapper = {
   40003: (errorFromServer) => ({
-    title: 'Erro durante o cadastro',
-    message: `O login '${errorFromServer.description.value}' já existe. Por favor escolha outro e tente novamente`,
+    title: strings('userRegisterErrorTitle'),
+    message: strings('loginAlreadyExistsErrorMessage', { login: errorFromServer.description.value }),
     code: 40003,
   }),
   401: () => ({
-    title: 'Credenciais inválidas',
-    message: 'Usuário ou senha incorretos',
+    title: strings('invalidCredentialsTitle'),
+    message: strings('invalidCredentialsMessage'),
     code: 401,
   }),
   50001: () => ({
-    title: 'Erro',
-    message: 'Ocorreu um erro interno daqueles que ninguém achou que poderia acontecer. Peça ajuda.',
+    title: strings('genericServerErrorTitle'),
+    message: strings('genericServerErrorMessage'),
     code: 50001,
   }),
 };
