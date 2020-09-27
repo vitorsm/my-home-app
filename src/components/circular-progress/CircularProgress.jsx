@@ -6,7 +6,7 @@ import { Container, Circular } from './style';
 const CircularProgress = ({
   size, borderSize, color, borderColor,
 }) => {
-  const processedBorderSize = borderSize || size * 0.09;
+  const processedBorderSize = borderSize || size * 0.05;
 
   const rotateAnimateValue = useRef(new Animated.Value(0)).current;
   const spin = rotateAnimateValue.interpolate({

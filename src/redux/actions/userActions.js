@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import {
-  post, get,
+  httpPost, httpGet,
 } from './index';
 
 export const AUTHENTICATION_CREDENTIALS = 'authentication_credentials';
@@ -17,7 +17,7 @@ export const authenticate = (login, password) => async (dispatch) => {
     AsyncStorage.setItem('token', res.data.access_token);
   };
 
-  post('auth/authenticate', credentials, AUTHENTICATION_CREDENTIALS, dispatch, null, onSucessBeforeDispatch);
+  httpPost('auth/authenticate', credentials, AUTHENTICATION_CREDENTIALS, dispatch, null, onSucessBeforeDispatch);
 };
 
 export const logout = () => async () => {
@@ -25,9 +25,9 @@ export const logout = () => async () => {
 };
 
 export const createUser = (user) => async (dispatch) => {
-  post('user/', user, CREATE_USER, dispatch);
+  httpPost('user/', user, CREATE_USER, dispatch);
 };
 
 export const fetchCurrentUserData = (ignoreError) => async (dispatch) => {
-  get('user', FETCH_ACCOUNT_DATA, dispatch, ignoreError);
+  httpGet('user', FETCH_ACCOUNT_DATA, dispatch, ignoreError);
 };

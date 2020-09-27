@@ -28,12 +28,3 @@ export const TextInput = styled.TextInput`
     border-bottom-width: ${(props) => props.borderSize || 1}px;
     border-bottom-color: ${(props) => props.borderColor || colors.text.main};
 `;
-
-export const TextAction = styled.Text`
-    text-decoration: underline blue;
-    color: blue;
-    font-size: 15px;
-    width: 100%;
-    text-align: center;
-    margin-top: 30px;
-`;

@@ -40,6 +40,13 @@ const SideMenuScreen = ({ navigation, logoutUser }) => {
     });
 
     setMenuItems(menus);
+    const routes = [];
+    if (menu.screenName !== 'Home') {
+      routes.push({ name: 'Home' });
+    }
+    routes.push({ name: menu.screenName });
+
+    navigation.reset({ index: 0, routes });
   };
 
   const renderMenuItems = () => {
@@ -50,7 +57,7 @@ const SideMenuScreen = ({ navigation, logoutUser }) => {
     return menuItems.map((item) => (
       <MenuItem
         key={`menu-item-${item.id}`}
-        style={{ backgroundColor: item.selected ? colors.primary.light : undefined }}
+        style={{ backgroundColor: item.selected ? colors.text.light : undefined }}
         onPress={() => { onMenuItemClick(item); }}
       >
         <MenuIcon>

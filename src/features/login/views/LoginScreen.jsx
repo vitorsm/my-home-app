@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  Container, Form, FormItem, Label, TextInput, TextAction,
+  Container, Form, FormItem, Label, TextInput,
 } from './style';
 import PlainButton from '../../../components/plain-button';
 import { colors } from '../../../configs/colors';
 import * as userActions from '../../../redux/actions/userActions';
+import TextLink from '../../../components/text-link';
 
 const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
   const [login, setLogin] = useState(null);
@@ -62,11 +63,11 @@ const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
             onChangeText={setPassword}
           />
         </FormItem>
-        <TextAction
+        <TextLink
           onPress={() => navigation.navigate('CreateUser')}
         >
           Criar conta
-        </TextAction>
+        </TextLink>
       </Form>
       <PlainButton onPress={onLoginButtonPress}>Entrar</PlainButton>
     </Container>

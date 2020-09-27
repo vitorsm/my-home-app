@@ -43,7 +43,7 @@ export const defaultErrorCallback = (dispatch, res, type, ignoreDispatchError) =
   }
 };
 
-export const post = async (endpoint, data, type, dispatch, config, onSucessBeforeDispatch) => {
+export const httpPost = async (endpoint, data, type, dispatch, config, onSucessBeforeDispatch) => {
   let processedConfig = config;
   if (config === undefined) {
     processedConfig = await getDefaultAxiosConfig();
@@ -63,7 +63,7 @@ export const post = async (endpoint, data, type, dispatch, config, onSucessBefor
     );
 };
 
-export const put = async (endpoint, data, type, dispatch, config, onSucessBeforeDispatch) => {
+export const httpPut = async (endpoint, data, type, dispatch, config, onSucessBeforeDispatch) => {
   let processedConfig = config;
   if (config === undefined) {
     processedConfig = await getDefaultAxiosConfig();
@@ -84,7 +84,19 @@ export const put = async (endpoint, data, type, dispatch, config, onSucessBefore
     );
 };
 
-export const get = async (endpoint, type, dispatch, ignoreDispatchError, config) => {
+export const httpGet = async (endpoint, type, dispatch, ignoreDispatchError, config) => {
+  let processedConfig = config;
+  if (config === undefined) {
+    processedConfig = await getDefaultAxiosConfig();
+  }
+  await axios.get(`${serverURI}${endpoint}`, processedConfig).then((res) => {
+    defaultSuccessCallback(dispatch, res, type);
+  }, (error) => {
+    defaultErrorCallback(dispatch, error, type, ignoreDispatchError);
+  });
+};
+
+export const httpDelete = async (endpoint, type, dispatch, ignoreDispatchError, config) => {
   let processedConfig = config;
   if (config === undefined) {
     processedConfig = await getDefaultAxiosConfig();

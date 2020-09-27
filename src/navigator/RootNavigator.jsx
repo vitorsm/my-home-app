@@ -8,16 +8,13 @@ import CreateUserSreen from '../features/create-user';
 import HomeScreen from '../features/home';
 import SideMenuScreen from '../features/side-menu';
 import ErrorDialog from '../features/error-dialog';
+import BrandScreen from '../features/brand';
+import LeftToRightCardStyleInterpolator from '../components/left-to-right-card-style-interpolator';
+
 import { MenuButton, Container } from './style';
-import { colors } from '../configs/colors';
+import getMenuBarConfig from '../configs/headerOptions';
 
 const Stack = createStackNavigator();
-
-const InvertedHorizontal = ({
-  current, next, index, closing, swiping, layouts, insets,
-}) => CardStyleInterpolators.forHorizontalIOS({
-  current, next, index, closing, swiping, inverted: -1, layouts, insets,
-});
 
 export const screens = {
   HOME: {
@@ -50,7 +47,16 @@ export const screens = {
     component: SideMenuScreen,
     title: 'Criar conta',
     isFeatureMainScreen: false,
-    cardStyleInterpolator: InvertedHorizontal,
+    cardStyleInterpolator: LeftToRightCardStyleInterpolator,
+  },
+  BRAND: {
+    name: 'Brand',
+    hiddenMenu: false,
+    component: BrandScreen,
+    title: 'Marcas',
+    isFeatureMainScreen: true,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+    filterScreenName: 'BrandFilter',
   },
 };
 
@@ -61,17 +67,25 @@ const getHeaderOptions = (navigation, menu) => {
     </MenuButton>
   );
 
+  const headerRightMenu = () => (
+    <MenuButton onPress={() => {
+      navigation.navigate(menu.filterScreenName);
+    }}
+    >
+      <Icon name="search" color="#FFF" size={20} />
+    </MenuButton>
+  );
+
   const options = {
     headerLeft: menu.isFeatureMainScreen ? headerLeftMenu : undefined,
-    headerStyle: { backgroundColor: colors.primary.main },
-    headerTintColor: '#FFF',
+    headerRight: menu.isFeatureMainScreen && menu.filterScreenName ? headerRightMenu : undefined,
     headerShown: !menu.hiddenMenu,
     headerTitleStyle: {
       fontWeight: '100',
     },
     title: menu.title,
-    animationTypeForReplace: 'pop',
     cardStyleInterpolator: menu.cardStyleInterpolator,
+    ...getMenuBarConfig(),
   };
 
   return options;
