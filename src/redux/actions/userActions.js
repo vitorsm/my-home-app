@@ -20,8 +20,8 @@ export const authenticate = (login, password) => async (dispatch) => {
   post('auth/authenticate', credentials, AUTHENTICATION_CREDENTIALS, dispatch, null, onSucessBeforeDispatch);
 };
 
-export const logout = () => {
-  AsyncStorage.removeItem('token');
+export const logout = () => async () => {
+  await AsyncStorage.removeItem('token');
 };
 
 export const createUser = (user) => async (dispatch) => {

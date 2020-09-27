@@ -19,7 +19,7 @@ const LoginScreen = ({ navigation, authenticateUser, authenticatedUser }) => {
   const selectedBorderColor = colors.primary.main;
 
   useEffect(() => {
-    if (authenticatedUser && !authenticatedUser.error) {
+    if (authenticatedUser && !authenticatedUser.error && login && password) {
       navigation.reset({
         index: 0,
         routes: [{ name: 'Home' }],

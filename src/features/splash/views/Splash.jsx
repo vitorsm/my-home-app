@@ -9,23 +9,23 @@ import CircularProgress from '../../../components/circular-progress';
 import * as userActions from '../../../redux/actions/userActions';
 
 const Splash = ({ navigation, fetchCurrentUserData, currentUserData }) => {
-  setTimeout(() => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Login' }],
-    });
-  }, 1000);
-
   useEffect(() => {
     fetchCurrentUserData(true);
   }, []);
 
   useEffect(() => {
-    if (currentUserData && !currentUserData.error && currentUserData.id) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'Home' }],
-      });
+    if (currentUserData) {
+      if (!currentUserData.error && currentUserData.id) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Home' }],
+        });
+      } else {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Login' }],
+        });
+      }
     }
   }, [currentUserData]);
 

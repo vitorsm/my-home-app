@@ -23,7 +23,6 @@ const mapper = {
 
 const errorMapper = (errorFromServer) => {
   let selectedError = getDefaultError;
-  console.log('errorFromServer', errorFromServer);
   if (errorFromServer && errorFromServer.error_code) {
     selectedError = mapper[errorFromServer.error_code];
   } else if (errorFromServer && errorFromServer.status_code) {
