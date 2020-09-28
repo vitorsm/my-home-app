@@ -101,7 +101,7 @@ export const httpDelete = async (endpoint, type, dispatch, ignoreDispatchError, 
   if (config === undefined) {
     processedConfig = await getDefaultAxiosConfig();
   }
-  await axios.get(`${serverURI}${endpoint}`, processedConfig).then((res) => {
+  await axios.delete(`${serverURI}${endpoint}`, processedConfig).then((res) => {
     defaultSuccessCallback(dispatch, res, type);
   }, (error) => {
     defaultErrorCallback(dispatch, error, type, ignoreDispatchError);

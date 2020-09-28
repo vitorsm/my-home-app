@@ -22,6 +22,17 @@ const en = {
   clearFilters: 'Clear filters',
   filter: 'Filter',
   createAccountConfirmationMessage: 'Confirm your data to complete the registration',
+  description: 'Description',
+  save: 'Save',
+  delete: 'Delete',
+  fieldRequiredErrorDefault: 'This field is required',
+  brandMissingNameFieldError: 'The brand name is required',
+  id: 'Id',
+  ok: 'OK',
+  genericDeleteConfirmationTitle: 'Delete',
+  genericDeleteConfirmationMessage: 'Do you want to confirm ?',
+  deleteBrandConfirmationTitle: 'Delete brand',
+  deleteBrandConfirmationMessage: 'Do you want to confirm the brand {{brandName}} removal ?',
 
   // errors
 

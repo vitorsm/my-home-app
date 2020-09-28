@@ -7,7 +7,7 @@ import CRUDList from '../../../components/crud-list';
 
 const NO_BRAND_MESSAGE = 'Nenhuma marca cadastrada';
 
-const BrandListScreen = ({ allBrands, getAllBrands }) => {
+const BrandListScreen = ({ navigation, allBrands, getAllBrands }) => {
   const [brandList, setBrandList] = useState();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -26,7 +26,11 @@ const BrandListScreen = ({ allBrands, getAllBrands }) => {
   }, [allBrands]);
 
   const onBrandItemClick = (brand) => {
-    console.log('clicked', brand);
+    navigation.navigate({ name: 'BrandCreate', params: { brand } });
+  };
+
+  const onAddClick = () => {
+    navigation.navigate({ name: 'BrandCreate', params: { brand: null } });
   };
 
   return (
@@ -35,6 +39,7 @@ const BrandListScreen = ({ allBrands, getAllBrands }) => {
       isLoading={isLoading}
       onItemClick={onBrandItemClick}
       noDataMessage={NO_BRAND_MESSAGE}
+      onAddPress={onAddClick}
     />
   );
 };

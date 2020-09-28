@@ -1,11 +1,17 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Animated, Easing } from 'react-native';
-import { Container, LabelText, TextInput } from './style';
+import {
+  Container, LabelText, TextInput, DescriptionText,
+} from './style';
+import strings from '../../../configs/strings';
 
-const PlainTextFormItem = ({ labelText, onChangeText, defaultValue }) => {
+const PlainTextFormItem = ({
+  labelText, onChangeText, defaultValue, isRequired, fieldRequiredErrorMessage, descriptionField,
+}) => {
   const textLabelAnimatedValue = useRef(new Animated.Value(0)).current;
   const [textValue, setTextValue] = useState(defaultValue);
+  const [isError, setIsError] = useState();
 
   const sizeTextLabelValue = textLabelAnimatedValue.interpolate({
     inputRange: [0, 1],
@@ -36,17 +42,48 @@ const PlainTextFormItem = ({ labelText, onChangeText, defaultValue }) => {
     startAnimation(start, 1);
   };
 
+  useEffect(() => {
+    setIsError(!!(isRequired && !defaultValue));
+    if (!textValue) {
+      setTextValue(defaultValue);
+    }
+
+    if (textValue || defaultValue) {
+      startAnimationOnFocus();
+    } else {
+      startAnimationOnBlur();
+    }
+  }, [defaultValue]);
+
   const onChangeTextInternal = (value) => {
     setTextValue(value);
+    setIsError(!!(isRequired && !value));
     if (onChangeText) {
       onChangeText(value);
     }
+  };
+
+  const renderDescriptionText = () => {
+    if (isError) {
+      return (
+        <DescriptionText isError={isError}>{fieldRequiredErrorMessage}</DescriptionText>
+      );
+    }
+
+    if (descriptionField) {
+      return (
+        <DescriptionText>{descriptionField}</DescriptionText>
+      );
+    }
+
+    return null;
   };
 
   return (
     <Container>
       <LabelText
         style={{ top: positionTextLabelValue, fontSize: sizeTextLabelValue }}
+        isError={isError}
       >
         {labelText}
 
@@ -56,19 +93,29 @@ const PlainTextFormItem = ({ labelText, onChangeText, defaultValue }) => {
         onBlur={startAnimationOnBlur}
         onChangeText={onChangeTextInternal}
         defaultValue={defaultValue}
+        isError={isError}
       />
+
+      {renderDescriptionText()}
     </Container>
   );
 };
 
 PlainTextFormItem.propTypes = {
   labelText: PropTypes.string.isRequired,
-  onChangeText: PropTypes.func.isRequired,
+  onChangeText: PropTypes.func,
   defaultValue: PropTypes.string,
+  isRequired: PropTypes.bool,
+  fieldRequiredErrorMessage: PropTypes.string,
+  descriptionField: PropTypes.string,
 };
 
 PlainTextFormItem.defaultProps = {
+  onChangeText: null,
   defaultValue: null,
+  isRequired: false,
+  fieldRequiredErrorMessage: strings('fieldRequiredErrorDefault'),
+  descriptionField: null,
 };
 
 export default PlainTextFormItem;

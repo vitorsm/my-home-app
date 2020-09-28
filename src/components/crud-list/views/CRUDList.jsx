@@ -12,15 +12,15 @@ import CircularProgress from '../../circular-progress';
 import { colors } from '../../../configs/colors';
 
 const CRUDList = ({
-  data, isLoading, onItemClick, noDataMessage,
+  data, isLoading, onItemClick, noDataMessage, onAddPress,
 }) => {
   const renderListItems = () => data.map((item) => (
     <ListItem key={`crud-list-item-${item.id}-${item.name}`}>
-      <ListItemContent onPress={onItemClick}>
+      <ListItemContent onPress={() => onItemClick(item)}>
         <ListItemTitle>{item.name}</ListItemTitle>
         <ListItemDescription>{item.description}</ListItemDescription>
       </ListItemContent>
-      <ListItemMenuIcon onPress={onItemClick}>
+      <ListItemMenuIcon onPress={() => onItemClick(item)}>
         <MaterialIcon name="more-vert" size={25} />
       </ListItemMenuIcon>
     </ListItem>
@@ -59,7 +59,7 @@ const CRUDList = ({
   return (
     <Container>
       {renderItems()}
-      <AddButton>
+      <AddButton onPress={onAddPress}>
         <MaterialIcon name="add" size={30} color="#FFF" />
       </AddButton>
     </Container>
@@ -75,6 +75,7 @@ CRUDList.propTypes = {
   })),
   onItemClick: PropTypes.func,
   noDataMessage: PropTypes.string,
+  onAddPress: PropTypes.func,
 };
 
 CRUDList.defaultProps = {
@@ -82,6 +83,7 @@ CRUDList.defaultProps = {
   data: [],
   onItemClick: null,
   noDataMessage: null,
+  onAddPress: null,
 };
 
 export default CRUDList;

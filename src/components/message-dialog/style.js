@@ -27,7 +27,7 @@ export const Paper = styled.View`
 `;
 
 export const MessageContentContainer = styled.View`
-    width: 100%
+    width: 100%;
 `;
 
 export const TitleContainer = styled.View`
@@ -46,6 +46,11 @@ export const TextContainer = styled.View`
     width: 100%;
     text-align: center;
     margin-bottom: 50px;
+`;
+
+export const ActionsContainer = styled.View`
+    width: 100%;
+    flex-direction: row;
 `;
 
 export const MessageText = styled.Text`

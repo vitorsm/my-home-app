@@ -10,7 +10,7 @@ export const Container = styled.View`
 
 export const LabelText = styled(Animated.Text)`
     position: relative;
-    color: ${colors.text.main};
+    color: ${(prop) => (prop.isError ? colors.error.main : colors.text.main)};
     margin: 0px;
     margin-left: 2px;
 `;
@@ -20,5 +20,12 @@ export const TextInput = styled.TextInput`
     width: 100%;
     margin: 0px;
     border-bottom-width: 1px;
-    border-bottom-color: ${colors.text.light}
+    border-bottom-color: ${(prop) => (prop.isError ? colors.error.main : colors.text.light)};
+`;
+
+export const DescriptionText = styled.Text`
+    position: relative;
+    color: ${(prop) => (prop.isError ? colors.error.main : colors.text.main)};
+    margin: 2px;
+    font-size: 14px;
 `;

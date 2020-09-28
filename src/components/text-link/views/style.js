@@ -5,7 +5,6 @@ const TextLink = styled.Text`
     text-decoration: underline ${colors.primary.main};
     color: ${colors.primary.main};
     font-size: 17px;
-    width: 100%;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;

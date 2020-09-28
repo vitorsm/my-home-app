@@ -4,9 +4,14 @@ import { Container, ButtonText } from './style';
 import { colors } from '../../configs/colors';
 
 const RoundedButton = ({
-  backgroundColor, textColor, children, onPress, fontSize, style,
+  backgroundColor, textColor, children, onPress, fontSize, style, disabled,
 }) => (
-  <Container backgroundColor={backgroundColor} onPress={onPress} style={{ ...style }}>
+  <Container
+    backgroundColor={backgroundColor}
+    onPress={onPress}
+    style={{ ...style }}
+    disabled={disabled}
+  >
     <ButtonText textColor={textColor} fontSize={fontSize}>{children}</ButtonText>
   </Container>
 );
@@ -18,6 +23,7 @@ RoundedButton.propTypes = {
   onPress: PropTypes.func,
   fontSize: PropTypes.number,
   style: PropTypes.shape(),
+  disabled: PropTypes.bool,
 };
 
 RoundedButton.defaultProps = {
@@ -26,6 +32,7 @@ RoundedButton.defaultProps = {
   onPress: null,
   fontSize: 16,
   style: null,
+  disabled: false,
 };
 
 export default RoundedButton;

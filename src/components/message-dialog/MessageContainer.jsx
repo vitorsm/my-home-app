@@ -2,17 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   MessageContentContainer, MessageTitle, MessageText, TitleContainer, TextContainer, ImageContainer,
+  ActionsContainer,
 } from './style';
 import RoundedButton from '../rounded-button';
+import strings from '../../configs/strings';
+import colors from '../../configs/colors';
 
 const MessageContainer = ({
-  messageData, onOkButtonClick, elementIcon, contentElement,
+  messageData, onPressOk, elementIcon, contentElement, onPressCancel, okText, cancelText,
 }) => {
   const renderIcon = () => {
     if (elementIcon) {
       return (<ImageContainer>{elementIcon}</ImageContainer>);
     }
     return null;
+  };
+
+  const renderCancelButton = () => {
+    if (!onPressCancel) {
+      return null;
+    }
+
+    return (
+      <RoundedButton
+        onPress={onPressCancel}
+        style={{ flexGrow: 1, marginRight: 10 }}
+        backgroundColor="white"
+        textColor={colors.primary.main}
+      >
+        {cancelText}
+
+      </RoundedButton>
+    );
   };
 
   const renderContent = () => {
@@ -24,7 +45,17 @@ const MessageContainer = ({
       <>
         {renderIcon()}
         <TextContainer><MessageText>{messageData.message}</MessageText></TextContainer>
-        <RoundedButton onPress={onOkButtonClick}>OK</RoundedButton>
+        <ActionsContainer>
+          {renderCancelButton()}
+          <RoundedButton
+            onPress={onPressOk}
+            style={{ flexGrow: 1, marginLeft: 10 }}
+          >
+            {okText}
+
+          </RoundedButton>
+        </ActionsContainer>
+
       </>
     );
   };
@@ -42,14 +73,20 @@ MessageContainer.propTypes = {
     title: PropTypes.string.isRequired,
     message: PropTypes.string,
   }).isRequired,
-  onOkButtonClick: PropTypes.func.isRequired,
+  onPressOk: PropTypes.func.isRequired,
   elementIcon: PropTypes.element,
   contentElement: PropTypes.element,
+  onPressCancel: PropTypes.func,
+  okText: PropTypes.string,
+  cancelText: PropTypes.string,
 };
 
 MessageContainer.defaultProps = {
   elementIcon: null,
   contentElement: null,
+  onPressCancel: null,
+  okText: strings('ok'),
+  cancelText: strings('cancel'),
 };
 
 export default MessageContainer;

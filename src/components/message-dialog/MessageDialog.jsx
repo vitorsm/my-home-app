@@ -6,6 +6,7 @@ import { BlurView } from '@react-native-community/blur';
 import PropTypes from 'prop-types';
 import { Container, Paper } from './style';
 import MessageContainer from './MessageContainer';
+import strings from '../../configs/strings';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,7 +30,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const ErrorDialogScreen = ({ messageData, elementIcon, contentElement }) => {
+const MessageDialog = ({
+  messageData, elementIcon, contentElement, onPressOk, onPressCancel, okText, cancelText, show,
+  onClose,
+}) => {
   const [showScreen, setShowScreen] = useState(false);
 
   const paperMarginLeft = 30;
@@ -79,13 +83,29 @@ const ErrorDialogScreen = ({ messageData, elementIcon, contentElement }) => {
 
   useEffect(() => {
     if (messageData) {
-      setShowScreen(true);
+      setShowScreen(show);
       startAnimationUp();
     }
-  }, [messageData]);
+  }, [messageData, show]);
 
-  const onOkButtonClick = () => {
+  const onPressOkInternal = () => {
     startAnimationDown();
+    if (onPressOk) {
+      onPressOk();
+    }
+    if (onClose) {
+      onClose();
+    }
+  };
+
+  const onPressCancelInternal = () => {
+    startAnimationDown();
+    if (onPressCancel) {
+      onPressCancel();
+    }
+    if (onClose) {
+      onClose();
+    }
   };
 
   if (!showScreen) {
@@ -102,9 +122,12 @@ const ErrorDialogScreen = ({ messageData, elementIcon, contentElement }) => {
         <Paper top={paperMarginTop} left={paperMarginLeft} width={paperWidth}>
           <MessageContainer
             messageData={messageData}
-            onOkButtonClick={onOkButtonClick}
+            onPressOk={onPressOkInternal}
             elementIcon={elementIcon}
             contentElement={contentElement}
+            onPressCancel={onPressCancelInternal}
+            okText={okText}
+            cancelText={cancelText}
           />
         </Paper>
       </Animated.View>
@@ -112,18 +135,30 @@ const ErrorDialogScreen = ({ messageData, elementIcon, contentElement }) => {
   );
 };
 
-ErrorDialogScreen.propTypes = {
+MessageDialog.propTypes = {
   messageData: PropTypes.shape({
     title: PropTypes.string.isRequired,
     message: PropTypes.string,
   }).isRequired,
   elementIcon: PropTypes.element,
   contentElement: PropTypes.element,
+  onPressOk: PropTypes.func,
+  onPressCancel: PropTypes.func,
+  okText: PropTypes.string,
+  cancelText: PropTypes.string,
+  show: PropTypes.bool,
+  onClose: PropTypes.func,
 };
 
-ErrorDialogScreen.defaultProps = {
+MessageDialog.defaultProps = {
   elementIcon: null,
   contentElement: null,
+  onPressOk: null,
+  onPressCancel: null,
+  okText: strings('ok'),
+  cancelText: strings('cancel'),
+  show: true,
+  onClose: null,
 };
 
-export default ErrorDialogScreen;
+export default MessageDialog;

@@ -22,6 +22,17 @@ const ptBR = {
   clearFilters: 'Limpar filtros',
   filter: 'Filtrar',
   createAccountConfirmationMessage: 'Confirme seus dados para finalizar o cadastro',
+  description: 'Descrição',
+  save: 'Salvar',
+  delete: 'Deletar',
+  fieldRequiredErrorDefault: 'Este campo é obrigatório',
+  brandMissingNameFieldError: 'O nome da marca é obrigatório',
+  id: 'Id',
+  ok: 'OK',
+  genericDeleteConfirmationTitle: 'Delete',
+  genericDeleteConfirmationMessage: 'Do you want to confirm ?',
+  deleteBrandConfirmationTitle: 'Deletar marca',
+  deleteBrandConfirmationMessage: 'Deseja confirma a deleção da marca {{brandName}} ?',
 
   // errors
 

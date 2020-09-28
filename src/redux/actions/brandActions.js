@@ -16,8 +16,8 @@ export const updateBrand = (brand) => async (dispatch) => {
   httpPut('brand/', brand, UPDATE_BRAND, dispatch);
 };
 
-export const deleteBrand = (brand) => async (dispatch) => {
-  httpDelete('brand/', brand, DELETE_BRAND, dispatch);
+export const deleteBrand = (brandId) => async (dispatch) => {
+  httpDelete(`brand/${brandId}`, DELETE_BRAND, dispatch);
 };
 
 export const getAllBrands = () => async (dispatch) => {
