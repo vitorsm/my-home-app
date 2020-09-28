@@ -5,6 +5,7 @@ import PlainTextFormItem from '../../../components/plain-text-form-item';
 import strings from '../../../configs/strings';
 import CRUDCreate from '../../../components/crud-create';
 import * as productTypeActions from '../../../redux/actions/productTypeActions';
+import SelectComponent from '../../../components/select-component';
 
 const ProductTypeCreateScreen = ({
   route, navigation, createdProductType, updatedProductType, createProductType, updateProductType,
@@ -36,13 +37,20 @@ const ProductTypeCreateScreen = ({
   const prevDeletedProductType = prevDeletedProductTypeRef.current;
 
   useEffect(() => {
-    let initProductType = { id: null, name: null, description: null };
+    let currentProductType = { id: null, name: null, description: null };
+    const initProductType = route.params.initialProductType;
+
     if (route.params.productType) {
-      initProductType = { ...route.params.productType };
+      currentProductType = initProductType || { ...route.params.productType };
     }
     setInitialProductType(route.params.productType);
     setIsEditing(!!(route.params.productType && route.params.productType.id));
-    setProductType(initProductType);
+
+    if (route.params.selectedParent) {
+      currentProductType.parent_product_type = route.params.selectedParent;
+    }
+    setSaveEnabled(isObjComplete(currentProductType) && hasChange(currentProductType));
+    setProductType(currentProductType);
   }, []);
 
   useEffect(() => {
@@ -81,6 +89,17 @@ const ProductTypeCreateScreen = ({
     setSaveEnabled(isObjComplete(productType) && hasChange(productType));
   };
 
+  const onSelectProductTypeClick = () => {
+    navigation.navigate({
+      name: 'ProductTypeSelect',
+      params: {
+        productType,
+        initialProductType,
+        selectedProductType: productType.parent_product_type,
+      },
+    });
+  };
+
   const renderIdComponent = () => {
     if (!isEditing) {
       return null;
@@ -106,9 +125,16 @@ const ProductTypeCreateScreen = ({
       <PlainTextFormItem
         labelText={strings('name')}
         onChangeText={onNameChange}
-        defaultValue={isEditing ? productType.name : null}
+        defaultValue={productType ? productType.name : null}
         isRequired
         fieldRequiredErrorMessage={strings('productTypeMissingNameFieldError')}
+      />
+      <SelectComponent
+        style={{ padding: 20 }}
+        label={strings('parentProductType')}
+        onPress={onSelectProductTypeClick}
+        selectedValue={productType && productType.parent_product_type
+          ? productType.parent_product_type.name : null}
       />
     </CRUDCreate>
   );
@@ -118,14 +144,17 @@ ProductTypeCreateScreen.propTypes = {
   navigation: PropTypes.shape({
     reset: PropTypes.func,
     goBack: PropTypes.func,
+    navigate: PropTypes.func,
   }).isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
       productType: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        id: PropTypes.number,
         name: PropTypes.string.isRequired,
         description: PropTypes.string,
       }),
+      selectedParent: PropTypes.shape(Object),
+      initialProductType: PropTypes.shape(Object),
     }),
   }).isRequired,
   createProductType: PropTypes.func.isRequired,

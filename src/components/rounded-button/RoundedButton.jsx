@@ -22,7 +22,7 @@ RoundedButton.propTypes = {
   children: PropTypes.elementType.isRequired,
   onPress: PropTypes.func,
   fontSize: PropTypes.number,
-  style: PropTypes.shape(),
+  style: PropTypes.shape(Object),
   disabled: PropTypes.bool,
 };
 

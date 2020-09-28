@@ -7,7 +7,8 @@ import {
 import strings from '../../../configs/strings';
 
 const PlainTextFormItem = ({
-  labelText, onChangeText, defaultValue, isRequired, fieldRequiredErrorMessage, descriptionField, fieldValue,
+  labelText, onChangeText, defaultValue, isRequired, fieldRequiredErrorMessage, descriptionField,
+  fieldValue,
 }) => {
   const textLabelAnimatedValue = useRef(new Animated.Value(0)).current;
   const [textValue, setTextValue] = useState(defaultValue);

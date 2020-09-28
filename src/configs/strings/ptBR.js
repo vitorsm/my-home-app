@@ -30,6 +30,7 @@ const ptBR = {
   fieldRequiredErrorDefault: 'Este campo é obrigatório',
   genericDeleteConfirmationTitle: 'Delete',
   genericDeleteConfirmationMessage: 'Do you want to confirm ?',
+  noDataFoundMessage: 'Nenhum dado encontrado',
 
   deleteBrandConfirmationTitle: 'Deletar marca',
   deleteBrandConfirmationMessage: 'Deseja confirma a deleção da marca {{brandName}} ?',
@@ -40,6 +41,7 @@ const ptBR = {
   deleteProductTypeConfirmationMessage: 'Deseja confirma a deleção do tipo de produto {{productTypeName}} ?',
   noProductTypeFound: 'Nenhum tipo de produto cadastrado',
   productTypeMissingNameFieldError: 'O nome do tipo de produto é obrigatório',
+  parentProductType: 'Tipo de produto pai',
 
   // errors
 

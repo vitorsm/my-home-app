@@ -31,6 +31,7 @@ const en = {
   fieldRequiredErrorDefault: 'This field is required',
   genericDeleteConfirmationTitle: 'Delete',
   genericDeleteConfirmationMessage: 'Do you want to confirm ?',
+  noDataFoundMessage: 'No data found',
 
   deleteBrandConfirmationTitle: 'Delete brand',
   deleteBrandConfirmationMessage: 'Do you want to confirm the brand {{brandName}} removal ?',
@@ -41,6 +42,7 @@ const en = {
   deleteProductTypeConfirmationMessage: 'Do you want to confirm the product type {{productTypeName}} removal ?',
   noProductTypeFound: 'No product type found',
   productTypeMissingNameFieldError: 'The productType name is required',
+  parentProductType: 'Parent product type',
 
   // errors
 

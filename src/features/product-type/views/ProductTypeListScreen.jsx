@@ -37,7 +37,7 @@ const ProductTypeListScreen = ({ navigation, allProductTypes, getAllProductTypes
       data={productTypeList}
       isLoading={isLoading}
       onItemClick={onProductTypeItemClick}
-      noDataMessage={strings('noBrandFound')}
+      noDataMessage={strings('noProductTypeFound')}
       onAddPress={onAddClick}
     />
   );

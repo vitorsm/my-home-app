@@ -9,7 +9,7 @@ import strings from '../../configs/strings';
 import { colors } from '../../configs/colors';
 
 const MessageContainer = ({
-  messageData, onPressOk, elementIcon, contentElement, onPressCancel, okText, cancelText,
+  messageData, onPressOk, elementIcon, contentElement, onPressCancel, okText, cancelText, showCancel,
 }) => {
   const renderIcon = () => {
     if (elementIcon) {
@@ -19,7 +19,7 @@ const MessageContainer = ({
   };
 
   const renderCancelButton = () => {
-    if (!onPressCancel) {
+    if (!showCancel) {
       return null;
     }
 
@@ -79,6 +79,7 @@ MessageContainer.propTypes = {
   onPressCancel: PropTypes.func,
   okText: PropTypes.string,
   cancelText: PropTypes.string,
+  showCancel: PropTypes.bool,
 };
 
 MessageContainer.defaultProps = {
@@ -87,6 +88,7 @@ MessageContainer.defaultProps = {
   onPressCancel: null,
   okText: strings('ok'),
   cancelText: strings('cancel'),
+  showCancel: false,
 };
 
 export default MessageContainer;

@@ -4,6 +4,7 @@ import TopToDownCardStyleInterpolator from '../../../components/top-to-down-card
 import ProductTypeFilterScreen from './ProductTypeFilterScreen';
 import ProductTypeListScreen from './ProductTypeListScreen';
 import ProductTypeCreateScreen from './ProductTypeCreateScreen';
+import SelectProductTypeScreen from './SelectProductTypeScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,14 @@ const ProductTypeNavigator = () => (
       options={{
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+      }}
+    />
+    <Stack.Screen
+      name="ProductTypeSelect"
+      component={SelectProductTypeScreen}
+      options={{
+        headerShown: false,
+        cardStyleInterpolator: TopToDownCardStyleInterpolator,
       }}
     />
   </Stack.Navigator>
