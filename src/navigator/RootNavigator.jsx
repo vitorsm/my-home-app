@@ -9,6 +9,7 @@ import HomeScreen from '../features/home';
 import SideMenuScreen from '../features/side-menu';
 import ErrorDialog from '../features/error-dialog';
 import BrandScreen from '../features/brand';
+import ProductTypeScreen from '../features/product-type';
 import LeftToRightCardStyleInterpolator from '../components/left-to-right-card-style-interpolator';
 
 import { MenuButton, Container } from './style';
@@ -59,6 +60,15 @@ export const screens = {
     isFeatureMainScreen: true,
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     filterScreenName: 'BrandFilter',
+  },
+  PRODUCT_TYPE: {
+    name: 'ProductType',
+    hiddenMenu: false,
+    component: ProductTypeScreen,
+    title: strings('productTypes'),
+    isFeatureMainScreen: true,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+    filterScreenName: 'ProductTypeFilter',
   },
 };
 

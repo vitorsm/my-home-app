@@ -1,8 +1,8 @@
-import { GET_BRAND_BY_ID } from '../actions/brandActions';
+import { CREATE_PRODUCT_TYPE } from '../../actions/productTypeActions';
 
 export default (state = null, action) => {
   switch (action.type) {
-    case GET_BRAND_BY_ID:
+    case CREATE_PRODUCT_TYPE:
       return action.payload || false;
     default:
       return state;

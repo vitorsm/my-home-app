@@ -25,14 +25,21 @@ const ptBR = {
   description: 'Descrição',
   save: 'Salvar',
   delete: 'Deletar',
-  fieldRequiredErrorDefault: 'Este campo é obrigatório',
-  brandMissingNameFieldError: 'O nome da marca é obrigatório',
   id: 'Id',
   ok: 'OK',
+  fieldRequiredErrorDefault: 'Este campo é obrigatório',
   genericDeleteConfirmationTitle: 'Delete',
   genericDeleteConfirmationMessage: 'Do you want to confirm ?',
+
   deleteBrandConfirmationTitle: 'Deletar marca',
   deleteBrandConfirmationMessage: 'Deseja confirma a deleção da marca {{brandName}} ?',
+  noBrandFound: 'Nenhuma marca cadastrada',
+  brandMissingNameFieldError: 'O nome da marca é obrigatório',
+
+  deleteProductTypeConfirmationTitle: 'Deletar tipo de produto',
+  deleteProductTypeConfirmationMessage: 'Deseja confirma a deleção do tipo de produto {{productTypeName}} ?',
+  noProductTypeFound: 'Nenhum tipo de produto cadastrado',
+  productTypeMissingNameFieldError: 'O nome do tipo de produto é obrigatório',
 
   // errors
 

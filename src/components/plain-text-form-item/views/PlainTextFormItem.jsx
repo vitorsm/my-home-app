@@ -7,7 +7,7 @@ import {
 import strings from '../../../configs/strings';
 
 const PlainTextFormItem = ({
-  labelText, onChangeText, defaultValue, isRequired, fieldRequiredErrorMessage, descriptionField,
+  labelText, onChangeText, defaultValue, isRequired, fieldRequiredErrorMessage, descriptionField, fieldValue,
 }) => {
   const textLabelAnimatedValue = useRef(new Animated.Value(0)).current;
   const [textValue, setTextValue] = useState(defaultValue);
@@ -41,6 +41,10 @@ const PlainTextFormItem = ({
     const start = textValue ? 1 : 0;
     startAnimation(start, 1);
   };
+
+  useEffect(() => {
+    setTextValue(fieldValue);
+  }, [fieldValue]);
 
   useEffect(() => {
     setIsError(!!(isRequired && !defaultValue));
@@ -108,6 +112,7 @@ PlainTextFormItem.propTypes = {
   isRequired: PropTypes.bool,
   fieldRequiredErrorMessage: PropTypes.string,
   descriptionField: PropTypes.string,
+  fieldValue: PropTypes.string,
 };
 
 PlainTextFormItem.defaultProps = {
@@ -116,6 +121,7 @@ PlainTextFormItem.defaultProps = {
   isRequired: false,
   fieldRequiredErrorMessage: strings('fieldRequiredErrorDefault'),
   descriptionField: null,
+  fieldValue: null,
 };
 
 export default PlainTextFormItem;

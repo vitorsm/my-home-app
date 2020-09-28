@@ -4,28 +4,28 @@ import PlainTextFormItem from '../../../components/plain-text-form-item';
 import CRUDFilter from '../../../components/crud-filter';
 import strings from '../../../configs/strings';
 
-const BrandFilterScreen = ({ navigation }) => {
-  const [brandName, setBrandName] = useState();
+const ProductTypeFilterScreen = ({ navigation }) => {
+  const [productTypeName, setProductTypeName] = useState();
 
   const onFilterButtonClick = () => {
-    navigation.reset({ index: 0, routes: [{ name: 'BrandList', params: { filter: { brandName } } }] });
+    navigation.reset({ index: 0, routes: [{ name: 'ProductTypeList', params: { filter: { productTypeName } } }] });
   };
 
   const onCancelButtonClick = () => {
     navigation.goBack();
   };
 
-  const onChangeBrandName = (value) => {
-    setBrandName(value);
+  const onChangeProductTypeName = (value) => {
+    setProductTypeName(value);
   };
 
   const onResetFilterClick = () => {
-    setBrandName(null);
+    setProductTypeName(null);
   };
 
   const renderContent = () => (
     <>
-      <PlainTextFormItem labelText={strings('name')} onChangeText={onChangeBrandName} value={brandName} />
+      <PlainTextFormItem labelText={strings('name')} onChangeText={onChangeProductTypeName} value={productTypeName} />
     </>
   );
 
@@ -39,11 +39,11 @@ const BrandFilterScreen = ({ navigation }) => {
   );
 };
 
-BrandFilterScreen.propTypes = {
+ProductTypeFilterScreen.propTypes = {
   navigation: PropTypes.shape({
     goBack: PropTypes.func,
     reset: PropTypes.func,
   }).isRequired,
 };
 
-export default BrandFilterScreen;
+export default ProductTypeFilterScreen;

@@ -1,8 +1,8 @@
-import { GET_ALL_BRANDS } from '../actions/brandActions';
+import { GET_BRAND_BY_ID } from '../../actions/brandActions';
 
 export default (state = null, action) => {
   switch (action.type) {
-    case GET_ALL_BRANDS:
+    case GET_BRAND_BY_ID:
       return action.payload || false;
     default:
       return state;

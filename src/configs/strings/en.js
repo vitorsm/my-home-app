@@ -12,6 +12,7 @@ const en = {
   home: 'Home',
   brand: 'Brand',
   productType: 'Product type',
+  productTypes: 'Product types',
   product: 'Product',
   purchaseList: 'Purchase list',
   purchases: 'Purchases',
@@ -25,14 +26,21 @@ const en = {
   description: 'Description',
   save: 'Save',
   delete: 'Delete',
-  fieldRequiredErrorDefault: 'This field is required',
-  brandMissingNameFieldError: 'The brand name is required',
   id: 'Id',
   ok: 'OK',
+  fieldRequiredErrorDefault: 'This field is required',
   genericDeleteConfirmationTitle: 'Delete',
   genericDeleteConfirmationMessage: 'Do you want to confirm ?',
+
   deleteBrandConfirmationTitle: 'Delete brand',
   deleteBrandConfirmationMessage: 'Do you want to confirm the brand {{brandName}} removal ?',
+  noBrandFound: 'No brand found',
+  brandMissingNameFieldError: 'The brand name is required',
+
+  deleteProductTypeConfirmationTitle: 'Delete productType',
+  deleteProductTypeConfirmationMessage: 'Do you want to confirm the product type {{productTypeName}} removal ?',
+  noProductTypeFound: 'No product type found',
+  productTypeMissingNameFieldError: 'The productType name is required',
 
   // errors
 
