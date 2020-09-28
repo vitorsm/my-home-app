@@ -38,12 +38,13 @@ const ProductTypeCreateScreen = ({
 
   useEffect(() => {
     let currentProductType = { id: null, name: null, description: null };
-    const initProductType = route.params.initialProductType;
+    const initProductType = route.params.initialProductType
+      ? route.params.initialProductType : route.params.productType;
 
     if (route.params.productType) {
-      currentProductType = initProductType || { ...route.params.productType };
+      currentProductType = { ...route.params.productType };
     }
-    setInitialProductType(route.params.productType);
+    setInitialProductType(initProductType);
     setIsEditing(!!(route.params.productType && route.params.productType.id));
 
     if (route.params.selectedParent) {

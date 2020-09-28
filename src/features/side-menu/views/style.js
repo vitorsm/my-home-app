@@ -52,7 +52,7 @@ export const TextMenuHeader = styled.Text`
 `;
 
 export const TextMenuItem = styled.Text`
-    font-size: 14px;
+    font-size: 16px;
 `;
 
 export const BackButton = styled.TouchableOpacity`

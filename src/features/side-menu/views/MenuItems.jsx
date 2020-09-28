@@ -18,25 +18,25 @@ const MenuItems = [{
 }, {
   id: 3,
   name: strings('productType'),
-  icon: (<MaterialIcon name="restaurant" size={20} color={colors.primary.main} />),
+  icon: (<MaterialIcon name="description" size={20} color={colors.primary.main} />),
   screenName: 'ProductType',
   selected: false,
 }, {
   id: 4,
   name: strings('product'),
-  icon: (<MaterialIcon name="restaurant" size={20} color={colors.primary.main} />),
+  icon: (<MaterialIcon name="phone-android" size={20} color={colors.primary.main} />),
   screenName: 'Product',
   selected: false,
 }, {
   id: 5,
   name: strings('purchaseList'),
-  icon: (<MaterialIcon name="restaurant" size={20} color={colors.primary.main} />),
+  icon: (<MaterialIcon name="shopping-cart" size={20} color={colors.primary.main} />),
   screenName: 'PurchaseList',
   selected: false,
 }, {
   id: 6,
   name: strings('purchases'),
-  icon: (<MaterialIcon name="restaurant" size={20} color={colors.primary.main} />),
+  icon: (<MaterialIcon name="add-shopping-cart" size={20} color={colors.primary.main} />),
   screenName: 'Purchase',
   selected: false,
 }];

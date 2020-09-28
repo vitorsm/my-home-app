@@ -17,6 +17,12 @@ import createdProductTypeReducer from './product-type/createdProductTypeReducer'
 import deletedProductTypeReducer from './product-type/deletedProductTypeReducer';
 import updatedProductTypeReducer from './product-type/updatedProductTypeReducer';
 
+import allProductsReducer from './product/allProductsReducer';
+import byIdProductReducer from './product/byIdProductReducer';
+import createdProductReducer from './product/createdProductReducer';
+import deletedProductReducer from './product/deletedProductReducer';
+import updatedProductReducer from './product/updatedProductReducer';
+
 export default combineReducers({
   authenticatedUser: authenticatedUserReducer,
   currentUserData: currentUserDataReducer,
@@ -34,4 +40,10 @@ export default combineReducers({
   createdProductType: createdProductTypeReducer,
   deletedProductType: deletedProductTypeReducer,
   updatedProductType: updatedProductTypeReducer,
+
+  allProducts: allProductsReducer,
+  byIdProduct: byIdProductReducer,
+  createdProduct: createdProductReducer,
+  deletedProduct: deletedProductReducer,
+  updatedProduct: updatedProductReducer,
 });

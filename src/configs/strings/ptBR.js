@@ -12,7 +12,9 @@ const ptBR = {
   home: 'Início',
   brand: 'Marca',
   productType: 'Tipo de produto',
+  productTypes: 'Tipos de produto',
   product: 'Produto',
+  products: 'Produtos',
   purchaseList: 'Lista de compra',
   purchases: 'Compras',
   createAccount: 'Criar conta',
@@ -42,6 +44,11 @@ const ptBR = {
   noProductTypeFound: 'Nenhum tipo de produto cadastrado',
   productTypeMissingNameFieldError: 'O nome do tipo de produto é obrigatório',
   parentProductType: 'Tipo de produto pai',
+
+  deleteProductConfirmationTitle: 'Deletar produto',
+  deleteProductConfirmationMessage: 'Deseja confirma a deleção do produto {{productName}} ?',
+  noProductFound: 'Nenhum produto cadastrado',
+  productMissingNameFieldError: 'O nome do produto é obrigatório',
 
   // errors
 

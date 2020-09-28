@@ -14,6 +14,7 @@ const en = {
   productType: 'Product type',
   productTypes: 'Product types',
   product: 'Product',
+  products: 'Products',
   purchaseList: 'Purchase list',
   purchases: 'Purchases',
   createAccount: 'Create account',
@@ -43,6 +44,11 @@ const en = {
   noProductTypeFound: 'No product type found',
   productTypeMissingNameFieldError: 'The productType name is required',
   parentProductType: 'Parent product type',
+
+  deleteProductConfirmationTitle: 'Delete product',
+  deleteProductConfirmationMessage: 'Do you want to confirm the product type {{productName}} removal ?',
+  noProductFound: 'No product type found',
+  productMissingNameFieldError: 'The product name is required',
 
   // errors
 

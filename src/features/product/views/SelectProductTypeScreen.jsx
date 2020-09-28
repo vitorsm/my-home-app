@@ -24,7 +24,7 @@ const SelectProductTypeScreen = ({
 
   useEffect(() => {
     if (allProductTypes !== prevProductTypes && !allProductTypes.error) {
-      setProductTypes(allProductTypes.filter((p) => p.id !== route.params.productType.id));
+      setProductTypes(allProductTypes);
     }
     setIsLoading(false);
   }, [allProductTypes]);
@@ -33,13 +33,13 @@ const SelectProductTypeScreen = ({
     navigation.reset({
       index: 0,
       routes: [{
-        name: 'ProductTypeList',
+        name: 'ProductList',
       }, {
-        name: 'ProductTypeCreate',
+        name: 'ProductCreate',
         params: {
-          productType: route.params.productType,
-          selectedParent: item,
-          initialProductType: route.params.initialProductType,
+          product: route.params.product,
+          selectedNewProductType: item,
+          initialProduct: route.params.initialProduct,
         },
       }],
     });
@@ -65,8 +65,8 @@ SelectProductTypeScreen.propTypes = {
       selectedProductType: PropTypes.shape({
         id: PropTypes.number,
       }),
-      productType: PropTypes.shape(Object),
-      initialProductType: PropTypes.shape(Object),
+      product: PropTypes.shape(Object),
+      initialProduct: PropTypes.shape(Object),
     }),
   }).isRequired,
   allProductTypes: PropTypes.arrayOf(PropTypes.shape(Object)),
