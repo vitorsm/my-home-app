@@ -65,6 +65,12 @@ const ProductTypeCreateScreen = ({
     setIsLoading(false);
   }, [createdProductType, updatedProductType, deletedProductType]);
 
+  const onClearParentProductType = () => {
+    const newProductType = { ...productType };
+    newProductType.parent_product_type = null;
+    setProductType(newProductType);
+  };
+
   const onCancelClick = () => {
     navigation.goBack();
   };
@@ -133,6 +139,7 @@ const ProductTypeCreateScreen = ({
         style={{ padding: 20 }}
         label={strings('parentProductType')}
         onPress={onSelectProductTypeClick}
+        onPressClear={onClearParentProductType}
         selectedValue={productType && productType.parent_product_type
           ? productType.parent_product_type.name : null}
       />
@@ -150,7 +157,7 @@ ProductTypeCreateScreen.propTypes = {
     params: PropTypes.shape({
       productType: PropTypes.shape({
         id: PropTypes.number,
-        name: PropTypes.string.isRequired,
+        name: PropTypes.string,
         description: PropTypes.string,
       }),
       selectedParent: PropTypes.shape(Object),

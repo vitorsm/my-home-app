@@ -126,6 +126,7 @@ const MessageDialog = ({
             elementIcon={elementIcon}
             contentElement={contentElement}
             onPressCancel={onPressCancelInternal}
+            showCancel={!!onPressCancel}
             okText={okText}
             cancelText={cancelText}
           />

@@ -9,7 +9,8 @@ import strings from '../../configs/strings';
 import { colors } from '../../configs/colors';
 
 const MessageContainer = ({
-  messageData, onPressOk, elementIcon, contentElement, onPressCancel, okText, cancelText, showCancel,
+  messageData, onPressOk, elementIcon, contentElement, onPressCancel, okText, cancelText,
+  showCancel,
 }) => {
   const renderIcon = () => {
     if (elementIcon) {

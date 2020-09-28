@@ -5,13 +5,25 @@ export const Container = styled.TouchableOpacity`
   
 `;
 
-export const Content = styled.View`
+export const ActionContent = styled.View`
   flex-direction: row;
-  justify-content: space-between;shadow-radius: 2px;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Content = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  shadow-radius: 2px;
   border-radius: 20px;
   elevation: 1;
   padding: 20px;
   background-color: ${(prop) => prop.backgroundColor};
+`;
+
+export const TouchableIcon = styled.TouchableOpacity`
+  padding-left: 20px;
 `;
 
 export const LabelText = styled.Text`
