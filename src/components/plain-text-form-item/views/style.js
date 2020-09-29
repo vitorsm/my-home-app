@@ -1,6 +1,7 @@
 import { Animated } from 'react-native';
 import styled from 'styled-components';
 import { colors } from '../../../configs/colors';
+import fonts from '../../../configs/fonts';
 
 export const Container = styled.View`
     margin-left: 20px;
@@ -16,7 +17,7 @@ export const LabelText = styled(Animated.Text)`
 `;
 
 export const TextInput = styled.TextInput`
-    font-size: 18px;
+    font-size: ${fonts.fieldValue.size}px;
     width: 100%;
     margin: 0px;
     border-bottom-width: 1px;
@@ -27,5 +28,5 @@ export const DescriptionText = styled.Text`
     position: relative;
     color: ${(prop) => (prop.isError ? colors.error.main : colors.text.main)};
     margin: 2px;
-    font-size: 14px;
+    font-size: ${fonts.fieldLabel.size}px;
 `;

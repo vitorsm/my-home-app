@@ -5,6 +5,7 @@ import {
   Container, LabelText, TextInput, DescriptionText,
 } from './style';
 import strings from '../../../configs/strings';
+import fonts from '../../../configs/fonts';
 
 const PlainTextFormItem = ({
   labelText, onChangeText, defaultValue, isRequired, fieldRequiredErrorMessage, descriptionField,
@@ -16,7 +17,7 @@ const PlainTextFormItem = ({
 
   const sizeTextLabelValue = textLabelAnimatedValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [18, 15],
+    outputRange: [fonts.fieldLabel.size, fonts.fieldLabel.size],
   });
   const positionTextLabelValue = textLabelAnimatedValue.interpolate({
     inputRange: [0, 1],

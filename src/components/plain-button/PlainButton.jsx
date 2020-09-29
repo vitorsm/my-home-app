@@ -4,6 +4,8 @@ import { colors } from '../../configs/colors';
 
 import { Container, TextButton } from './style';
 
+import fonts from '../../configs/fonts';
+
 const PlainButton = ({
   backgroundColor, textColor, fontSize, children, onPress, disabled,
 }) => (
@@ -24,7 +26,7 @@ PlainButton.propTypes = {
 PlainButton.defaultProps = {
   backgroundColor: colors.primary.main,
   textColor: 'white',
-  fontSize: 20,
+  fontSize: fonts.plainButton.size,
   onPress: null,
   disabled: false,
 };

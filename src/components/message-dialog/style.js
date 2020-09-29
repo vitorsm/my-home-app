@@ -1,5 +1,6 @@
 import { Dimensions } from 'react-native';
 import styled from 'styled-components';
+import fonts from '../../configs/fonts';
 
 export const Container = styled.View`
     position: absolute;
@@ -38,7 +39,7 @@ export const TitleContainer = styled.View`
 
 export const MessageTitle = styled.Text`
     font-weight: bold;
-    font-size: 20px;
+    font-size: ${fonts.dialogTitle.size}px;
     text-align: center;
 `;
 
@@ -55,7 +56,7 @@ export const ActionsContainer = styled.View`
 
 export const MessageText = styled.Text`
     width: 100%;
-    font-size: 17px;
+    font-size: ${fonts.content.size}px;
     text-align: center;
 `;
 

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { StyleSheet } from 'react-native';
 import { colors } from '../../configs/colors';
+import fonts from '../../configs/fonts';
 
 export const SelectContainer = styled.View`
 flex: 1;
@@ -29,12 +30,12 @@ flex: 1;
 `;
 
 export const SelectListItemName = styled.Text`
-font-size: 17px;
+font-size: ${fonts.mainContent.size}px;
 font-weight: bold;
 `;
 
 export const SelectListItemDescription = styled.Text`
-font-size: 15px;
+font-size: ${fonts.content.size}px;
 `;
 
 export const SelectNoDataContainer = styled.View`
@@ -44,7 +45,7 @@ margin-top: 150px;
 align-items: center;
 `;
 export const NoDataText = styled.Text`
-font-size: 20px;
+font-size: ${fonts.content.size}px;
 color: ${colors.text.main};
 `;
 
@@ -55,6 +56,6 @@ export const LoadingContainer = styled.View`
 `;
 
 export const LoadingText = styled.Text`
-  font-size: 16px;
+  font-size: ${fonts.content.size}px;
   color: ${colors.text.main}
 `;

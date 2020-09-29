@@ -52,6 +52,7 @@ const SelectBrandScreen = ({
       noDataFoundMessage={strings('noBrandFound')}
       selectedItem={route.params.selectedBrand}
       isLoading={isLoading}
+      searchLabel={strings('brand')}
     />
   );
 };

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import fonts from '../../configs/fonts';
 
 export const Container = styled.View`
     width: 100%;
@@ -7,12 +8,12 @@ export const Container = styled.View`
 `;
 
 export const Label = styled.Text`
-    font-size: 30px;
+    font-size: ${fonts.screenInputTitle.size}px;
     padding: 20px;
 `;
 
 export const Description = styled.Text`
-    font-size: 15px;
+    font-size: ${fonts.content.size}px;
 `;
 
 export const TextContainer = styled.View`
@@ -23,5 +24,5 @@ export const TextContainer = styled.View`
 `;
 
 export const DefaultTextInput = styled.TextInput`
-    font-size: 20px;
+    font-size: ${fonts.screenInputText.size}px;
 `;

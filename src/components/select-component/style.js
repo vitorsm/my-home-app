@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { colors } from '../../configs/colors';
+import fonts from '../../configs/fonts';
 
 export const Container = styled.TouchableOpacity`
   
@@ -33,7 +34,7 @@ export const LabelText = styled.Text`
     margin-left: 2px;
 `;
 export const SelectComponentText = styled.Text`
-  font-size: 16px;
+  font-size: ${fonts.content.size}px;
   color: ${(prop) => prop.textColor};
 `;
 
@@ -41,5 +42,5 @@ export const DescriptionText = styled.Text`
     position: relative;
     color: ${(prop) => (prop.isError ? colors.error.main : colors.text.main)};
     margin: 2px;
-    font-size: 14px;
+    font-size: ${fonts.fieldLabel.size}px;
 `;

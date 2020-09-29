@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { colors } from '../../../configs/colors';
+import fonts from '../../../configs/fonts';
 
 export const Container = styled.View`
     background-color: ${colors.primary.main};
@@ -9,12 +10,12 @@ export const Container = styled.View`
 `;
 
 export const TitleText = styled.Text`
-    font-size: 20px;
+    font-size: ${fonts.content.size}px;
     color: white;
 `;
 
 export const DescriptionText = styled.Text`
-    font-size: 15px;
+    font-size: ${fonts.content.size}px;
     color: white;
     margin-top: 20px;
 `;

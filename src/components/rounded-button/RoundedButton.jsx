@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, ButtonText } from './style';
 import { colors } from '../../configs/colors';
+import fonts from '../../configs/fonts';
 
 const RoundedButton = ({
   backgroundColor, textColor, children, onPress, fontSize, style, disabled,
@@ -30,7 +31,7 @@ RoundedButton.defaultProps = {
   backgroundColor: colors.primary.main,
   textColor: 'white',
   onPress: null,
-  fontSize: 16,
+  fontSize: fonts.content.size,
   style: null,
   disabled: false,
 };

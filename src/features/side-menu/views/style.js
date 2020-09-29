@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { StyleSheet } from 'react-native';
 import { colors } from '../../../configs/colors';
+import fonts from '../../../configs/fonts';
 
 export const Container = styled.View`
     flex: 1
@@ -47,12 +48,12 @@ export const MenuItem = styled.TouchableOpacity`
 `;
 
 export const TextMenuHeader = styled.Text`
-    font-size: 14px;
+    font-size: ${fonts.title.size}px;
     color: ${colors.text.light}
 `;
 
 export const TextMenuItem = styled.Text`
-    font-size: 16px;
+    font-size: ${fonts.content.size}px;
 `;
 
 export const BackButton = styled.TouchableOpacity`

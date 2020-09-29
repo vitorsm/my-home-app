@@ -52,6 +52,7 @@ const SelectProductTypeScreen = ({
       noDataFoundMessage={strings('noProductTypeFound')}
       selectedItem={route.params.selectedProductType}
       isLoading={isLoading}
+      searchLabel={strings('productType')}
     />
   );
 };

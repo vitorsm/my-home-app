@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { colors } from '../../../configs/colors';
+import fonts from '../../../configs/fonts';
 
 export const Container = styled.View`
     flex: 1;
 `;
 
 export const Label = styled.Text`
-    font-size: 30px;
+    font-size: ${fonts.screenInputTitle.size}px;
     padding: 20px;
     margin-bottom: 20px;
 `;
@@ -18,12 +19,12 @@ export const ViewItem = styled.View`
 `;
 
 export const FieldName = styled.Text`
-    font-size: 15px;
+    font-size: ${fonts.content.size}px;
     color: ${colors.text.main};
     padding: 20px;
 `;
 export const FieldValue = styled.Text`
-    font-size: 20px;
+    font-size: ${fonts.screenInputText.size}px;
     color: black
 `;
 

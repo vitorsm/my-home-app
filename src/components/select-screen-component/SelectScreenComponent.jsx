@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
@@ -12,8 +12,29 @@ import strings from '../../configs/strings';
 import CircularProgress from '../circular-progress';
 
 const SelectScreenComponent = ({
-  items, noDataFoundMessage, onPressItem, selectedItem, isLoading,
+  items, noDataFoundMessage, onPressItem, selectedItem, isLoading, searchLabel, loadingMessage,
 }) => {
+  const [filteredItems, setFilteredItems] = useState(items);
+  const [searchText, setSearchText] = useState();
+
+  const onChangeSearchTextHandle = (value) => {
+    if (!items) {
+      setFilteredItems([]);
+    } else {
+      setFilteredItems(items.filter((item) => !value
+       || (item.name && item.name.toLowerCase().includes(value.toLowerCase()))));
+    }
+  };
+
+  useEffect(() => {
+    onChangeSearchTextHandle(searchText);
+  }, [items]);
+
+  const onChangeSearchText = (value) => {
+    setSearchText(value);
+    onChangeSearchTextHandle(value);
+  };
+
   const renderItems = () => {
     if (isLoading) {
       return (
@@ -23,12 +44,12 @@ const SelectScreenComponent = ({
             color={colors.primary.main}
             borderColor={colors.text.light}
           />
-          <LoadingText>Buscando tipos de produto</LoadingText>
+          <LoadingText>{loadingMessage}</LoadingText>
         </LoadingContainer>
       );
     }
 
-    if (!items || !items.length) {
+    if (!filteredItems || !filteredItems.length) {
       return (
         <SelectNoDataContainer>
           <AwesomeIcon name="inbox" color={colors.primary.light} size={100} />
@@ -37,7 +58,7 @@ const SelectScreenComponent = ({
       );
     }
 
-    return items.map((item) => (
+    return filteredItems.map((item) => (
       <SelectListItem
         key={`select-component-${item.id}-${item.name}`}
         onPress={() => onPressItem(item)}
@@ -54,7 +75,7 @@ const SelectScreenComponent = ({
 
   return (
     <SelectContainer>
-      <PlainTextFormItem labelText="Tipo de produto" />
+      <PlainTextFormItem labelText={searchLabel} onChangeText={onChangeSearchText} />
       <SelectListContainer>
         {renderItems()}
       </SelectListContainer>
@@ -74,6 +95,8 @@ SelectScreenComponent.propTypes = {
     id: PropTypes.number,
   }),
   isLoading: PropTypes.bool,
+  searchLabel: PropTypes.string.isRequired,
+  loadingMessage: PropTypes.string,
 };
 
 SelectScreenComponent.defaultProps = {
@@ -81,6 +104,7 @@ SelectScreenComponent.defaultProps = {
   noDataFoundMessage: strings,
   selectedItem: null,
   isLoading: false,
+  loadingMessage: null,
 };
 
 export default SelectScreenComponent;

@@ -48,7 +48,7 @@ const MessageDialog = ({
   });
   const positionValue = positionAnimateValue.interpolate({
     inputRange: [0, 1],
-    outputRange: [Dimensions.get('window').width, paperMarginTop],
+    outputRange: [Dimensions.get('window').height, paperMarginTop],
   });
 
   const startAnimation = (startValue, endValue) => {
@@ -63,7 +63,7 @@ const MessageDialog = ({
     }).start();
     Animated.timing(positionAnimateValue, {
       toValue: endValue,
-      duration: 100,
+      duration: 500,
       useNativeDriver: false,
       easing: Easing.elastic(1.2),
     }).start(() => {

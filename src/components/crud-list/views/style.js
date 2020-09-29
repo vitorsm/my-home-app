@@ -1,6 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components';
 import { colors } from '../../../configs/colors';
+import fonts from '../../../configs/fonts';
 
 export const Container = styled.View`
     flex: 1;
@@ -37,12 +38,12 @@ export const ListItemContent = styled.TouchableOpacity`
 `;
 
 export const ListItemTitle = styled.Text`
-    font-size: 17px;
-    font-weight: bold;
+    font-size: ${fonts.mainContent.size}px;
+    font-weight: ${fonts.mainContent.isBold ? 'bold' : null};
 `;
 
 export const ListItemDescription = styled.Text`
-    font-size: 15px;
+    font-size: ${fonts.content.size}px;
 `;
 
 export const AddButton = styled.TouchableOpacity`
@@ -76,7 +77,7 @@ export const NoDataContainer = styled.View`
 `;
 
 export const NoDataText = styled.Text`
-  font-size: 20px;
+  font-size: ${fonts.content.size}px;
   color: ${colors.text.main};
 `;
 
@@ -87,6 +88,6 @@ export const LoadingContainer = styled.View`
 `;
 
 export const LoadingText = styled.Text`
-  font-size: 16px;
+  font-size: ${fonts.content.size}px;
   color: ${colors.text.main}
 `;
