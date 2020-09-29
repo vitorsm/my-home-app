@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, ButtonText } from './style';
-import { colors } from '../../configs/colors';
+import colors from '../../configs/colors';
 import fonts from '../../configs/fonts';
 
 const RoundedButton = ({

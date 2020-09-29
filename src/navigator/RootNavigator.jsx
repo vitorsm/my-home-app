@@ -11,6 +11,8 @@ import ErrorDialog from '../features/error-dialog';
 import BrandScreen from '../features/brand';
 import ProductTypeScreen from '../features/product-type';
 import ProductScreen from '../features/product';
+import PurchaseList from '../features/purchase-list';
+
 import LeftToRightCardStyleInterpolator from '../components/left-to-right-card-style-interpolator';
 
 import { MenuButton, Container } from './style';
@@ -79,6 +81,15 @@ export const screens = {
     isFeatureMainScreen: true,
     cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
     filterScreenName: 'ProductFilter',
+  },
+  PURCHASE_LIST: {
+    name: 'PurchaseList',
+    hiddenMenu: false,
+    component: PurchaseList,
+    title: strings('purchaseList'),
+    isFeatureMainScreen: true,
+    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+    filterScreenName: null,
   },
 };
 

@@ -3,7 +3,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import PropTypes from 'prop-types';
 import PlainTextFormItem from '../plain-text-form-item';
-import { colors } from '../../configs/colors';
+import colors from '../../configs/colors';
 import {
   SelectContainer, SelectNoDataContainer, NoDataText, SelectListItem, SelectListItemContent,
   SelectListItemName, SelectListItemDescription, SelectListContainer, LoadingContainer, LoadingText,

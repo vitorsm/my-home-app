@@ -5,7 +5,7 @@ import {
   Container, Form, FormItem, Label, TextInput,
 } from './style';
 import PlainButton from '../../../components/plain-button';
-import { colors } from '../../../configs/colors';
+import colors from '../../../configs/colors';
 import * as userActions from '../../../redux/actions/userActions';
 import TextLink from '../../../components/text-link';
 import strings from '../../../configs/strings';

@@ -9,7 +9,7 @@ import {
   HeaderItem, ContainerScroll, HeaderMenuItem, TextMenuItem, ProfileImageContainer,
   BackButton, MenuItem, TextMenuHeader, MenuIcon,
 } from './style';
-import { colors } from '../../../configs/colors';
+import colors from '../../../configs/colors';
 import RoundedButton from '../../../components/rounded-button';
 import MenuItems from './MenuItems';
 import strings from '../../../configs/strings';

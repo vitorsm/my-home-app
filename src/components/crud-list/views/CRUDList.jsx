@@ -9,7 +9,7 @@ import {
 } from './style';
 
 import CircularProgress from '../../circular-progress';
-import { colors } from '../../../configs/colors';
+import colors from '../../../configs/colors';
 
 const CRUDList = ({
   data, isLoading, onItemClick, noDataMessage, onAddPress,

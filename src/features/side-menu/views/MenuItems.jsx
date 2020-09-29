@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import { colors } from '../../../configs/colors';
+import colors from '../../../configs/colors';
 import strings from '../../../configs/strings';
 
 const MenuItems = [{

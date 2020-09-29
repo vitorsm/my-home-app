@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MessageDialog from '../../../components/message-dialog';
-import { colors } from '../../../configs/colors';
+import colors from '../../../configs/colors';
 import errorMapper from '../../../utils/errorsUtils';
 
 const ErrorDialogScreen = ({ defaultError }) => {

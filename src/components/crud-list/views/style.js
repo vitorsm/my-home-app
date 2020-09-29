@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import styled from 'styled-components';
-import { colors } from '../../../configs/colors';
+import colors from '../../../configs/colors';
 import fonts from '../../../configs/fonts';
 
 export const Container = styled.View`

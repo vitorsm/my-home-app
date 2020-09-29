@@ -6,7 +6,7 @@ import {
 } from './style';
 import RoundedButton from '../rounded-button';
 import strings from '../../configs/strings';
-import { colors } from '../../configs/colors';
+import colors from '../../configs/colors';
 
 const MessageContainer = ({
   messageData, onPressOk, elementIcon, contentElement, onPressCancel, okText, cancelText,

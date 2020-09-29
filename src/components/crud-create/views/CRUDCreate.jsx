@@ -7,7 +7,7 @@ import {
 import strings from '../../../configs/strings';
 import TestLink from '../../text-link';
 import CircularProgress from '../../circular-progress';
-import { colors } from '../../../configs/colors';
+import colors from '../../../configs/colors';
 import MessageDialog from '../../message-dialog';
 
 const CRUDCreate = ({

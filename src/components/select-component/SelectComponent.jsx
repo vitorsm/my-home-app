@@ -4,7 +4,7 @@ import PropType from 'prop-types';
 import {
   Container, SelectComponentText, Content, DescriptionText, LabelText, ActionContent, TouchableIcon,
 } from './style';
-import { colors } from '../../configs/colors';
+import colors from '../../configs/colors';
 
 const SelectComponent = ({
   onPress, style, backgroundColor, textColor, label, selectedValue, description, onPressClear,
