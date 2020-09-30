@@ -3,7 +3,6 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 import { Container, ActionButton, QuantityInput } from './style';
 import colors from '../../configs/colors';
-import { ProductTypeText } from '../product-component/styled';
 
 const QuantityComponent = ({ initialValue, onChangeValue }) => {
   const [numericValue, setNumericValue] = useState(initialValue);
@@ -11,8 +10,8 @@ const QuantityComponent = ({ initialValue, onChangeValue }) => {
 
   const onChangeText = (value) => {
     let number = 0;
-    if (!isNaN(value)) {
-      number = parseInt(value);
+    if (!Number.isNaN(value)) {
+      number = parseInt(value, 10);
     }
     setNumericValue(number);
     setInputValue(!value ? '' : number.toString());

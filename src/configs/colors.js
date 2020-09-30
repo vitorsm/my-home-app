@@ -15,7 +15,7 @@ const colors = {
     dark: '#004c40',
   },
   text: {
-    main: '#999999',
+    main: '#37474f',
     light: '#cacaca',
     dark: '#6b6b6b',
 

@@ -6,7 +6,7 @@ export const Container = styled.View`
   align-items: center;
   background-color: white;
   border-radius: 5px;
-  elevation: 1;
+  elevation: 5;
 `;
 
 export const ActionButton = styled.TouchableOpacity`

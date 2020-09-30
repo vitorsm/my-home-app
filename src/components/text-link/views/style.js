@@ -7,8 +7,8 @@ const TextLink = styled.Text`
     color: ${colors.primary.main};
     font-size: ${fonts.content.size}px;
     text-align: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: ${(prop) => (prop.marginTop !== undefined ? prop.marginTop : 20)}px;
+    margin-bottom: ${(prop) => (prop.marginBottom !== undefined ? prop.marginBottom : 20)}px;
 `;
 
 export default TextLink;
