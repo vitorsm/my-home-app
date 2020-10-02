@@ -33,6 +33,7 @@ const ptBR = {
   genericDeleteConfirmationTitle: 'Delete',
   genericDeleteConfirmationMessage: 'Do you want to confirm ?',
   noDataFoundMessage: 'Nenhum dado encontrado',
+  items: 'itens',
 
   deleteBrandConfirmationTitle: 'Deletar marca',
   deleteBrandConfirmationMessage: 'Deseja confirma a deleção da marca {{brandName}} ?',
@@ -49,6 +50,11 @@ const ptBR = {
   deleteProductConfirmationMessage: 'Deseja confirma a deleção do produto {{productName}} ?',
   noProductFound: 'Nenhum produto cadastrado',
   productMissingNameFieldError: 'O nome do produto é obrigatório',
+
+  deletePurhcaseListConfirmationTitle: 'Deletar lista de compra',
+  deletePurhcaseListConfirmationMessage: 'Deseja confirma a deleção do lista de compra {{purchaseListName}} ?',
+  noPurhcaseListFound: 'Nenhum lista de compra cadastrada',
+  purchaseListMissingNameFieldError: 'O nome da lista de compra é obrigatório',
 
   // errors
 

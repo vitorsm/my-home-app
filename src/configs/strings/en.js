@@ -33,6 +33,7 @@ const en = {
   genericDeleteConfirmationTitle: 'Delete',
   genericDeleteConfirmationMessage: 'Do you want to confirm ?',
   noDataFoundMessage: 'No data found',
+  items: 'items',
 
   deleteBrandConfirmationTitle: 'Delete brand',
   deleteBrandConfirmationMessage: 'Do you want to confirm the brand {{brandName}} removal ?',
@@ -49,6 +50,11 @@ const en = {
   deleteProductConfirmationMessage: 'Do you want to confirm the product type {{productName}} removal ?',
   noProductFound: 'No product type found',
   productMissingNameFieldError: 'The product name is required',
+
+  deletePurchaseListConfirmationTitle: 'Delete purchase list',
+  deletePurchaseListConfirmationMessage: 'Do you want to confirm the purchase list type {{purchaseListName}} removal ?',
+  noPurchaseListFound: 'No purchase list found',
+  purchaseListMissingNameFieldError: 'The purchase list name is required',
 
   // errors
 

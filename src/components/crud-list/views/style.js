@@ -11,6 +11,12 @@ export const Scroll = styled.ScrollView`
     flex: 1;
 `;
 
+export const DescriptionResultText = styled.Text`
+  font-size: ${fonts.fieldLabel.size}px;
+  color: ${colors.text.light};
+  padding: 20px;
+`;
+
 export const ListItem = styled.View`
     width: ${Dimensions.get('window').width - 20}px;
     flex-direction: row;
@@ -21,8 +27,10 @@ export const ListItem = styled.View`
     padding-right: 10px;
     margin-left: 10px;
     margin-right: 10px;
-    border-bottom-width: ${StyleSheet.hairlineWidth}px;
-    border-bottom-color: ${colors.text.main};
+    border-width: ${StyleSheet.hairlineWidth}px;
+    border-color: ${colors.text.light};
+    border-radius: 10px;
+    margin: 5px;
 `;
 
 export const ListItemMenuIcon = styled.TouchableOpacity`

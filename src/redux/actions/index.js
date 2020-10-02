@@ -4,6 +4,7 @@ import axios from 'axios';
 export const DEFAULT_ERROR_TYPE = 'default_error';
 
 const serverURI = 'http://192.168.0.25:5000/api/';
+// const serverURI = 'http://192.168.43.147:5000/api/';
 
 export const getDefaultHeader = async () => {
   const token = await AsyncStorage.getItem('token');

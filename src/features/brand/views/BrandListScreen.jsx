@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as brandActions from '../../../redux/actions/brandActions';
-
 import CRUDList from '../../../components/crud-list';
-
-const NO_BRAND_MESSAGE = 'Nenhuma marca cadastrada';
+import strings from '../../../configs/strings';
 
 const BrandListScreen = ({ navigation, allBrands, getAllBrands }) => {
   const [brandList, setBrandList] = useState();
@@ -38,7 +36,7 @@ const BrandListScreen = ({ navigation, allBrands, getAllBrands }) => {
       data={brandList}
       isLoading={isLoading}
       onItemClick={onBrandItemClick}
-      noDataMessage={NO_BRAND_MESSAGE}
+      noDataMessage={strings('noBrandFound')}
       onAddPress={onAddClick}
     />
   );

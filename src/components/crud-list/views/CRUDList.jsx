@@ -6,10 +6,12 @@ import PropTypes from 'prop-types';
 import {
   Container, Scroll, AddButton, ListItem, ListItemContent, ListItemTitle, ListItemDescription,
   ListItemMenuIcon, CompensationHeight, NoDataContainer, NoDataText, LoadingContainer, LoadingText,
+  DescriptionResultText,
 } from './style';
 
 import CircularProgress from '../../circular-progress';
 import colors from '../../../configs/colors';
+import strings from '../../../configs/strings';
 
 const CRUDList = ({
   data, isLoading, onItemClick, noDataMessage, onAddPress,
@@ -50,10 +52,17 @@ const CRUDList = ({
     }
 
     return (
-      <Scroll>
-        {renderListItems()}
-        <CompensationHeight />
-      </Scroll>
+      <>
+        <DescriptionResultText>
+          {data.length}
+          {' '}
+          {strings('items')}
+        </DescriptionResultText>
+        <Scroll>
+          {renderListItems()}
+          <CompensationHeight />
+        </Scroll>
+      </>
     );
   };
   return (
