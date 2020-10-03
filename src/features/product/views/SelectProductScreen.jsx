@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { BackHandler } from 'react-native';
 import SelectScreenComponent from '../../../components/select-screen-component';
 import strings from '../../../configs/strings';
 import * as productActions from '../../../redux/actions/productActions';
@@ -19,22 +18,9 @@ const SelectProductScreen = ({
     prevProductsRef.current = allProducts;
   });
 
-  // const onBack = () => {
-  //   navigation.reset({
-  //     index: 0,
-  //     routes: route.params.routesToReturn,
-  //   });
-  //   return true;
-  // };
-
   useEffect(() => {
     getAllProducts();
     setIsLoading(true);
-    // BackHandler.addEventListener('hardwareBackPress', onBack);
-
-    // return () => {
-    //   BackHandler.removeEventListener('hardwareBackPress', onBack);
-    // };
   }, []);
 
   useEffect(() => {

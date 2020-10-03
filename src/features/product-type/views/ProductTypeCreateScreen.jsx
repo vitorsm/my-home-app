@@ -19,8 +19,19 @@ const ProductTypeCreateScreen = ({
 
   const isObjComplete = (newProductType) => !!(newProductType && newProductType.name);
 
-  const hasChange = (newProductType) => (!initialProductType)
-  || newProductType.name !== initialProductType.name;
+  const hasChange = (newProductType, initProductType) => {
+    const initProductTypeSelected = initProductType || initialProductType;
+
+    const newParent = newProductType.parent_product_type;
+    const initParet = initProductTypeSelected.parent_product_type;
+
+    if ((initParet && !newParent) || (!initParet && newParent)
+       || (initParet && newParent && initParet.id !== newParent.id)) {
+      return true;
+    }
+
+    return (!initProductTypeSelected) || newProductType.name !== initProductTypeSelected.name;
+  };
 
   const prevUpdatedProductTypeRef = useRef(updatedProductType);
   const prevCreatedProductTypeRef = useRef(createdProductType);
@@ -44,13 +55,15 @@ const ProductTypeCreateScreen = ({
     if (route.params.productType) {
       currentProductType = { ...route.params.productType };
     }
+
     setInitialProductType(initProductType);
     setIsEditing(!!(route.params.productType && route.params.productType.id));
 
-    if (route.params.selectedParent) {
-      currentProductType.parent_product_type = route.params.selectedParent;
+    if (route.params.newSelectedProductType) {
+      currentProductType.parent_product_type = route.params.newSelectedProductType;
     }
-    setSaveEnabled(isObjComplete(currentProductType) && hasChange(currentProductType));
+    setSaveEnabled(isObjComplete(currentProductType)
+    && hasChange(currentProductType, initProductType));
     setProductType(currentProductType);
   }, []);
 
@@ -60,7 +73,7 @@ const ProductTypeCreateScreen = ({
     || (prevDeletedProductType !== deletedProductType && !deletedProductType.error)) {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'ProductTypeList' }],
+        routes: [{ name: 'Home' }, { name: 'ProductType' }],
       });
     }
     setIsLoading(false);
@@ -96,13 +109,25 @@ const ProductTypeCreateScreen = ({
     setSaveEnabled(isObjComplete(productType) && hasChange(productType));
   };
 
+  const getRoutesToReturn = () => [{ name: 'Home' }, { name: 'ProductType' }, {
+    name: 'ProductType',
+    state: {
+      routes: [{
+        name: 'ProductTypeCreate',
+        params: {
+          productType,
+          initialProductType,
+        },
+      }],
+    },
+  }];
+
   const onSelectProductTypeClick = () => {
     navigation.navigate({
-      name: 'ProductTypeSelect',
+      name: 'SelectProductType',
       params: {
-        productType,
-        initialProductType,
         selectedProductType: productType.parent_product_type,
+        routesToReturn: getRoutesToReturn(),
       },
     });
   };
@@ -161,8 +186,9 @@ ProductTypeCreateScreen.propTypes = {
         name: PropTypes.string,
         description: PropTypes.string,
       }),
-      selectedParent: PropTypes.shape(Object),
+      newSelectedProductType: PropTypes.shape(Object),
       initialProductType: PropTypes.shape(Object),
+      routesToReturn: PropTypes.arrayOf(Object),
     }),
   }).isRequired,
   createProductType: PropTypes.func.isRequired,

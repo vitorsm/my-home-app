@@ -21,27 +21,29 @@ const PurchaseListCreateScreen = ({
 
   const isObjComplete = (newPurchaseList) => !!(newPurchaseList && newPurchaseList.name);
 
-  const productsHasChange = (product) => {
-    const initialProduct = getItemFromList(initialPurchaseList.products, product.id);
+  const productsHasChange = (product, selectedInitialPurchaseList) => {
+    const initialProduct = getItemFromList(selectedInitialPurchaseList.products, product.id);
 
     return (!initialProduct)
    || initialProduct.quantity !== product.quantity || initialProduct.value !== product.value;
   };
 
-  const hasChange = (newPurchaseList) => {
-    if (!initialPurchaseList || !initialPurchaseList.id) {
+  const hasChange = (newPurchaseList, initPurchaseList) => {
+    const selectedInitialPurchaseList = initPurchaseList || initialPurchaseList;
+
+    if (!selectedInitialPurchaseList || !selectedInitialPurchaseList.id) {
       return true;
     }
 
-    if (initialPurchaseList.products.length !== newPurchaseList.products.length) {
+    if (selectedInitialPurchaseList.products.length !== newPurchaseList.products.length) {
       return true;
     }
 
-    if (newPurchaseList.name !== initialPurchaseList.name) {
+    if (newPurchaseList.name !== selectedInitialPurchaseList.name) {
       return true;
     }
 
-    if (newPurchaseList.products.some(productsHasChange)) {
+    if (newPurchaseList.products.some(productsHasChange, selectedInitialPurchaseList)) {
       return true;
     }
 
@@ -63,26 +65,29 @@ const PurchaseListCreateScreen = ({
   const prevDeletedPurchaseList = prevDeletedPurchaseListRef.current;
 
   useEffect(() => {
-    let initPurchaseList = {
+    let purchaseListToSet = {
       id: null, name: null, description: null, products: [],
     };
+    const initPurchaseList = route.params.initPurchaseList
+      ? route.params.initPurchaseList : route.params.purchaseList;
 
     if (route.params.purchaseList) {
-      initPurchaseList = { ...route.params.purchaseList };
+      purchaseListToSet = { ...route.params.purchaseList };
     }
 
     if (route.params.newSelectedProduct) {
-      if (!initPurchaseList.products) {
-        initPurchaseList.products = [];
+      if (!purchaseListToSet.products) {
+        purchaseListToSet.products = [];
       }
-      if (!initPurchaseList.products.some((p) => p.id === route.params.newSelectedProduct.id)) {
-        initPurchaseList.products.push(route.params.newSelectedProduct);
-        setSaveEnabled(isObjComplete(initPurchaseList) && hasChange(initPurchaseList));
+      if (!purchaseListToSet.products.some((p) => p.id === route.params.newSelectedProduct.id)) {
+        purchaseListToSet.products.push(route.params.newSelectedProduct);
+        setSaveEnabled(isObjComplete(purchaseListToSet)
+         && hasChange(purchaseListToSet, initPurchaseList));
       }
     }
-    setInitialPurchaseList(route.params.purchaseList);
+    setInitialPurchaseList(initPurchaseList);
     setIsEditing(!!(route.params.purchaseList && route.params.purchaseList.id));
-    setPurchaseList(initPurchaseList);
+    setPurchaseList(purchaseListToSet);
   }, []);
 
   useEffect(() => {
@@ -154,6 +159,7 @@ const PurchaseListCreateScreen = ({
         name: 'PurchaseListCreate',
         params: {
           purchaseList,
+          initialPurchaseList,
         },
       }],
     },
@@ -235,6 +241,11 @@ PurchaseListCreateScreen.propTypes = {
         description: PropTypes.string,
       }),
       newSelectedProduct: PropTypes.shape(Object),
+      initPurchaseList: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        products: PropTypes.arrayOf(Object),
+      }),
     }),
   }).isRequired,
   createPurchaseList: PropTypes.func.isRequired,
