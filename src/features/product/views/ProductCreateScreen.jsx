@@ -48,11 +48,11 @@ const ProductCreateScreen = ({
     setInitialProduct(initProduct);
     setIsEditing(!!(route.params.product && route.params.product.id));
 
-    if (route.params.selectedNewProductType) {
-      currentProduct.product_type = route.params.selectedNewProductType;
+    if (route.params.newSelectedProductType) {
+      currentProduct.product_type = route.params.newSelectedProductType;
     }
-    if (route.params.selectedNewBrand) {
-      currentProduct.brand = route.params.selectedNewBrand;
+    if (route.params.newSelectedBrand) {
+      currentProduct.brand = route.params.newSelectedBrand;
     }
 
     setSaveEnabled(isObjComplete(currentProduct) && hasChange(currentProduct));
@@ -118,24 +118,40 @@ const ProductCreateScreen = ({
     setSaveEnabled(isObjComplete(product) && hasChange(product));
   };
 
+  const getRoutesToReturn = () => [{ name: 'Home' }, {
+    name: 'Product',
+  }, {
+    name: 'Product',
+    state: {
+      routes: [{
+        name: 'ProductCreate',
+        params: {
+          product,
+          initialProduct: route.params.initialProduct,
+          routesToReturn: route.params.routesToReturn,
+        },
+      }],
+    },
+  }];
+
   const onSelectProductTypeClick = () => {
-    navigation.navigate({
-      name: 'ProductProductTypeSelect',
+    navigation.navigate('ProductType', {
+      screen: 'SelectProductType',
       params: {
-        product,
         initialProduct,
         selectedProductType: product.product_type,
+        routesToReturn: getRoutesToReturn(),
       },
     });
   };
 
   const onSelectBrandClick = () => {
-    navigation.navigate({
-      name: 'ProductBrandSelect',
+    navigation.navigate('Brand', {
+      screen: 'SelectBrand',
       params: {
-        product,
         initialProduct,
         selectedBrand: product.brand,
+        routesToReturn: getRoutesToReturn(),
       },
     });
   };
@@ -202,8 +218,8 @@ ProductCreateScreen.propTypes = {
         name: PropTypes.string,
         description: PropTypes.string,
       }),
-      selectedNewProductType: PropTypes.shape(Object),
-      selectedNewBrand: PropTypes.shape(Object),
+      newSelectedProductType: PropTypes.shape(Object),
+      newSelectedBrand: PropTypes.shape(Object),
       initialProduct: PropTypes.shape(Object),
       routesToReturn: PropTypes.arrayOf(Object),
     }),

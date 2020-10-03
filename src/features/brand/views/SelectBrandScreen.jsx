@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SelectScreenComponent from '../../../components/select-screen-component';
 import strings from '../../../configs/strings';
 import * as brandActions from '../../../redux/actions/brandActions';
+import { getLastRouteToSetParamsFromRoutesToReturn } from '../../../utils/routeUtils';
 
 const SelectBrandScreen = ({
   navigation, route, allBrands, getAllBrands,
@@ -24,24 +25,19 @@ const SelectBrandScreen = ({
 
   useEffect(() => {
     if (allBrands !== prevBrands && !allBrands.error) {
-      setBrands(allBrands.filter((p) => p.id !== route.params.product.id));
+      setBrands(allBrands);
     }
     setIsLoading(false);
   }, [allBrands]);
 
   const onItemSelected = (item) => {
+    const currentRoutes = route.params.routesToReturn;
+    const lastRoute = getLastRouteToSetParamsFromRoutesToReturn(currentRoutes);
+    lastRoute.params.newSelectedBrand = item;
+
     navigation.reset({
       index: 0,
-      routes: [{
-        name: 'ProductList',
-      }, {
-        name: 'ProductCreate',
-        params: {
-          product: route.params.product,
-          selectedNewBrand: item,
-          initialProduct: route.params.initialProduct,
-        },
-      }],
+      routes: currentRoutes,
     });
   };
 
@@ -66,8 +62,8 @@ SelectBrandScreen.propTypes = {
       selectedBrand: PropTypes.shape({
         id: PropTypes.number,
       }),
-      product: PropTypes.shape(Object),
       initialProduct: PropTypes.shape(Object),
+      routesToReturn: PropTypes.arrayOf(PropTypes.shape(Object)),
     }),
   }).isRequired,
   allBrands: PropTypes.arrayOf(PropTypes.shape(Object)),

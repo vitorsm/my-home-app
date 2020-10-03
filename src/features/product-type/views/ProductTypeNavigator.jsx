@@ -31,7 +31,7 @@ const ProductTypeNavigator = () => (
       }}
     />
     <Stack.Screen
-      name="ProductTypeSelect"
+      name="SelectProductType"
       component={SelectProductTypeScreen}
       options={{
         headerShown: false,

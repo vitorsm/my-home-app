@@ -19,22 +19,22 @@ const SelectProductScreen = ({
     prevProductsRef.current = allProducts;
   });
 
-  const onBack = () => {
-    navigation.reset({
-      index: 0,
-      routes: route.params.routesToReturn,
-    });
-    return true;
-  };
+  // const onBack = () => {
+  //   navigation.reset({
+  //     index: 0,
+  //     routes: route.params.routesToReturn,
+  //   });
+  //   return true;
+  // };
 
   useEffect(() => {
     getAllProducts();
     setIsLoading(true);
-    BackHandler.addEventListener('hardwareBackPress', onBack);
+    // BackHandler.addEventListener('hardwareBackPress', onBack);
 
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', onBack);
-    };
+    // return () => {
+    //   BackHandler.removeEventListener('hardwareBackPress', onBack);
+    // };
   }, []);
 
   useEffect(() => {

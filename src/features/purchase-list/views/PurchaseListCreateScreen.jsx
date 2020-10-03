@@ -147,31 +147,25 @@ const PurchaseListCreateScreen = ({
     setSaveEnabled(isObjComplete(purchaseList) && hasChange(purchaseList));
   };
 
-  const onPressAddProductButton = () => {
-    navigation.reset({
-      index: 0,
+  const getRoutesToReturn = () => [{ name: 'Home' }, { name: 'PurchaseList' }, {
+    name: 'PurchaseList',
+    state: {
       routes: [{
-        name: 'Product',
-        state: {
-          routes: [{
-            name: 'ProductSelect',
-            params: {
-              routesToReturn: [{ name: 'Home' }, { name: 'PurchaseList' }, {
-                name: 'PurchaseList',
-                state: {
-                  routes: [{
-                    name: 'PurchaseListCreate',
-                    params: {
-                      purchaseList,
-                    },
-                  }],
-                },
-              }],
-              excludeProducts: purchaseList.products,
-            },
-          }],
+        name: 'PurchaseListCreate',
+        params: {
+          purchaseList,
         },
       }],
+    },
+  }];
+
+  const onPressAddProductButton = () => {
+    navigation.navigate('Product', {
+      screen: 'ProductSelect',
+      params: {
+        routesToReturn: getRoutesToReturn(),
+        excludeProducts: purchaseList.products,
+      },
     });
   };
 

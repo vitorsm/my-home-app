@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import SelectScreenComponent from '../../../components/select-screen-component';
 import strings from '../../../configs/strings';
 import * as productTypeActions from '../../../redux/actions/productTypeActions';
+import { getLastRouteToSetParamsFromRoutesToReturn } from '../../../utils/routeUtils';
 
 const SelectProductTypeScreen = ({
   navigation, route, allProductTypes, getAllProductTypes,
@@ -24,24 +25,19 @@ const SelectProductTypeScreen = ({
 
   useEffect(() => {
     if (allProductTypes !== prevProductTypes && !allProductTypes.error) {
-      setProductTypes(allProductTypes.filter((p) => p.id !== route.params.productType.id));
+      setProductTypes(allProductTypes);
     }
     setIsLoading(false);
   }, [allProductTypes]);
 
   const onItemSelected = (item) => {
+    const currentRoutes = route.params.routesToReturn;
+    const lastRoute = getLastRouteToSetParamsFromRoutesToReturn(currentRoutes);
+    lastRoute.params.newSelectedProductType = item;
+
     navigation.reset({
       index: 0,
-      routes: [{
-        name: 'ProductTypeList',
-      }, {
-        name: 'ProductTypeCreate',
-        params: {
-          productType: route.params.productType,
-          selectedParent: item,
-          initialProductType: route.params.initialProductType,
-        },
-      }],
+      routes: currentRoutes,
     });
   };
 
@@ -66,8 +62,8 @@ SelectProductTypeScreen.propTypes = {
       selectedProductType: PropTypes.shape({
         id: PropTypes.number,
       }),
-      productType: PropTypes.shape(Object),
-      initialProductType: PropTypes.shape(Object),
+      initialProduct: PropTypes.shape(Object),
+      routesToReturn: PropTypes.arrayOf(PropTypes.shape(Object)),
     }),
   }).isRequired,
   allProductTypes: PropTypes.arrayOf(PropTypes.shape(Object)),
