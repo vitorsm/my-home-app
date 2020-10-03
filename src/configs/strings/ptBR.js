@@ -34,6 +34,7 @@ const ptBR = {
   genericDeleteConfirmationMessage: 'Do you want to confirm ?',
   noDataFoundMessage: 'Nenhum dado encontrado',
   items: 'itens',
+  remove: 'Remover',
 
   deleteBrandConfirmationTitle: 'Deletar marca',
   deleteBrandConfirmationMessage: 'Deseja confirma a deleção da marca {{brandName}} ?',

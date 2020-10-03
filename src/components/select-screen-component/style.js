@@ -26,7 +26,13 @@ background-color: ${(prop) => (prop.selected ? colors.text.light : 'white')}
 `;
 
 export const SelectListItemContent = styled.View`
-flex: 1;
+  flex: 1;
+`;
+
+export const SearchComponent = styled.View`
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
 `;
 
 export const SelectListItemName = styled.Text`
@@ -58,4 +64,14 @@ export const LoadingContainer = styled.View`
 export const LoadingText = styled.Text`
   font-size: ${fonts.content.size}px;
   color: ${colors.text.main}
+`;
+
+export const AddButton = styled.TouchableOpacity`
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  background-color: ${colors.primary.main};
+  elevation: 4;
+  justify-content: center;
+  align-items: center;
 `;

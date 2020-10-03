@@ -4,8 +4,8 @@ import fonts from '../../configs/fonts';
 import colors from '../../configs/colors';
 
 export const Container = styled.View`
-  flex: 1;
   padding: 10px;
+  height: ${Dimensions.get('window').height - 320}px;
 `;
 
 export const TitleContainer = styled.View`
@@ -14,7 +14,7 @@ export const TitleContainer = styled.View`
 `;
 
 export const ProductListContainer = styled.ScrollView`
-  height: ${Dimensions.get('window').height - 170}px;
+  
 `;
 
 export const Title = styled.Text`
@@ -30,4 +30,16 @@ export const AddButton = styled.TouchableOpacity`
   elevation: 4;
   justify-content: center;
   align-items: center;
+`;
+
+export const NoDataContainer = styled.View`
+  flex: 1;
+  width: 100%;
+  margin-top: 150px;
+  align-items: center;
+`;
+
+export const NoDataText = styled.Text`
+  font-size: ${fonts.content.size}px;
+  color: ${colors.text.main};
 `;

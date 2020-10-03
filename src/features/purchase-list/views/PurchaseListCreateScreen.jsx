@@ -6,46 +6,8 @@ import strings from '../../../configs/strings';
 import CRUDCreate from '../../../components/crud-create';
 import * as purchaseListActions from '../../../redux/actions/purchaseListActions';
 import AddProductComponent from '../../../components/add-products-component';
-
-const products = [
-  {
-    id: 1,
-    name: 'Test 1',
-    product_type: {
-      id: 1,
-      name: 'Type 1',
-    },
-    quantity: 0,
-    value: 0,
-  }, {
-    id: 2,
-    name: 'Test 2',
-    product_type: {
-      id: 2,
-      name: 'Type 2',
-    },
-    quantity: 0,
-    value: 0,
-  }, {
-    id: 3,
-    name: 'Test 3',
-    product_type: {
-      id: 1,
-      name: 'Type 1',
-    },
-    quantity: 0,
-    value: 0,
-  }, {
-    id: 4,
-    name: 'Test 4',
-    product_type: {
-      id: 1,
-      name: 'Type 3',
-    },
-    quantity: 0,
-    value: 0,
-  },
-];
+import { ProductListContainer } from './style';
+import { removeItemFromList, getItemFromList } from '../../../utils/arrayUtils';
 
 const PurchaseListCreateScreen = ({
   route, navigation, createdPurchaseList, updatedPurchaseList, createPurchaseList,
@@ -59,8 +21,32 @@ const PurchaseListCreateScreen = ({
 
   const isObjComplete = (newPurchaseList) => !!(newPurchaseList && newPurchaseList.name);
 
-  const hasChange = (newPurchaseList) => (!initialPurchaseList)
-   || newPurchaseList.name !== initialPurchaseList.name;
+  const productsHasChange = (product) => {
+    const initialProduct = getItemFromList(initialPurchaseList.products, product.id);
+
+    return (!initialProduct)
+   || initialProduct.quantity !== product.quantity || initialProduct.value !== product.value;
+  };
+
+  const hasChange = (newPurchaseList) => {
+    if (!initialPurchaseList || !initialPurchaseList.id) {
+      return true;
+    }
+
+    if (initialPurchaseList.products.length !== newPurchaseList.products.length) {
+      return true;
+    }
+
+    if (newPurchaseList.name !== initialPurchaseList.name) {
+      return true;
+    }
+
+    if (newPurchaseList.products.some(productsHasChange)) {
+      return true;
+    }
+
+    return false;
+  };
 
   const prevUpdatedPurchaseListRef = useRef(updatedPurchaseList);
   const prevCreatedPurchaseListRef = useRef(createdPurchaseList);
@@ -77,9 +63,22 @@ const PurchaseListCreateScreen = ({
   const prevDeletedPurchaseList = prevDeletedPurchaseListRef.current;
 
   useEffect(() => {
-    let initPurchaseList = { id: null, name: null, description: null };
+    let initPurchaseList = {
+      id: null, name: null, description: null, products: [],
+    };
+
     if (route.params.purchaseList) {
       initPurchaseList = { ...route.params.purchaseList };
+    }
+
+    if (route.params.newSelectedProduct) {
+      if (!initPurchaseList.products) {
+        initPurchaseList.products = [];
+      }
+      if (!initPurchaseList.products.some((p) => p.id === route.params.newSelectedProduct.id)) {
+        initPurchaseList.products.push(route.params.newSelectedProduct);
+        setSaveEnabled(isObjComplete(initPurchaseList) && hasChange(initPurchaseList));
+      }
     }
     setInitialPurchaseList(route.params.purchaseList);
     setIsEditing(!!(route.params.purchaseList && route.params.purchaseList.id));
@@ -122,7 +121,59 @@ const PurchaseListCreateScreen = ({
     setSaveEnabled(isObjComplete(purchaseList) && hasChange(purchaseList));
   };
 
-  const onPressAddProductButton = () => null;
+  const onChangeProductQuantity = (product, quantity) => {
+    const selectedProduct = purchaseList.products.filter((p) => p.id === product.id)[0];
+    if (selectedProduct) {
+      selectedProduct.quantity = quantity;
+    }
+
+    setPurchaseList(purchaseList);
+    setSaveEnabled(isObjComplete(purchaseList) && hasChange(purchaseList));
+  };
+
+  const onChangeProductValue = (product, value) => {
+    const selectedProduct = purchaseList.products.filter((p) => p.id === product.id)[0];
+    if (selectedProduct) {
+      selectedProduct.value = value;
+    }
+
+    setPurchaseList(purchaseList);
+    setSaveEnabled(isObjComplete(purchaseList) && hasChange(purchaseList));
+  };
+
+  const onPressRemoveButton = (product) => {
+    removeItemFromList(purchaseList.products, product);
+    setPurchaseList({ ...purchaseList });
+    setSaveEnabled(isObjComplete(purchaseList) && hasChange(purchaseList));
+  };
+
+  const onPressAddProductButton = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{
+        name: 'Product',
+        state: {
+          routes: [{
+            name: 'ProductSelect',
+            params: {
+              routesToReturn: [{ name: 'Home' }, { name: 'PurchaseList' }, {
+                name: 'PurchaseList',
+                state: {
+                  routes: [{
+                    name: 'PurchaseListCreate',
+                    params: {
+                      purchaseList,
+                    },
+                  }],
+                },
+              }],
+              excludeProducts: purchaseList.products,
+            },
+          }],
+        },
+      }],
+    });
+  };
 
   const renderIdComponent = () => {
     if (!isEditing) {
@@ -131,6 +182,32 @@ const PurchaseListCreateScreen = ({
 
     return (
       <PlainTextFormItem labelText={strings('id')} onChangeText={null} defaultValue={purchaseList.id.toString()} />
+    );
+  };
+
+  const renderFields = () => {
+    if (!purchaseList) {
+      return <></>;
+    }
+
+    return (
+      <ProductListContainer nestedScrollEnabled>
+        {renderIdComponent()}
+        <PlainTextFormItem
+          labelText={strings('name')}
+          onChangeText={onNameChange}
+          defaultValue={purchaseList.name}
+          isRequired
+          fieldRequiredErrorMessage={strings('purchaseListMissingNameFieldError')}
+        />
+        <AddProductComponent
+          products={purchaseList.products}
+          onPressAddProductButton={onPressAddProductButton}
+          onChangeProductQuantity={onChangeProductQuantity}
+          onChangeProductValue={onChangeProductValue}
+          onPressRemoveButton={onPressRemoveButton}
+        />
+      </ProductListContainer>
     );
   };
 
@@ -145,15 +222,7 @@ const PurchaseListCreateScreen = ({
       deleteTitle={strings('deletePurchaseListConfirmationTitle')}
       deleteMessage={strings('deletePurchaseListConfirmationMessage', { purchaseListName: purchaseList ? purchaseList.name : null })}
     >
-      {renderIdComponent()}
-      <PlainTextFormItem
-        labelText={strings('name')}
-        onChangeText={onNameChange}
-        defaultValue={isEditing ? purchaseList.name : null}
-        isRequired
-        fieldRequiredErrorMessage={strings('purchaseListMissingNameFieldError')}
-      />
-      <AddProductComponent products={products} onPressAddProductButton={onPressAddProductButton} />
+      {renderFields()}
     </CRUDCreate>
   );
 };
@@ -162,14 +231,16 @@ PurchaseListCreateScreen.propTypes = {
   navigation: PropTypes.shape({
     reset: PropTypes.func,
     goBack: PropTypes.func,
+    navigate: PropTypes.func,
   }).isRequired,
   route: PropTypes.shape({
     params: PropTypes.shape({
       purchaseList: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
+        id: PropTypes.number,
+        name: PropTypes.string,
         description: PropTypes.string,
       }),
+      newSelectedProduct: PropTypes.shape(Object),
     }),
   }).isRequired,
   createPurchaseList: PropTypes.func.isRequired,

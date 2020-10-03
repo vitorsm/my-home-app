@@ -7,12 +7,14 @@ import colors from '../../configs/colors';
 import {
   SelectContainer, SelectNoDataContainer, NoDataText, SelectListItem, SelectListItemContent,
   SelectListItemName, SelectListItemDescription, SelectListContainer, LoadingContainer, LoadingText,
+  SearchComponent, AddButton,
 } from './style';
 import strings from '../../configs/strings';
 import CircularProgress from '../circular-progress';
 
 const SelectScreenComponent = ({
   items, noDataFoundMessage, onPressItem, selectedItem, isLoading, searchLabel, loadingMessage,
+  onPressAddButton,
 }) => {
   const [filteredItems, setFilteredItems] = useState(items);
   const [searchText, setSearchText] = useState();
@@ -33,6 +35,18 @@ const SelectScreenComponent = ({
   const onChangeSearchText = (value) => {
     setSearchText(value);
     onChangeSearchTextHandle(value);
+  };
+
+  const renderAddButton = () => {
+    if (!onPressAddButton) {
+      return null;
+    }
+
+    return (
+      <AddButton onPress={onPressAddButton}>
+        <MaterialIcon name="add" size={20} color="#FFF" />
+      </AddButton>
+    );
   };
 
   const renderItems = () => {
@@ -75,7 +89,11 @@ const SelectScreenComponent = ({
 
   return (
     <SelectContainer>
-      <PlainTextFormItem labelText={searchLabel} onChangeText={onChangeSearchText} />
+      <SearchComponent>
+        <PlainTextFormItem labelText={searchLabel} onChangeText={onChangeSearchText} />
+        {renderAddButton()}
+      </SearchComponent>
+
       <SelectListContainer>
         {renderItems()}
       </SelectListContainer>
@@ -97,6 +115,7 @@ SelectScreenComponent.propTypes = {
   isLoading: PropTypes.bool,
   searchLabel: PropTypes.string.isRequired,
   loadingMessage: PropTypes.string,
+  onPressAddButton: PropTypes.func,
 };
 
 SelectScreenComponent.defaultProps = {
@@ -105,6 +124,7 @@ SelectScreenComponent.defaultProps = {
   selectedItem: null,
   isLoading: false,
   loadingMessage: null,
+  onPressAddButton: null,
 };
 
 export default SelectScreenComponent;

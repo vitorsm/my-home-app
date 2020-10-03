@@ -6,6 +6,7 @@ import strings from '../../../configs/strings';
 import CRUDCreate from '../../../components/crud-create';
 import * as productActions from '../../../redux/actions/productActions';
 import SelectComponent from '../../../components/select-component';
+import { getLastRouteToSetParamsFromRoutesToReturn } from '../../../utils/routeUtils';
 
 const ProductCreateScreen = ({
   route, navigation, createdProduct, updatedProduct, createProduct, updateProduct,
@@ -62,10 +63,22 @@ const ProductCreateScreen = ({
     if ((prevCreatedProduct !== createdProduct && !createdProduct.error)
     || (prevUpdatedProduct !== updatedProduct && !updatedProduct.error)
     || (prevDeletedProduct !== deletedProduct && !deletedProduct.error)) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'ProductList' }],
-      });
+      if (route.params.routesToReturn && createdProduct) {
+        const currentRoutes = route.params.routesToReturn;
+
+        const lastRoute = getLastRouteToSetParamsFromRoutesToReturn(currentRoutes);
+        lastRoute.params.newSelectedProduct = createdProduct;
+
+        navigation.reset({
+          index: 0,
+          routes: currentRoutes,
+        });
+      } else {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'ProductList' }],
+        });
+      }
     }
     setIsLoading(false);
   }, [createdProduct, updatedProduct, deletedProduct]);
@@ -192,6 +205,7 @@ ProductCreateScreen.propTypes = {
       selectedNewProductType: PropTypes.shape(Object),
       selectedNewBrand: PropTypes.shape(Object),
       initialProduct: PropTypes.shape(Object),
+      routesToReturn: PropTypes.arrayOf(Object),
     }),
   }).isRequired,
   createProduct: PropTypes.func.isRequired,

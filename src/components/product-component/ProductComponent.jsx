@@ -10,9 +10,11 @@ import TextLink from '../text-link';
 import MoneyInputComponent from '../money-input-component';
 
 import colors from '../../configs/colors';
+import strings from '../../configs/strings';
 
 const ProductComponent = ({
   productName, quantity, value, productTypeName, onChangeQuantity, onChangeValue,
+  onPressRemoveButton,
 }) => {
   const [isActionClosed, setIsActionClosed] = useState(true);
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
@@ -24,7 +26,7 @@ const ProductComponent = ({
     setTotalValue(newQuantity * currentValue);
 
     if (onChangeQuantity) {
-      onChangeQuantity(value);
+      onChangeQuantity(newQuantity);
     }
   };
 
@@ -33,7 +35,7 @@ const ProductComponent = ({
     setTotalValue(newValue * currentQuantity);
 
     if (onChangeValue) {
-      onChangeValueInternal(newValue);
+      onChangeValue(newValue);
     }
   };
 
@@ -56,8 +58,8 @@ const ProductComponent = ({
           />
         </ActionContent>
         <RemoveContent>
-          <RemoveContentAction>
-            <TextLink marginBottom={0} marginTop={0}>Remover</TextLink>
+          <RemoveContentAction onPress={onPressRemoveButton}>
+            <TextLink marginBottom={0} marginTop={0}>{strings('remove')}</TextLink>
           </RemoveContentAction>
         </RemoveContent>
       </>
@@ -98,6 +100,7 @@ ProductComponent.propTypes = {
   productTypeName: PropTypes.string,
   onChangeQuantity: PropTypes.func,
   onChangeValue: PropTypes.func,
+  onPressRemoveButton: PropTypes.func,
 };
 
 ProductComponent.defaultProps = {
@@ -106,6 +109,7 @@ ProductComponent.defaultProps = {
   productTypeName: null,
   onChangeQuantity: null,
   onChangeValue: null,
+  onPressRemoveButton: null,
 };
 
 export default ProductComponent;

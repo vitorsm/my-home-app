@@ -7,6 +7,7 @@ export const Container = styled.View`
     margin-left: 20px;
     margin-right: 20px;
     justify-content: flex-start;
+    flex: 1;
 `;
 
 export const LabelText = styled(Animated.Text)`
