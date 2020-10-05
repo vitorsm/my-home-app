@@ -13,8 +13,8 @@ import colors from '../../configs/colors';
 import strings from '../../configs/strings';
 
 const ProductComponent = ({
-  productName, quantity, value, productTypeName, onChangeQuantity, onChangeValue,
-  onPressRemoveButton,
+  productName, quantity, value, plannedQuantity, productTypeName, onChangeQuantity,
+  onChangeValue, onPressRemoveButton,
 }) => {
   const [isActionClosed, setIsActionClosed] = useState(true);
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
@@ -66,8 +66,21 @@ const ProductComponent = ({
     );
   };
 
+  const renderPlannedQuantity = () => {
+    if (!plannedQuantity) {
+      return null;
+    }
+
+    return (
+      <>
+        /
+        {plannedQuantity}
+      </>
+    );
+  };
+
   return (
-    <Container onPress={onPressContainer}>
+    <Container onPress={onPressContainer} isError={plannedQuantity && quantity < plannedQuantity}>
       <ContentContainer>
         <TextContainer>
           <ProductText>{productName}</ProductText>
@@ -79,8 +92,9 @@ const ProductComponent = ({
           {totalValue.toFixed(2)}
         </ValueText>
         <ValuesTextContainer>
-          <QuantityText>
+          <QuantityText isError={plannedQuantity && quantity < plannedQuantity}>
             {currentQuantity}
+            {renderPlannedQuantity()}
           </QuantityText>
           <ProductTypeText>itens</ProductTypeText>
         </ValuesTextContainer>
@@ -101,6 +115,7 @@ ProductComponent.propTypes = {
   onChangeQuantity: PropTypes.func,
   onChangeValue: PropTypes.func,
   onPressRemoveButton: PropTypes.func,
+  plannedQuantity: PropTypes.number,
 };
 
 ProductComponent.defaultProps = {
@@ -110,6 +125,7 @@ ProductComponent.defaultProps = {
   onChangeQuantity: null,
   onChangeValue: null,
   onPressRemoveButton: null,
+  plannedQuantity: null,
 };
 
 export default ProductComponent;

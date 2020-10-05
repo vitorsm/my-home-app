@@ -4,6 +4,7 @@ import TopToDownCardStyleInterpolator from '../../../components/top-to-down-card
 import PurchaseListFilterScreen from './PurchaseListFilterScreen';
 import PurchaseListListScreen from './PurchaseListListScreen';
 import PurchaseListCreateScreen from './PurchaseListCreateScreen';
+import SelectPurchaseListScreen from './SelectPurchaseListScreen';
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,14 @@ const PurchaseListNavigator = () => (
       options={{
         headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
+      }}
+    />
+    <Stack.Screen
+      name="SelectPurchaseList"
+      component={SelectPurchaseListScreen}
+      options={{
+        headerShown: false,
+        cardStyleInterpolator: TopToDownCardStyleInterpolator,
       }}
     />
   </Stack.Navigator>

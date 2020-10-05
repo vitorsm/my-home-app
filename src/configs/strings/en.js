@@ -57,6 +57,10 @@ const en = {
   noPurchaseListFound: 'No purchase list found',
   purchaseListMissingNameFieldError: 'The purchase list name is required',
 
+  deletePurchaseConfirmationTitle: 'Delete purchase',
+  deletePurchaseConfirmationMessage: 'Do you want to confirm the purchase {{purchaseName}} removal ?',
+  noPurchaseFound: 'No purchase found',
+
   // errors
 
   genericErrorTitle: 'Something is wrong',

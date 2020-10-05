@@ -1,18 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import AwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import AwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import {
   Container, ProductListContainer, TitleContainer, Title, AddButton, NoDataContainer, NoDataText,
+  FilterContainer, FilterContainerScroll, ProductScrollContainer,
 } from './style';
 import strings from '../../configs/strings';
 import ProductComponent from '../product-component';
 import colors from '../../configs/colors';
+import FilterItem from '../filter-item';
 
 const AddProductsComponent = ({
   products, onPressAddProductButton, onChangeProductQuantity, onChangeProductValue,
   onPressRemoveButton,
 }) => {
+  const [plannedSelected, setPlannedSelected] = useState(false);
+  const [notBoughtSelected, setNotBoughtSelected] = useState(false);
+
   const onPressAdd = () => {
     if (onPressAddProductButton) {
       onPressAddProductButton();
@@ -37,6 +42,24 @@ const AddProductsComponent = ({
     }
   };
 
+  const onPressPlannedButton = () => {
+    if (plannedSelected) {
+      setPlannedSelected(false);
+    } else {
+      setPlannedSelected(true);
+      setNotBoughtSelected(false);
+    }
+  };
+
+  const onPressNotBought = () => {
+    if (notBoughtSelected) {
+      setNotBoughtSelected(false);
+    } else {
+      setPlannedSelected(false);
+      setNotBoughtSelected(true);
+    }
+  };
+
   const renderProducts = () => {
     if (!products || products.lenght) {
       return (
@@ -52,6 +75,7 @@ const AddProductsComponent = ({
         key={`prouduct-component-${product.id}`}
         productName={product.name}
         quantity={product.quantity}
+        plannedQuantity={product.plannedQuantity}
         value={product.value}
         productTypeName={product.product_type ? product.product_type.name : null}
         onChangeQuantity={(quantity) => onChangeProductQuantityInternal(product, quantity)}
@@ -70,9 +94,30 @@ const AddProductsComponent = ({
         </AddButton>
       </TitleContainer>
 
-      <ProductListContainer nestedScrollEnabled>
-        {renderProducts()}
-      </ProductListContainer>
+      <FilterContainerScroll horizontal>
+        <FilterContainer>
+          <FilterItem
+            selected={plannedSelected}
+            onPress={onPressPlannedButton}
+            icon={<AwesomeIcon name="clipboard-check" size={15} />}
+          >
+            Planejados
+          </FilterItem>
+
+          <FilterItem
+            selected={notBoughtSelected}
+            onPress={onPressNotBought}
+          >
+            Não comprados
+          </FilterItem>
+        </FilterContainer>
+      </FilterContainerScroll>
+
+      <ProductScrollContainer>
+        <ProductListContainer nestedScrollEnabled>
+          {renderProducts()}
+        </ProductListContainer>
+      </ProductScrollContainer>
     </Container>
   );
 };

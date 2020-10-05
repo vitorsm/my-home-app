@@ -1,5 +1,5 @@
 import PurchaseListNavigator from './views/PurchaseListNavigator';
 
-const PurchaseList = PurchaseListNavigator;
+const PurchaseListScreen = PurchaseListNavigator;
 
-export default PurchaseList;
+export default PurchaseListScreen;

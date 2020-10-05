@@ -29,6 +29,12 @@ import createdPurchaseListReducer from './purchase-list/createdPurchaseListReduc
 import deletedPurchaseListReducer from './purchase-list/deletedPurchaseListReducer';
 import updatedPurchaseListReducer from './purchase-list/updatedPurchaseListReducer';
 
+import allPurchasesReducer from './purchase/allPurchasesReducer';
+import byIdPurchaseReducer from './purchase/byIdPurchaseReducer';
+import createdPurchaseReducer from './purchase/createdPurchaseReducer';
+import deletedPurchaseReducer from './purchase/deletedPurchaseReducer';
+import updatedPurchaseReducer from './purchase/updatedPurchaseReducer';
+
 export default combineReducers({
   authenticatedUser: authenticatedUserReducer,
   currentUserData: currentUserDataReducer,
@@ -58,4 +64,10 @@ export default combineReducers({
   createdPurchaseList: createdPurchaseListReducer,
   deletedPurchaseList: deletedPurchaseListReducer,
   updatedPurchaseList: updatedPurchaseListReducer,
+
+  allPurchases: allPurchasesReducer,
+  byIdPurchase: byIdPurchaseReducer,
+  createdPurchase: createdPurchaseReducer,
+  deletedPurchase: deletedPurchaseReducer,
+  updatedPurchase: updatedPurchaseReducer,
 });

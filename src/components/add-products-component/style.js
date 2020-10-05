@@ -5,12 +5,15 @@ import colors from '../../configs/colors';
 
 export const Container = styled.View`
   padding: 10px;
-  height: ${Dimensions.get('window').height - 320}px;
 `;
 
 export const TitleContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
+`;
+
+export const ProductScrollContainer = styled.View`
+  height: ${Dimensions.get('window').height - 370}px;
 `;
 
 export const ProductListContainer = styled.ScrollView`
@@ -42,4 +45,12 @@ export const NoDataContainer = styled.View`
 export const NoDataText = styled.Text`
   font-size: ${fonts.content.size}px;
   color: ${colors.text.main};
+`;
+
+export const FilterContainerScroll = styled.ScrollView`
+  width: ${Dimensions.get('window').width - 20}px;
+`;
+
+export const FilterContainer = styled.View`
+  flex-direction: row;
 `;
