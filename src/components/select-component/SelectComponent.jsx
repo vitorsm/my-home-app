@@ -43,7 +43,7 @@ SelectComponent.propTypes = {
 SelectComponent.defaultProps = {
   onPress: null,
   style: null,
-  backgroundColor: colors.text.light,
+  backgroundColor: 'white',
   textColor: colors.primary.dark,
   label: null,
   selectedValue: null,

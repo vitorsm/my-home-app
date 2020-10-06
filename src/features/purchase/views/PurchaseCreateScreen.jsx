@@ -110,7 +110,7 @@ const PurchaseCreateScreen = ({
         purchaseToSet.products = [];
       }
       if (!purchaseToSet.products.some((p) => p.id === route.params.newSelectedProduct.id)) {
-        purchaseToSet.products.push(route.params.newSelectedProduct);
+        purchaseToSet.products.push({ ...route.params.newSelectedProduct, quantity: 0, value: 0 });
         setSaveEnabled(isObjComplete(purchaseToSet)
          && hasChange(purchaseToSet, initPurchase));
       }
@@ -133,7 +133,7 @@ const PurchaseCreateScreen = ({
     || (prevDeletedPurchase !== deletedPurchase && !deletedPurchase.error)) {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'PurchaseList' }],
+        routes: [{ name: 'Home' }, { name: 'Purchase' }],
       });
     }
     setIsLoading(false);
@@ -163,8 +163,26 @@ const PurchaseCreateScreen = ({
     setSaveEnabled(isObjComplete(purchase) && hasChange(purchase));
   };
 
+  const onOpenProduct = (product) => {
+    const selectedProduct = getItemFromList(purchase.products, product.id);
+    if (selectedProduct) {
+      selectedProduct.isEditing = true;
+    }
+
+    setPurchase({ ...purchase });
+  };
+
+  const onCloseProduct = (product) => {
+    const selectedProduct = getItemFromList(purchase.products, product.id);
+    if (selectedProduct) {
+      selectedProduct.isEditing = false;
+    }
+
+    setPurchase({ ...purchase });
+  };
+
   const onChangeProductQuantity = (product, quantity) => {
-    const selectedProduct = purchase.products.filter((p) => p.id === product.id)[0];
+    const selectedProduct = getItemFromList(purchase.products, product.id);
     if (selectedProduct) {
       selectedProduct.quantity = quantity;
     }
@@ -174,7 +192,7 @@ const PurchaseCreateScreen = ({
   };
 
   const onChangeProductValue = (product, value) => {
-    const selectedProduct = purchase.products.filter((p) => p.id === product.id)[0];
+    const selectedProduct = getItemFromList(purchase.products, product.id);
     if (selectedProduct) {
       selectedProduct.value = value;
     }
@@ -265,6 +283,9 @@ const PurchaseCreateScreen = ({
           onChangeProductQuantity={onChangeProductQuantity}
           onChangeProductValue={onChangeProductValue}
           onPressRemoveButton={onPressRemoveButton}
+          onOpenProduct={onOpenProduct}
+          onCloseProduct={onCloseProduct}
+          showFilter
         />
       </ProductListContainer>
     );

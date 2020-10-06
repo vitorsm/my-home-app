@@ -13,10 +13,10 @@ import FilterItem from '../filter-item';
 
 const AddProductsComponent = ({
   products, onPressAddProductButton, onChangeProductQuantity, onChangeProductValue,
-  onPressRemoveButton,
+  onPressRemoveButton, onOpenProduct, onCloseProduct, showFilter,
 }) => {
   const [plannedSelected, setPlannedSelected] = useState(false);
-  const [notBoughtSelected, setNotBoughtSelected] = useState(false);
+  const [notPurchasedSelected, setNotPurchasedSelected] = useState(false);
 
   const onPressAdd = () => {
     if (onPressAddProductButton) {
@@ -47,17 +47,71 @@ const AddProductsComponent = ({
       setPlannedSelected(false);
     } else {
       setPlannedSelected(true);
-      setNotBoughtSelected(false);
+      setNotPurchasedSelected(false);
     }
   };
 
-  const onPressNotBought = () => {
-    if (notBoughtSelected) {
-      setNotBoughtSelected(false);
+  const onPressNotPurchased = () => {
+    if (notPurchasedSelected) {
+      setNotPurchasedSelected(false);
     } else {
       setPlannedSelected(false);
-      setNotBoughtSelected(true);
+      setNotPurchasedSelected(true);
     }
+  };
+
+  const filterProduct = (product) => {
+    if (!plannedSelected && !notPurchasedSelected) {
+      return true;
+    }
+
+    return (plannedSelected && product.isPlanned)
+    || (notPurchasedSelected && (!product.quantity || product.isEditing));
+  };
+
+  const onOpenProductInternal = (product) => {
+    if (onOpenProduct) {
+      onOpenProduct(product);
+    }
+  };
+
+  const onCloseProductInternal = (product) => {
+    if (onCloseProduct) {
+      onCloseProduct(product);
+    }
+  };
+
+  const renderFilters = () => {
+    if (!showFilter) {
+      return null;
+    }
+
+    return (
+      <FilterContainerScroll horizontal>
+        <FilterContainer>
+          <FilterItem
+            selected={plannedSelected}
+            onPress={onPressPlannedButton}
+            icon={(
+              <AwesomeIcon
+                name="clipboard-check"
+                size={15}
+                color={plannedSelected ? colors.primary.main : colors.text.main}
+              />
+)}
+          >
+            {strings('planned')}
+          </FilterItem>
+
+          <FilterItem
+            selected={notPurchasedSelected}
+            onPress={onPressNotPurchased}
+          >
+            {strings('notPurchased')}
+          </FilterItem>
+        </FilterContainer>
+      </FilterContainerScroll>
+    );
   };
 
   const renderProducts = () => {
@@ -70,7 +124,7 @@ const AddProductsComponent = ({
       );
     }
 
-    return products.map((product) => (
+    return products.filter(filterProduct).map((product) => (
       <ProductComponent
         key={`prouduct-component-${product.id}`}
         productName={product.name}
@@ -81,6 +135,8 @@ const AddProductsComponent = ({
         onChangeQuantity={(quantity) => onChangeProductQuantityInternal(product, quantity)}
         onChangeValue={(value) => onChangeProductValueInternal(product, value)}
         onPressRemoveButton={() => onPressRemoveButtonInternal(product)}
+        onOpen={() => onOpenProductInternal(product)}
+        onClose={() => onCloseProductInternal(product)}
       />
     ));
   };
@@ -94,24 +150,7 @@ const AddProductsComponent = ({
         </AddButton>
       </TitleContainer>
 
-      <FilterContainerScroll horizontal>
-        <FilterContainer>
-          <FilterItem
-            selected={plannedSelected}
-            onPress={onPressPlannedButton}
-            icon={<AwesomeIcon name="clipboard-check" size={15} />}
-          >
-            Planejados
-          </FilterItem>
-
-          <FilterItem
-            selected={notBoughtSelected}
-            onPress={onPressNotBought}
-          >
-            Não comprados
-          </FilterItem>
-        </FilterContainer>
-      </FilterContainerScroll>
+      {renderFilters()}
 
       <ProductScrollContainer>
         <ProductListContainer nestedScrollEnabled>
@@ -137,6 +176,9 @@ AddProductsComponent.propTypes = {
   onChangeProductQuantity: PropTypes.func,
   onChangeProductValue: PropTypes.func,
   onPressRemoveButton: PropTypes.func,
+  onOpenProduct: PropTypes.func,
+  onCloseProduct: PropTypes.func,
+  showFilter: PropTypes.bool,
 };
 
 AddProductsComponent.defaultProps = {
@@ -145,6 +187,9 @@ AddProductsComponent.defaultProps = {
   onChangeProductQuantity: null,
   onChangeProductValue: null,
   onPressRemoveButton: null,
+  onOpenProduct: null,
+  onCloseProduct: null,
+  showFilter: false,
 };
 
 export default AddProductsComponent;

@@ -60,6 +60,8 @@ const en = {
   deletePurchaseConfirmationTitle: 'Delete purchase',
   deletePurchaseConfirmationMessage: 'Do you want to confirm the purchase {{purchaseName}} removal ?',
   noPurchaseFound: 'No purchase found',
+  planned: 'Planned',
+  notPurchased: 'Not purchased',
 
   // errors
 

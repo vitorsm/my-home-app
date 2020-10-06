@@ -14,7 +14,7 @@ import strings from '../../configs/strings';
 
 const ProductComponent = ({
   productName, quantity, value, plannedQuantity, productTypeName, onChangeQuantity,
-  onChangeValue, onPressRemoveButton,
+  onChangeValue, onPressRemoveButton, onOpen, onClose,
 }) => {
   const [isActionClosed, setIsActionClosed] = useState(true);
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
@@ -40,6 +40,12 @@ const ProductComponent = ({
   };
 
   const onPressContainer = () => {
+    if (isActionClosed && onOpen) {
+      onOpen();
+    }
+    if (!isActionClosed && onClose) {
+      onClose();
+    }
     setIsActionClosed(!isActionClosed);
   };
 
@@ -80,7 +86,10 @@ const ProductComponent = ({
   };
 
   return (
-    <Container onPress={onPressContainer} isError={plannedQuantity && quantity < plannedQuantity}>
+    <Container
+      onPress={onPressContainer}
+      isError={!quantity || (plannedQuantity && quantity < plannedQuantity)}
+    >
       <ContentContainer>
         <TextContainer>
           <ProductText>{productName}</ProductText>
@@ -92,7 +101,7 @@ const ProductComponent = ({
           {totalValue.toFixed(2)}
         </ValueText>
         <ValuesTextContainer>
-          <QuantityText isError={plannedQuantity && quantity < plannedQuantity}>
+          <QuantityText isError={!quantity || (plannedQuantity && quantity < plannedQuantity)}>
             {currentQuantity}
             {renderPlannedQuantity()}
           </QuantityText>
@@ -116,6 +125,8 @@ ProductComponent.propTypes = {
   onChangeValue: PropTypes.func,
   onPressRemoveButton: PropTypes.func,
   plannedQuantity: PropTypes.number,
+  onOpen: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 ProductComponent.defaultProps = {
@@ -126,6 +137,8 @@ ProductComponent.defaultProps = {
   onChangeValue: null,
   onPressRemoveButton: null,
   plannedQuantity: null,
+  onOpen: null,
+  onClose: null,
 };
 
 export default ProductComponent;

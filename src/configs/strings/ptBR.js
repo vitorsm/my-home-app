@@ -56,6 +56,8 @@ const ptBR = {
   deletePurhcaseListConfirmationMessage: 'Deseja confirma a deleção do lista de compra {{purchaseListName}} ?',
   noPurhcaseListFound: 'Nenhum lista de compra cadastrada',
   purchaseListMissingNameFieldError: 'O nome da lista de compra é obrigatório',
+  planned: 'Planejado',
+  notPurchased: 'Não comprados',
 
   // errors
 

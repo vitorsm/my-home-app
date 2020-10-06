@@ -10,6 +10,8 @@ export const Container = styled.View`
 export const TitleContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
 `;
 
 export const ProductScrollContainer = styled.View`

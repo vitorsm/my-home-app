@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container, MoneyInput, SymbolText } from './style';
 
 const MoneyInputComponent = ({ initialValue, onChangeValue }) => {
-  const [inputValue, setInputValue] = useState(initialValue.toString());
+  const [inputValue, setInputValue] = useState(initialValue ? initialValue.toString() : '0');
 
   const onChangeInput = (value) => {
     let number = 0;

@@ -11,8 +11,8 @@ export const Container = styled.TouchableOpacity`
   margin-bottom: 5px;
   border-radius: 5px;
   elevation: 3;
-  border-bottom-color: ${(prop) => (prop.isError ? colors.error.main : 'white')};
-  border-bottom-width: ${(prop) => (prop.isError ? 1 : 0)}px;
+  border-bottom-color: ${(prop) => (prop.isError ? colors.error.main : colors.success.main)};
+  border-bottom-width: 1px;
 `;
 
 export const ContentContainer = styled.View`
