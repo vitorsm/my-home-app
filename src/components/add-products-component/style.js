@@ -56,3 +56,12 @@ export const FilterContainerScroll = styled.ScrollView`
 export const FilterContainer = styled.View`
   flex-direction: row;
 `;
+
+export const ValueContainer = styled.View`
+  
+`;
+
+export const TotalValueText = styled.Text`
+  color: ${colors.text.light};
+  font-size: ${fonts.title.size}px;
+`;

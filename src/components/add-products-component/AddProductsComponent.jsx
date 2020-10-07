@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import AwesomeIcon from 'react-native-vector-icons/FontAwesome5';
 import {
   Container, ProductListContainer, TitleContainer, Title, AddButton, NoDataContainer, NoDataText,
-  FilterContainer, FilterContainerScroll, ProductScrollContainer,
+  FilterContainer, FilterContainerScroll, ProductScrollContainer, TotalValueText, ValueContainer,
 } from './style';
 import strings from '../../configs/strings';
 import ProductComponent from '../product-component';
@@ -17,6 +17,45 @@ const AddProductsComponent = ({
 }) => {
   const [plannedSelected, setPlannedSelected] = useState(false);
   const [notPurchasedSelected, setNotPurchasedSelected] = useState(false);
+  const [totalValue, setTotalValue] = useState(0);
+  const [filteredValue, setFilteredValue] = useState(0);
+
+  const filterProduct = (product, specificPlannedSelected, specificNotPurchaseSelected) => {
+    const plannedSelectedValue = specificPlannedSelected === undefined
+      ? plannedSelected : specificPlannedSelected;
+    const notPurchasedValue = specificNotPurchaseSelected === undefined
+      ? notPurchasedSelected : specificNotPurchaseSelected;
+
+    if (!plannedSelectedValue && !notPurchasedValue) {
+      return true;
+    }
+
+    return (plannedSelectedValue && product.isPlanned)
+    || (notPurchasedValue && (!product.quantity || product.isEditing));
+  };
+
+  const calculateValues = (productsToCalculate, plannedSelectedToCalculate,
+    notPurchasedSelectedToCalculate) => {
+    let totalValueToSet = 0;
+    let filteredValueToSet = 0;
+
+    productsToCalculate.forEach((product) => {
+      if (product.value && product.quantity) {
+        const productValue = product.value * product.quantity;
+        totalValueToSet += productValue;
+        if (filterProduct(product, plannedSelectedToCalculate, notPurchasedSelectedToCalculate)) {
+          filteredValueToSet += productValue;
+        }
+      }
+    });
+
+    setTotalValue(totalValueToSet);
+    setFilteredValue(filteredValueToSet);
+  };
+
+  useEffect(() => {
+    calculateValues(products, plannedSelected, notPurchasedSelected);
+  }, [products]);
 
   const onPressAdd = () => {
     if (onPressAddProductButton) {
@@ -43,30 +82,37 @@ const AddProductsComponent = ({
   };
 
   const onPressPlannedButton = () => {
+    let newNotPurchaseSelected = notPurchasedSelected;
+    let newPlannedSelected = plannedSelected;
+
     if (plannedSelected) {
-      setPlannedSelected(false);
+      newPlannedSelected = false;
     } else {
-      setPlannedSelected(true);
-      setNotPurchasedSelected(false);
+      newPlannedSelected = true;
+      newNotPurchaseSelected = false;
     }
+
+    setNotPurchasedSelected(newNotPurchaseSelected);
+    setPlannedSelected(newPlannedSelected);
+
+    calculateValues(products, newPlannedSelected, newNotPurchaseSelected);
   };
 
   const onPressNotPurchased = () => {
+    let newNotPurchaseSelected = notPurchasedSelected;
+    let newPlannedSelected = plannedSelected;
+
     if (notPurchasedSelected) {
-      setNotPurchasedSelected(false);
+      newNotPurchaseSelected = false;
     } else {
-      setPlannedSelected(false);
-      setNotPurchasedSelected(true);
-    }
-  };
-
-  const filterProduct = (product) => {
-    if (!plannedSelected && !notPurchasedSelected) {
-      return true;
+      newNotPurchaseSelected = true;
+      newPlannedSelected = false;
     }
 
-    return (plannedSelected && product.isPlanned)
-    || (notPurchasedSelected && (!product.quantity || product.isEditing));
+    setNotPurchasedSelected(newNotPurchaseSelected);
+    setPlannedSelected(newPlannedSelected);
+
+    calculateValues(products, newPlannedSelected, newNotPurchaseSelected);
   };
 
   const onOpenProductInternal = (product) => {
@@ -114,6 +160,19 @@ const AddProductsComponent = ({
     );
   };
 
+  const renderTotalValue = () => {
+    if (filteredValue === totalValue) {
+      return null;
+    }
+
+    return (
+      <TotalValueText>
+        {' '}
+        R$
+        {totalValue.toFixed(2)}
+      </TotalValueText>
+    );
+  };
   const renderProducts = () => {
     if (!products || products.lenght) {
       return (
@@ -124,7 +183,7 @@ const AddProductsComponent = ({
       );
     }
 
-    return products.filter(filterProduct).map((product) => (
+    return products.filter((product) => filterProduct(product)).map((product) => (
       <ProductComponent
         key={`prouduct-component-${product.id}`}
         productName={product.name}
@@ -145,6 +204,14 @@ const AddProductsComponent = ({
     <Container>
       <TitleContainer>
         <Title>{strings('products')}</Title>
+        <ValueContainer>
+          <Title>
+            R$
+            {' '}
+            {filteredValue.toFixed(2)}
+          </Title>
+          {renderTotalValue()}
+        </ValueContainer>
         <AddButton onPress={onPressAdd}>
           <MaterialIcon name="add" color="#FFF" size={20} />
         </AddButton>
