@@ -65,29 +65,30 @@ const PurchaseCreateScreen = ({
   const prevCreatedPurchase = prevCreatedPurchaseRef.current;
   const prevDeletedPurchase = prevDeletedPurchaseRef.current;
 
-  const mergeProductsWithPurchaseList = (alreadyProducts, newProducts) => {
+  const mergeProductsWithPurchaseList = (alreadyProducts, newProducts, onlyPlannedProduct) => {
     const newProductIds = newProducts ? newProducts.map((p) => p.id) : [];
     let responseProducts = [];
 
     if (alreadyProducts) {
       responseProducts = alreadyProducts
-        .filter((product) => newProductIds.includes(product.id) || product.quantity);
+        .filter((product) => !onlyPlannedProduct
+         || (newProductIds.includes(product.id) || product.quantity));
     }
-
-    const productIds = alreadyProducts.map((p) => p.id);
 
     if (newProducts) {
       newProducts.forEach((product) => {
-        const newProduct = { ...product };
-        newProduct.isPlanned = true;
-        newProduct.plannedQuantity = newProduct.quantity;
-        newProduct.plannedValue = newProduct.value;
-        newProduct.quantity = 0;
-        newProduct.value = 0;
+        let newProduct = getItemFromList(responseProducts, product.id);
 
-        if (!productIds.includes(newProduct.id)) {
+        if (!newProduct) {
+          newProduct = { ...product };
+          newProduct.quantity = 0;
+          newProduct.value = 0;
           responseProducts.push(newProduct);
         }
+
+        newProduct.isPlanned = true;
+        newProduct.plannedQuantity = product.quantity;
+        newProduct.plannedValue = product.value;
       });
     }
 
@@ -119,7 +120,10 @@ const PurchaseCreateScreen = ({
     if (route.params.newSelectedPurchaseList) {
       purchaseToSet.purchase_list = route.params.newSelectedPurchaseList;
       purchaseToSet.products = mergeProductsWithPurchaseList(purchaseToSet.products,
-        route.params.newSelectedPurchaseList.products);
+        route.params.newSelectedPurchaseList.products, true);
+    } else if (purchaseToSet.purchase_list) {
+      purchaseToSet.products = mergeProductsWithPurchaseList(purchaseToSet.products,
+        purchaseToSet.purchase_list.products, false);
     }
 
     setInitialPurchase(initPurchase);
