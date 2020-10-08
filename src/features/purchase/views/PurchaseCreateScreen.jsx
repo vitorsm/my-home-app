@@ -20,7 +20,7 @@ const PurchaseCreateScreen = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isObjComplete = (newPurchase) => !!(newPurchase && newPurchase.name);
+  const isObjComplete = (newPurchase) => !!(newPurchase);
 
   const productsHasChange = (product, selectedInitialPurchase) => {
     const initialProduct = getItemFromList(selectedInitialPurchase.products, product.id);
@@ -191,7 +191,7 @@ const PurchaseCreateScreen = ({
       selectedProduct.quantity = quantity;
     }
 
-    setPurchase({ ...purchase });
+    setPurchase({ ...purchase, products: [...purchase.products] });
     setSaveEnabled(isObjComplete(purchase) && hasChange(purchase));
   };
 
@@ -201,7 +201,7 @@ const PurchaseCreateScreen = ({
       selectedProduct.value = value;
     }
 
-    setPurchase(purchase);
+    setPurchase({ ...purchase, products: [...purchase.products] });
     setSaveEnabled(isObjComplete(purchase) && hasChange(purchase));
   };
 

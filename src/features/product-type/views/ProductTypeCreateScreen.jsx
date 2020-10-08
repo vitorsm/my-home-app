@@ -23,7 +23,7 @@ const ProductTypeCreateScreen = ({
     const initProductTypeSelected = initProductType || initialProductType;
 
     const newParent = newProductType.parent_product_type;
-    const initParet = initProductTypeSelected.parent_product_type;
+    const initParet = initProductTypeSelected ? initProductTypeSelected.parent_product_type : null;
 
     if ((initParet && !newParent) || (!initParet && newParent)
        || (initParet && newParent && initParet.id !== newParent.id)) {
