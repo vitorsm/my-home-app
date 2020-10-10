@@ -37,6 +37,7 @@ const ptBR = {
   remove: 'Remover',
   date: 'Data',
   dateFormat: 'pt-BR',
+  actions: 'Ações',
 
   deleteBrandConfirmationTitle: 'Deletar marca',
   deleteBrandConfirmationMessage: 'Deseja confirma a deleção da marca {{brandName}} ?',

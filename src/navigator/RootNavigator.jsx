@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Login from '../features/login';
 import Splash from '../features/splash';
 import CreateUserSreen from '../features/create-user';
@@ -16,8 +15,8 @@ import PurchaseScreen from '../features/purchase';
 
 import LeftToRightCardStyleInterpolator from '../components/left-to-right-card-style-interpolator';
 
-import { MenuButton, Container } from './style';
-import getMenuBarConfig from '../configs/headerOptions';
+import { Container } from './style';
+import headerOptions from './headerOptions';
 
 import strings from '../configs/strings';
 
@@ -58,7 +57,7 @@ export const screens = {
   },
   BRAND: {
     name: 'Brand',
-    hiddenMenu: false,
+    hiddenMenu: true,
     component: BrandScreen,
     title: strings('brands'),
     isFeatureMainScreen: true,
@@ -67,7 +66,7 @@ export const screens = {
   },
   PRODUCT_TYPE: {
     name: 'ProductType',
-    hiddenMenu: false,
+    hiddenMenu: true,
     component: ProductTypeScreen,
     title: strings('productTypes'),
     isFeatureMainScreen: true,
@@ -76,7 +75,7 @@ export const screens = {
   },
   PRODUCT: {
     name: 'Product',
-    hiddenMenu: false,
+    hiddenMenu: true,
     component: ProductScreen,
     title: strings('products'),
     isFeatureMainScreen: true,
@@ -85,7 +84,7 @@ export const screens = {
   },
   PURCHASE_LIST: {
     name: 'PurchaseList',
-    hiddenMenu: false,
+    hiddenMenu: true,
     component: PurchaseListScreen,
     title: strings('purchaseList'),
     isFeatureMainScreen: true,
@@ -94,7 +93,7 @@ export const screens = {
   },
   PURCHASE: {
     name: 'Purchase',
-    hiddenMenu: false,
+    hiddenMenu: true,
     component: PurchaseScreen,
     title: strings('purchases'),
     isFeatureMainScreen: true,
@@ -103,36 +102,7 @@ export const screens = {
   },
 };
 
-const getHeaderOptions = (navigation, menu) => {
-  const headerLeftMenu = () => (
-    <MenuButton onPress={() => navigation.navigate('SideMenu')}>
-      <Icon name="menu" color="#FFF" size={20} />
-    </MenuButton>
-  );
-
-  const headerRightMenu = () => (
-    <MenuButton onPress={() => {
-      navigation.navigate(menu.filterScreenName);
-    }}
-    >
-      <Icon name="search" color="#FFF" size={20} />
-    </MenuButton>
-  );
-
-  const options = {
-    headerLeft: menu.isFeatureMainScreen ? headerLeftMenu : undefined,
-    headerRight: menu.isFeatureMainScreen && menu.filterScreenName ? headerRightMenu : undefined,
-    headerShown: !menu.hiddenMenu,
-    headerTitleStyle: {
-      fontWeight: '100',
-    },
-    title: menu.title,
-    cardStyleInterpolator: menu.cardStyleInterpolator,
-    ...getMenuBarConfig(),
-  };
-
-  return options;
-};
+const getHeaderOptions = (navigation, menu) => headerOptions(navigation, menu);
 
 const RootNavigator = () => {
   const getScreensComponents = () => Object.entries(screens)

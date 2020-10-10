@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import RoundedButton from '../../rounded-button';
 import {
-  Container, FildsContainer, ActionsContainer, LinkActionsContainer,
+  Container, FildsContainer, ActionsContainer, LinkActionsContainer, ActionsContainerClosed,
+  ActionsText,
 } from './style';
 import strings from '../../../configs/strings';
 import TestLink from '../../text-link';
@@ -11,10 +13,11 @@ import colors from '../../../configs/colors';
 import MessageDialog from '../../message-dialog';
 
 const CRUDCreate = ({
-  isEditing, saveEnabled, onCancelClick, onSaveClick, children, isLoading, onDeleteClick,
+  isEditing, saveEnabled, onSaveClick, children, isLoading, onDeleteClick,
   deleteTitle, deleteMessage,
 }) => {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [actionsIsClosed, setActionsIsClosed] = useState(true);
 
   const onPressDelete = () => {
     setShowDeleteConfirmation(true);
@@ -41,6 +44,14 @@ const CRUDCreate = ({
     />
   );
 
+  const onPressOpenActions = () => {
+    setActionsIsClosed(false);
+  };
+
+  const onCancelClick = () => {
+    setActionsIsClosed(true);
+  };
+
   const renderDeleteButton = () => {
     if (!isEditing) {
       return null;
@@ -51,7 +62,14 @@ const CRUDCreate = ({
     );
   };
 
-  const renderActions = () => {
+  const renderClosedActions = () => (
+    <ActionsContainerClosed onPress={onPressOpenActions}>
+      <ActionsText>{strings('actions')}</ActionsText>
+      <MaterialIcon name="keyboard-arrow-up" color="#FFF" size={20} />
+    </ActionsContainerClosed>
+  );
+
+  const renderOpenActionsContent = () => {
     if (isLoading) {
       return (
         <CircularProgress
@@ -60,6 +78,10 @@ const CRUDCreate = ({
           borderColor={colors.text.light}
         />
       );
+    }
+
+    if (actionsIsClosed) {
+      return renderClosedActions();
     }
 
     return (
@@ -75,6 +97,19 @@ const CRUDCreate = ({
     );
   };
 
+  const renderOpenActions = () => (
+    <ActionsContainer>
+      {renderOpenActionsContent()}
+    </ActionsContainer>
+  );
+
+  const renderActions = () => {
+    if (actionsIsClosed) {
+      return renderClosedActions();
+    }
+    return renderOpenActions();
+  };
+
   return (
     <Container>
       {renderDeleteConfirmationDialog()}
@@ -82,9 +117,7 @@ const CRUDCreate = ({
         {children}
       </FildsContainer>
 
-      <ActionsContainer>
-        {renderActions()}
-      </ActionsContainer>
+      {renderActions()}
     </Container>
   );
 };
@@ -92,7 +125,6 @@ const CRUDCreate = ({
 CRUDCreate.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   saveEnabled: PropTypes.bool.isRequired,
-  onCancelClick: PropTypes.func.isRequired,
   onSaveClick: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([
     PropTypes.element,

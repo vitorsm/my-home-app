@@ -37,6 +37,7 @@ const en = {
   remove: 'Remove',
   date: 'Date',
   dateFormat: 'en-gb',
+  actions: 'Actions',
 
   deleteBrandConfirmationTitle: 'Delete brand',
   deleteBrandConfirmationMessage: 'Do you want to confirm the brand {{brandName}} removal ?',

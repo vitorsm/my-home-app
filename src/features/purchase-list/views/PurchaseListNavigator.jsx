@@ -5,8 +5,19 @@ import PurchaseListFilterScreen from './PurchaseListFilterScreen';
 import PurchaseListListScreen from './PurchaseListListScreen';
 import PurchaseListCreateScreen from './PurchaseListCreateScreen';
 import SelectPurchaseListScreen from './SelectPurchaseListScreen';
+import headerOptions from '../../../navigator/headerOptions';
+import strings from '../../../configs/strings';
+import getMenuBarConfig from '../../../configs/headerOptions';
 
 const Stack = createStackNavigator();
+const purchaseListMenu = {
+  name: 'PurchaseList',
+  hiddenMenu: false,
+  title: strings('purchaseList'),
+  isFeatureMainScreen: true,
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  filterScreenName: 'PurchaseListFilter',
+};
 
 const PurchaseListNavigator = () => (
   <Stack.Navigator
@@ -15,18 +26,18 @@ const PurchaseListNavigator = () => (
     <Stack.Screen
       name="PurchaseListFilter"
       component={PurchaseListFilterScreen}
-      options={{ headerShown: false, cardStyleInterpolator: TopToDownCardStyleInterpolator }}
+      options={{ ...getMenuBarConfig(), cardStyleInterpolator: TopToDownCardStyleInterpolator }}
     />
     <Stack.Screen
       name="PurchaseListList"
       component={PurchaseListListScreen}
-      options={{ headerShown: false }}
+      options={({ navigation }) => headerOptions(navigation, purchaseListMenu)}
     />
     <Stack.Screen
       name="PurchaseListCreate"
       component={PurchaseListCreateScreen}
       options={{
-        headerShown: false,
+        ...getMenuBarConfig(),
         cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
       }}
     />
@@ -34,7 +45,7 @@ const PurchaseListNavigator = () => (
       name="SelectPurchaseList"
       component={SelectPurchaseListScreen}
       options={{
-        headerShown: false,
+        ...getMenuBarConfig(),
         cardStyleInterpolator: TopToDownCardStyleInterpolator,
       }}
     />

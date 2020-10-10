@@ -5,8 +5,19 @@ import ProductFilterScreen from './ProductFilterScreen';
 import ProductListScreen from './ProductListScreen';
 import ProductCreateScreen from './ProductCreateScreen';
 import SelectProductScreen from './SelectProductScreen';
+import headerOptions from '../../../navigator/headerOptions';
+import strings from '../../../configs/strings';
+import getMenuBarConfig from '../../../configs/headerOptions';
 
 const Stack = createStackNavigator();
+const productMenu = {
+  name: 'Product',
+  hiddenMenu: false,
+  title: strings('product'),
+  isFeatureMainScreen: true,
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  filterScreenName: 'ProductFilter',
+};
 
 const ProductNavigator = () => (
   <Stack.Navigator
@@ -15,18 +26,18 @@ const ProductNavigator = () => (
     <Stack.Screen
       name="ProductFilter"
       component={ProductFilterScreen}
-      options={{ headerShown: false, cardStyleInterpolator: TopToDownCardStyleInterpolator }}
+      options={{ ...getMenuBarConfig(), cardStyleInterpolator: TopToDownCardStyleInterpolator }}
     />
     <Stack.Screen
       name="ProductList"
       component={ProductListScreen}
-      options={{ headerShown: false }}
+      options={({ navigation }) => headerOptions(navigation, productMenu)}
     />
     <Stack.Screen
       name="ProductCreate"
       component={ProductCreateScreen}
       options={{
-        headerShown: false,
+        ...getMenuBarConfig(),
         cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
       }}
     />
@@ -34,7 +45,7 @@ const ProductNavigator = () => (
       name="ProductSelect"
       component={SelectProductScreen}
       options={{
-        headerShown: false,
+        ...getMenuBarConfig(),
         cardStyleInterpolator: TopToDownCardStyleInterpolator,
       }}
     />

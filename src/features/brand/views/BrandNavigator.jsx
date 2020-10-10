@@ -5,8 +5,19 @@ import BrandFilterScreen from './BrandFilterScreen';
 import BrandListScreen from './BrandListScreen';
 import BrandCreateScreen from './BrandCreateScreen';
 import SelectBrandScreen from './SelectBrandScreen';
+import headerOptions from '../../../navigator/headerOptions';
+import strings from '../../../configs/strings';
+import getMenuBarConfig from '../../../configs/headerOptions';
 
 const Stack = createStackNavigator();
+const brandMenu = {
+  name: 'Brand',
+  hiddenMenu: false,
+  title: strings('brands'),
+  isFeatureMainScreen: true,
+  cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+  filterScreenName: 'BrandFilter',
+};
 
 const BrandNavigator = () => (
   <Stack.Navigator
@@ -15,18 +26,18 @@ const BrandNavigator = () => (
     <Stack.Screen
       name="BrandFilter"
       component={BrandFilterScreen}
-      options={{ headerShown: false, cardStyleInterpolator: TopToDownCardStyleInterpolator }}
+      options={{ ...getMenuBarConfig(), cardStyleInterpolator: TopToDownCardStyleInterpolator }}
     />
     <Stack.Screen
       name="BrandList"
       component={BrandListScreen}
-      options={{ headerShown: false }}
+      options={({ navigation }) => headerOptions(navigation, brandMenu)}
     />
     <Stack.Screen
       name="BrandCreate"
       component={BrandCreateScreen}
       options={{
-        headerShown: false,
+        ...getMenuBarConfig(),
         cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid,
       }}
     />
@@ -34,7 +45,7 @@ const BrandNavigator = () => (
       name="SelectBrand"
       component={SelectBrandScreen}
       options={{
-        headerShown: false,
+        ...getMenuBarConfig(),
         cardStyleInterpolator: TopToDownCardStyleInterpolator,
       }}
     />
