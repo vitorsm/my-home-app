@@ -9,7 +9,7 @@ import AddProductComponent from '../../../components/add-products-component';
 import SelectComponent from '../../../components/select-component';
 import { ProductListContainer } from './style';
 import { removeItemFromList, getItemFromList } from '../../../utils/arrayUtils';
-import { formatDateToStr } from '../../../utils/dateUtils';
+import { formatDateTimeToStr } from '../../../utils/dateUtils';
 
 const PurchaseCreateScreen = ({
   route, navigation, createdPurchase, updatedPurchase, createPurchase,
@@ -272,7 +272,7 @@ const PurchaseCreateScreen = ({
     return (
       <PlainTextFormItem
         labelText={strings('date')}
-        defaultValue={formatDateToStr(purchase.created_at, strings('dateFormat'))}
+        defaultValue={formatDateTimeToStr(purchase.created_at, strings('dateFormat'))}
         editable={false}
       />
     );

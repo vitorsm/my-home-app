@@ -7,6 +7,7 @@ import CRUDCreate from '../../../components/crud-create';
 import * as productActions from '../../../redux/actions/productActions';
 import SelectComponent from '../../../components/select-component';
 import { getLastRouteToSetParamsFromRoutesToReturn } from '../../../utils/routeUtils';
+import { compareObj } from '../../../utils/objectUtils';
 
 const ProductCreateScreen = ({
   route, navigation, createdProduct, updatedProduct, createProduct, updateProduct,
@@ -20,8 +21,17 @@ const ProductCreateScreen = ({
 
   const isObjComplete = (newProduct) => !!(newProduct && newProduct.name);
 
-  const hasChange = (newProduct) => (!initialProduct)
-  || newProduct.name !== initialProduct.name;
+  const hasChange = (newProduct, initProduct) => {
+    const selectedInitialProduct = initProduct || initialProduct;
+
+    if (!selectedInitialProduct) {
+      return true;
+    }
+
+    return selectedInitialProduct.name !== newProduct.name
+    || !compareObj(newProduct.product_type, selectedInitialProduct.product_type)
+    || !compareObj(newProduct.brand, selectedInitialProduct.brand);
+  };
 
   const prevUpdatedProductRef = useRef(updatedProduct);
   const prevCreatedProductRef = useRef(createdProduct);
@@ -55,7 +65,7 @@ const ProductCreateScreen = ({
       currentProduct.brand = route.params.newSelectedBrand;
     }
 
-    setSaveEnabled(isObjComplete(currentProduct) && hasChange(currentProduct));
+    setSaveEnabled(isObjComplete(currentProduct) && hasChange(currentProduct, initProduct));
     setProduct(currentProduct);
   }, []);
 
@@ -87,11 +97,13 @@ const ProductCreateScreen = ({
     const newProduct = { ...product };
     newProduct.product_type = null;
     setProduct(newProduct);
+    setSaveEnabled(isObjComplete(newProduct) && hasChange(newProduct));
   };
   const onClearBrand = () => {
     const newProduct = { ...product };
     newProduct.brand = null;
     setProduct(newProduct);
+    setSaveEnabled(isObjComplete(newProduct) && hasChange(newProduct));
   };
 
   const onCancelClick = () => {
@@ -127,7 +139,7 @@ const ProductCreateScreen = ({
         name: 'ProductCreate',
         params: {
           product,
-          initialProduct: route.params.initialProduct,
+          initialProduct,
           routesToReturn: route.params.routesToReturn,
         },
       }],
