@@ -83,6 +83,9 @@ const ProductTypeCreateScreen = ({
     const newProductType = { ...productType };
     newProductType.parent_product_type = null;
     setProductType(newProductType);
+
+    setSaveEnabled(isObjComplete(newProductType)
+    && hasChange(newProductType));
   };
 
   const onCancelClick = () => {
@@ -138,7 +141,12 @@ const ProductTypeCreateScreen = ({
     }
 
     return (
-      <PlainTextFormItem labelText={strings('id')} onChangeText={null} defaultValue={productType.id.toString()} />
+      <PlainTextFormItem
+        labelText={strings('id')}
+        onChangeText={null}
+        defaultValue={productType.id.toString()}
+        editable={false}
+      />
     );
   };
 

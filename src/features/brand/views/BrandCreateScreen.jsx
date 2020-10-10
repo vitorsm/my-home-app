@@ -86,7 +86,12 @@ const BrandCreateScreen = ({
     }
 
     return (
-      <PlainTextFormItem labelText={strings('id')} onChangeText={null} defaultValue={brand.id.toString()} />
+      <PlainTextFormItem
+        labelText={strings('id')}
+        onChangeText={null}
+        defaultValue={brand.id.toString()}
+        editable={false}
+      />
     );
   };
 
