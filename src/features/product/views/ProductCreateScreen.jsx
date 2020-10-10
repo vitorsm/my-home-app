@@ -186,7 +186,6 @@ const ProductCreateScreen = ({
         fieldRequiredErrorMessage={strings('productMissingNameFieldError')}
       />
       <SelectComponent
-        style={{ paddingLeft: 20, paddingRight: 20 }}
         label={strings('productType')}
         onPress={onSelectProductTypeClick}
         onPressClear={onClearProductType}
@@ -194,7 +193,6 @@ const ProductCreateScreen = ({
           ? product.product_type.name : null}
       />
       <SelectComponent
-        style={{ paddingLeft: 20, paddingRight: 20 }}
         label={strings('brand')}
         onPress={onSelectBrandClick}
         onPressClear={onClearBrand}

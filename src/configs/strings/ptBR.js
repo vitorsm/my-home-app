@@ -35,6 +35,8 @@ const ptBR = {
   noDataFoundMessage: 'Nenhum dado encontrado',
   items: 'itens',
   remove: 'Remover',
+  date: 'Data',
+  dateFormat: 'pt-BR',
 
   deleteBrandConfirmationTitle: 'Deletar marca',
   deleteBrandConfirmationMessage: 'Deseja confirma a deleção da marca {{brandName}} ?',

@@ -132,7 +132,7 @@ const PurchaseListCreateScreen = ({
       selectedProduct.quantity = quantity;
     }
 
-    setPurchaseList(purchaseList);
+    setPurchaseList({ ...purchaseList, products: [...purchaseList.products] });
     setSaveEnabled(isObjComplete(purchaseList) && hasChange(purchaseList));
   };
 
@@ -142,7 +142,7 @@ const PurchaseListCreateScreen = ({
       selectedProduct.value = value;
     }
 
-    setPurchaseList(purchaseList);
+    setPurchaseList({ ...purchaseList, products: [...purchaseList.products] });
     setSaveEnabled(isObjComplete(purchaseList) && hasChange(purchaseList));
   };
 

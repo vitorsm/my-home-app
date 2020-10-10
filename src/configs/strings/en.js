@@ -35,6 +35,8 @@ const en = {
   noDataFoundMessage: 'No data found',
   items: 'items',
   remove: 'Remove',
+  date: 'Date',
+  dateFormat: 'en-gb',
 
   deleteBrandConfirmationTitle: 'Delete brand',
   deleteBrandConfirmationMessage: 'Do you want to confirm the brand {{brandName}} removal ?',

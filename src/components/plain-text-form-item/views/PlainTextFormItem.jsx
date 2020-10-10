@@ -9,7 +9,7 @@ import fonts from '../../../configs/fonts';
 
 const PlainTextFormItem = ({
   labelText, onChangeText, defaultValue, isRequired, fieldRequiredErrorMessage, descriptionField,
-  fieldValue,
+  fieldValue, editable,
 }) => {
   const textLabelAnimatedValue = useRef(new Animated.Value(0)).current;
   const [textValue, setTextValue] = useState(defaultValue);
@@ -100,6 +100,7 @@ const PlainTextFormItem = ({
         onChangeText={onChangeTextInternal}
         defaultValue={defaultValue}
         isError={isError}
+        editable={editable}
       />
 
       {renderDescriptionText()}
@@ -115,6 +116,7 @@ PlainTextFormItem.propTypes = {
   fieldRequiredErrorMessage: PropTypes.string,
   descriptionField: PropTypes.string,
   fieldValue: PropTypes.string,
+  editable: PropTypes.bool,
 };
 
 PlainTextFormItem.defaultProps = {
@@ -124,6 +126,7 @@ PlainTextFormItem.defaultProps = {
   fieldRequiredErrorMessage: strings('fieldRequiredErrorDefault'),
   descriptionField: null,
   fieldValue: null,
+  editable: true,
 };
 
 export default PlainTextFormItem;

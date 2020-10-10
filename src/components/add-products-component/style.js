@@ -5,6 +5,10 @@ import colors from '../../configs/colors';
 
 export const Container = styled.View`
   padding: 10px;
+  padding-top: 20px;
+  margin-top: 10px;
+  background-color: white;
+  elevation: 2;
 `;
 
 export const TitleContainer = styled.View`

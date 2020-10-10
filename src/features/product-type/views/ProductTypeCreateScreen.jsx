@@ -162,7 +162,6 @@ const ProductTypeCreateScreen = ({
         fieldRequiredErrorMessage={strings('productTypeMissingNameFieldError')}
       />
       <SelectComponent
-        style={{ padding: 20 }}
         label={strings('parentProductType')}
         onPress={onSelectProductTypeClick}
         onPressClear={onClearParentProductType}

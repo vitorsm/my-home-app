@@ -4,8 +4,6 @@ import colors from '../../../configs/colors';
 import fonts from '../../../configs/fonts';
 
 export const Container = styled.View`
-    margin-left: 20px;
-    margin-right: 20px;
     justify-content: flex-start;
     flex: 1;
 `;

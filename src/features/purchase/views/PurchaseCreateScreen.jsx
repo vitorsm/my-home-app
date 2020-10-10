@@ -9,6 +9,7 @@ import AddProductComponent from '../../../components/add-products-component';
 import SelectComponent from '../../../components/select-component';
 import { ProductListContainer } from './style';
 import { removeItemFromList, getItemFromList } from '../../../utils/arrayUtils';
+import { formatDateToStr } from '../../../utils/dateUtils';
 
 const PurchaseCreateScreen = ({
   route, navigation, createdPurchase, updatedPurchase, createPurchase,
@@ -255,7 +256,25 @@ const PurchaseCreateScreen = ({
     }
 
     return (
-      <PlainTextFormItem labelText={strings('id')} onChangeText={null} defaultValue={purchase.id.toString()} />
+      <PlainTextFormItem
+        labelText={strings('id')}
+        defaultValue={purchase.id.toString()}
+        editable={false}
+      />
+    );
+  };
+
+  const renderDateComponent = () => {
+    if (!isEditing) {
+      return null;
+    }
+
+    return (
+      <PlainTextFormItem
+        labelText={strings('date')}
+        defaultValue={formatDateToStr(purchase.created_at, strings('dateFormat'))}
+        editable={false}
+      />
     );
   };
 
@@ -273,8 +292,8 @@ const PurchaseCreateScreen = ({
           defaultValue={purchase.name}
           fieldRequiredErrorMessage={strings('purchaseMissingNameFieldError')}
         />
+        {renderDateComponent()}
         <SelectComponent
-          style={{ paddingLeft: 20, paddingRight: 20 }}
           label={strings('purchaseList')}
           onPress={onSelectPurchaseListClick}
           onPressClear={onClearPurchaseList}
