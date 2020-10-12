@@ -13,8 +13,8 @@ ios/myhomeapp.xcodeproj/
 *.bin
 
 android/.gradle/
-
-
+android/gradle.properties
+android/app/my-home-app.keystore
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
