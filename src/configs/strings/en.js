@@ -38,6 +38,7 @@ const en = {
   date: 'Date',
   dateFormat: 'en-gb',
   actions: 'Actions',
+  appName: 'MyHome',
 
   deleteBrandConfirmationTitle: 'Delete brand',
   deleteBrandConfirmationMessage: 'Do you want to confirm the brand {{brandName}} removal ?',
@@ -65,6 +66,8 @@ const en = {
   noPurchaseFound: 'No purchase found',
   planned: 'Planned',
   notPurchased: 'Not purchased',
+  doShopping: 'Do shopping',
+  doShoppingList: 'Do shopping list',
 
   // errors
 

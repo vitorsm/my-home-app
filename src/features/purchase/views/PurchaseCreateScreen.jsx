@@ -21,7 +21,8 @@ const PurchaseCreateScreen = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isObjComplete = (newPurchase) => !!(newPurchase);
+  const isObjComplete = (newPurchase) => !!(newPurchase
+   && newPurchase.products && newPurchase.products.length);
 
   const productsHasChange = (product, selectedInitialPurchase) => {
     const initialProduct = getItemFromList(selectedInitialPurchase.products, product.id);
@@ -113,8 +114,6 @@ const PurchaseCreateScreen = ({
       }
       if (!purchaseToSet.products.some((p) => p.id === route.params.newSelectedProduct.id)) {
         purchaseToSet.products.push({ ...route.params.newSelectedProduct, quantity: 0, value: 0 });
-        setSaveEnabled(isObjComplete(purchaseToSet)
-         && hasChange(purchaseToSet, initPurchase));
       }
     }
 
@@ -130,6 +129,9 @@ const PurchaseCreateScreen = ({
     setInitialPurchase(initPurchase);
     setIsEditing(!!(route.params.purchase && route.params.purchase.id));
     setPurchase(purchaseToSet);
+
+    setSaveEnabled(isObjComplete(purchaseToSet)
+    && hasChange(purchaseToSet, initPurchase));
   }, []);
 
   useEffect(() => {

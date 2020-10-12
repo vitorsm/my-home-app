@@ -19,7 +19,8 @@ const PurchaseListCreateScreen = ({
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const isObjComplete = (newPurchaseList) => !!(newPurchaseList && newPurchaseList.name);
+  const isObjComplete = (newPurchaseList) => !!(newPurchaseList
+    && newPurchaseList.name && newPurchaseList.products && newPurchaseList.products.length);
 
   const productsHasChange = (product, selectedInitialPurchaseList) => {
     const initialProduct = getItemFromList(selectedInitialPurchaseList.products, product.id);
@@ -96,7 +97,7 @@ const PurchaseListCreateScreen = ({
     || (prevDeletedPurchaseList !== deletedPurchaseList && !deletedPurchaseList.error)) {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'PurchaseListList' }],
+        routes: [{ name: 'Home' }, { name: 'PurchaseList' }],
       });
     }
     setIsLoading(false);

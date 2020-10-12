@@ -38,6 +38,7 @@ const ptBR = {
   date: 'Data',
   dateFormat: 'pt-BR',
   actions: 'Ações',
+  appName: 'MyHome',
 
   deleteBrandConfirmationTitle: 'Deletar marca',
   deleteBrandConfirmationMessage: 'Deseja confirma a deleção da marca {{brandName}} ?',
@@ -61,6 +62,8 @@ const ptBR = {
   purchaseListMissingNameFieldError: 'O nome da lista de compra é obrigatório',
   planned: 'Planejado',
   notPurchased: 'Não comprados',
+  doShopping: 'Fazer compra',
+  doShoppingList: 'Fazer lista de compra',
 
   // errors
 

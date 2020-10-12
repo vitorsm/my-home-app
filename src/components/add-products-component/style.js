@@ -19,7 +19,7 @@ export const TitleContainer = styled.View`
 `;
 
 export const ProductScrollContainer = styled.View`
-  height: ${Dimensions.get('window').height - 370}px;
+  height: ${Dimensions.get('window').height - 280}px;
 `;
 
 export const ProductListContainer = styled.ScrollView`
