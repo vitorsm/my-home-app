@@ -7,6 +7,7 @@ import {
 import strings from '../../../configs/strings';
 import ActionBox from '../../../components/action-box';
 import colors from '../../../configs/colors';
+import OverviewReports from './OverviewReports';
 
 const HomeScreen = ({ navigation }) => {
   const onPressPurchaseButton = () => {
@@ -54,6 +55,8 @@ const HomeScreen = ({ navigation }) => {
             onPress={onPressPurchaseListButton}
           />
         </ActionsContainer>
+
+        <OverviewReports />
       </Content>
     </Container>
   );

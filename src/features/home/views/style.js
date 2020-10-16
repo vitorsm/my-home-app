@@ -27,3 +27,7 @@ export const Content = styled.View`
 export const ActionsContainer = styled.ScrollView`
   flex-direction: row;
 `;
+
+export const OverviewReportsContainer = styled.View`
+  width: 100%;
+`;
