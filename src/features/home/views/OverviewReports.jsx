@@ -1,15 +1,14 @@
 import React from 'react';
-import Card from '../../../components/card';
-import { OverviewReportsContainer, Title } from './style';
+import { OverviewReportsContainer } from './style';
+import MonthlySpentChart from './MonthlySpentChart';
+import { getFirstDayByLastMonths } from '../../../utils/dateUtils';
 
 const OverviewReports = () => {
-  const a = 1;
+  const lastMonths = 6;
 
   return (
     <OverviewReportsContainer>
-      <Card title="Card teste">
-        <Title>Teste</Title>
-      </Card>
+      <MonthlySpentChart endDate={new Date()} startDate={getFirstDayByLastMonths(lastMonths)} />
     </OverviewReportsContainer>
   );
 };

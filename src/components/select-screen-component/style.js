@@ -33,6 +33,7 @@ export const SearchComponent = styled.View`
   width: 100%;
   flex-direction: row;
   align-items: center;
+  padding: 20px;
 `;
 
 export const SelectListItemName = styled.Text`

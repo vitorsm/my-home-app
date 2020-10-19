@@ -68,6 +68,9 @@ const en = {
   notPurchased: 'Not purchased',
   doShopping: 'Do shopping',
   doShoppingList: 'Do shopping list',
+  noSpentDataFound: 'No spent data found',
+  monthlySpentData: 'Monthly spent',
+  monthlySpentDataDescription: 'Monthly spend in the last 6 months',
 
   // errors
 

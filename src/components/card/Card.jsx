@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Title, Description } from './style';
+import {
+  Container, Title, Description, TextView, CardContainer,
+} from './style';
 
 const Card = ({ title, description, children }) => {
   const renderTitle = () => {
@@ -9,9 +11,11 @@ const Card = ({ title, description, children }) => {
     }
 
     return (
-      <Title>
-        {title}
-      </Title>
+      <TextView>
+        <Title>
+          {title}
+        </Title>
+      </TextView>
     );
   };
 
@@ -30,7 +34,9 @@ const Card = ({ title, description, children }) => {
   return (
     <Container>
       {renderTitle()}
-      {children}
+      <CardContainer>
+        {children}
+      </CardContainer>
       {renderDescription()}
     </Container>
   );

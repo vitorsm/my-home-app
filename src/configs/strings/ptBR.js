@@ -64,6 +64,9 @@ const ptBR = {
   notPurchased: 'Não comprados',
   doShopping: 'Fazer compra',
   doShoppingList: 'Fazer lista de compra',
+  noSpentDataFound: 'Dados de gastos não encontrados',
+  monthlySpentData: 'Gasto mensal',
+  monthlySpentDataDescription: 'Gasto mensal nos últimos 6 meses',
 
   // errors
 

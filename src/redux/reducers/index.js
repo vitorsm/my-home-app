@@ -34,6 +34,8 @@ import byIdPurchaseReducer from './purchase/byIdPurchaseReducer';
 import createdPurchaseReducer from './purchase/createdPurchaseReducer';
 import deletedPurchaseReducer from './purchase/deletedPurchaseReducer';
 import updatedPurchaseReducer from './purchase/updatedPurchaseReducer';
+import monthlySpentReducer from './purchase/monthlySpentReducer';
+import productTypeSpentReducer from './purchase/productTypeSpentReducer';
 
 export default combineReducers({
   authenticatedUser: authenticatedUserReducer,
@@ -70,4 +72,6 @@ export default combineReducers({
   createdPurchase: createdPurchaseReducer,
   deletedPurchase: deletedPurchaseReducer,
   updatedPurchase: updatedPurchaseReducer,
+  monthlySpent: monthlySpentReducer,
+  productTypeSpent: productTypeSpentReducer,
 });

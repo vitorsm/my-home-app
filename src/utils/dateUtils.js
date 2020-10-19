@@ -24,3 +24,11 @@ export const formatDateTimeToStr = (date, format) => {
 
   return `${dateStr} ${hourStr}`;
 };
+
+export const getFirstDayByLastMonths = (lastMonths) => {
+  const curDate = new Date();
+  curDate.setMonth(curDate.getMonth() - lastMonths);
+  curDate.setDate(1);
+
+  return curDate;
+};
